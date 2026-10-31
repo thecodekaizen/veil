@@ -1,0 +1,244 @@
+{
+  "audio": "artifacts/smoke-001/audio.wav",
+  "rate": 24000,
+  "truth_digits": "2025550146",
+  "calls": [
+    {
+      "name": "sse_cumulative",
+      "status": 200,
+      "latency_ms": 6533,
+      "bytes_sent": 864078,
+      "event_types": [
+        "audioProgress",
+        "speechComplete",
+        "speechEnd",
+        "speechStart",
+        "transcript"
+      ],
+      "fields_seen": [
+        "audioProcessedMs",
+        "final",
+        "transcript",
+        "turnId",
+        "type"
+      ],
+      "n_events": 234
+    },
+    {
+      "name": "file_baseline",
+      "status": 200,
+      "latency_ms": 4520,
+      "bytes_sent": 864078,
+      "transcript": "The demonstration phone number is 2145550146",
+      "digits": "2145550146",
+      "digit_match": false,
+      "turns": [
+        [
+          2540,
+          8060
+        ],
+        [
+          8780,
+          8940
+        ]
+      ]
+    },
+    {
+      "name": "file_keywords",
+      "status": 200,
+      "latency_ms": 4195,
+      "bytes_sent": 864078,
+      "transcript": "the demonstration phone number is two zero two five five five zero one four six",
+      "digits": "",
+      "digit_match": false,
+      "turns": [
+        [
+          2540,
+          8940
+        ]
+      ]
+    },
+    {
+      "name": "file_en_hi",
+      "status": 200,
+      "latency_ms": 4499,
+      "bytes_sent": 864078,
+      "transcript": "The demonstration demonstration phone number is 2145550146",
+      "digits": "2145550146",
+      "digit_match": false,
+      "turns": [
+        [
+          2540,
+          8060
+        ],
+        [
+          9100,
+          9340
+        ]
+      ]
+    },
+    {
+      "name": "file_en_hi_keywords",
+      "status": 200,
+      "latency_ms": 4279,
+      "bytes_sent": 864078,
+      "transcript": "The demonstration phone number is number is two zero two five five five zero one four six six",
+      "digits": "",
+      "digit_match": false,
+      "turns": [
+        [
+          2540,
+          8940
+        ],
+        [
+          9020,
+          9020
+        ]
+      ]
+    }
+  ],
+  "windows": [
+    {
+      "i": 0,
+      "t0": 0.0,
+      "t1": 2.0,
+      "status": 200,
+      "latency_ms": 1826,
+      "transcript": "",
+      "digit_hit": false
+    },
+    {
+      "i": 1,
+      "t0": 1.5,
+      "t1": 3.5,
+      "status": 200,
+      "latency_ms": 2335,
+      "transcript": "the",
+      "digit_hit": false
+    },
+    {
+      "i": 2,
+      "t0": 3.0,
+      "t1": 5.0,
+      "status": 200,
+      "latency_ms": 1869,
+      "transcript": "the demonstration phone number is two",
+      "digit_hit": true
+    },
+    {
+      "i": 3,
+      "t0": 4.5,
+      "t1": 6.5,
+      "status": 200,
+      "latency_ms": 1916,
+      "transcript": "number is two zero two",
+      "digit_hit": true
+    },
+    {
+      "i": 4,
+      "t0": 6.0,
+      "t1": 8.0,
+      "status": 200,
+      "latency_ms": 2184,
+      "transcript": "five five five zero!",
+      "digit_hit": true
+    },
+    {
+      "i": 5,
+      "t0": 7.5,
+      "t1": 9.5,
+      "status": 200,
+      "latency_ms": 2217,
+      "transcript": "zero one four six",
+      "digit_hit": true
+    },
+    {
+      "i": 6,
+      "t0": 9.0,
+      "t1": 11.0,
+      "status": 200,
+      "latency_ms": 1660,
+      "transcript": "",
+      "digit_hit": false
+    },
+    {
+      "i": 7,
+      "t0": 10.5,
+      "t1": 12.5,
+      "status": 200,
+      "latency_ms": 1997,
+      "transcript": "",
+      "digit_hit": false
+    },
+    {
+      "i": 8,
+      "t0": 12.0,
+      "t1": 14.0,
+      "status": 200,
+      "latency_ms": 1834,
+      "transcript": "",
+      "digit_hit": false
+    },
+    {
+      "i": 9,
+      "t0": 13.5,
+      "t1": 15.5,
+      "status": 200,
+      "latency_ms": 1742,
+      "transcript": "",
+      "digit_hit": false
+    },
+    {
+      "i": 10,
+      "t0": 15.0,
+      "t1": 17.0,
+      "status": 200,
+      "latency_ms": 1762,
+      "transcript": "",
+      "digit_hit": false
+    },
+    {
+      "i": 11,
+      "t0": 16.5,
+      "t1": 18.0,
+      "status": 200,
+      "latency_ms": 1606,
+      "transcript": "",
+      "digit_hit": false
+    }
+  ],
+  "windowed_union_s": [
+    3.0,
+    9.5
+  ],
+  "energy_speech_segments_s": [
+    [
+      3.0,
+      4.05
+    ],
+    [
+      4.1,
+      4.85
+    ],
+    [
+      4.9,
+      5.9
+    ],
+    [
+      6.25,
+      6.55
+    ],
+    [
+      6.6,
+      7.35
+    ],
+    [
+      7.55,
+      8.95
+    ],
+    [
+      9.0,
+      9.15
+    ]
+  ]
+}

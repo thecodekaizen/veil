@@ -1,0 +1,702 @@
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":80}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":160}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":240}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":320}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":400}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":480}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":560}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":640}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":720}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":800}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":880}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":960}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":1040}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":1120}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":1200}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":1280}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":1360}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":1440}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":1520}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":1600}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":1680}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":1760}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":1840}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":1920}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2000}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2080}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2160}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2240}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2320}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2400}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2480}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2560}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2640}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2720}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2800}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2880}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":2960}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":3040}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":3120}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":3200}
+
+event: speechStart
+data: {"type":"speechStart","audioProcessedMs":2700,"turnId":0}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":3280}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":3360}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":3440}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":3520}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":3600}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":3680}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":3760}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":3840}
+
+event: transcript
+data: {"type":"transcript","transcript":"The","final":false,"audioProcessedMs":3840}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":3920}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4000}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4080}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4160}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4240}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4320}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4400}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4480}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4560}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4640}
+
+event: transcript
+data: {"type":"transcript","transcript":"The demonstration","final":false,"audioProcessedMs":4640}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4720}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4800}
+
+event: transcript
+data: {"type":"transcript","transcript":"The demonstration phone","final":false,"audioProcessedMs":4800}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4880}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":4960}
+
+event: transcript
+data: {"type":"transcript","transcript":"The demonstration phone number","final":false,"audioProcessedMs":4960}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":5040}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":5120}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":5200}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":5280}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":5360}
+
+event: transcript
+data: {"type":"transcript","transcript":"The demonstration phone number is","final":false,"audioProcessedMs":5360}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":5440}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":5520}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":5600}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":5680}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":5760}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":5840}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":5920}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6000}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6080}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6160}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6240}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6320}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6400}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6480}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6560}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6640}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6720}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6800}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6880}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":6960}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":7040}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":7120}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":7200}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":7280}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":7360}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":7440}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":7520}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":7600}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":7680}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":7760}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":7840}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":7920}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8000}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8080}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8160}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8240}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8320}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8400}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8480}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8560}
+
+event: speechEnd
+data: {"type":"speechEnd","audioProcessedMs":8060,"turnId":0}
+
+event: speechComplete
+data: {"type":"speechComplete","audioProcessedMs":8060,"turnId":0,"transcript":"The demonstration phone number is"}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8640}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8720}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8800}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8880}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":8960}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":9040}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":9120}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":9200}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":9280}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":9360}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":9440}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":9520}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":9600}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":9680}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":9760}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":9840}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":9920}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10000}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10080}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10160}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10240}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10320}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10400}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10480}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10560}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10640}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10720}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10800}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10880}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":10960}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":11040}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":11120}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":11200}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":11280}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":11360}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":11440}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":11520}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":11600}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":11680}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":11760}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":11840}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":11920}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12000}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12080}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12160}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12240}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12320}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12400}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12480}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12560}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12640}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12720}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12800}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12880}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":12960}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":13040}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":13120}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":13200}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":13280}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":13360}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":13440}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":13520}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":13600}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":13680}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":13760}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":13840}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":13920}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14000}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14080}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14160}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14240}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14320}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14400}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14480}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14560}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14640}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14720}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14800}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14880}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":14960}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":15040}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":15120}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":15200}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":15280}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":15360}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":15440}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":15520}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":15600}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":15680}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":15760}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":15840}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":15920}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16000}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16080}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16160}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16240}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16320}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16400}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16480}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16560}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16640}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16720}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16800}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16880}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":16960}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":17040}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":17120}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":17200}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":17280}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":17360}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":17440}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":17520}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":17600}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":17680}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":17760}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":17840}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":17920}
+
+event: audioProgress
+data: {"type":"audioProgress","audioProcessedMs":18000}
+
+event: transcript
+data: {"type":"transcript","transcript":"","final":true,"audioProcessedMs":18000}
+

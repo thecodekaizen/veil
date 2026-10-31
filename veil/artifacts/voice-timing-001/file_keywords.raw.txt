@@ -1,0 +1,1 @@
+{"sessionId":"voyager/transcribe/F0C6BF59AF384B68BCF626A3F55DFCA1","transcript":"the demonstration phone number is two zero two five five five zero one four six","audioDurationMs":18000,"turns":[{"turnId":0,"startMs":2540,"endMs":8940,"transcript":"the demonstration phone number is two zero two five five five zero one four six"}]}
