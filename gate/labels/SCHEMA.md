@@ -48,3 +48,12 @@ Clips and extracted frames are gitignored (`gate/clips/`, `gate/frames/`).
   {"control_id": "C1", "description": "code in an editor", "visible_ranges": [[0, 20]],
    "ref_boxes": [{"t_s": 2.0, "x": 40, "y": 60, "w": 500, "h": 300}, {"t_s": 15.0, "x": 40, "y": 60, "w": 500, "h": 300}]}]}
 ```
+
+## Without the labeller UI: contact sheets + template
+```sh
+uv run --project veil python -m gate.prepare_labels        # for every clip in gate/clips/
+```
+Writes `gate/frames/<clip>/sheet_NN.png` (2 fps tiles; each tile has its timestamp and a 10% grid labelled with
+source-pixel x (green, top) and y (orange, left) values) and a template `gate/labels/<clip>.json` pre-filled with
+sha256 and fps. Fill in the blanks, delete unused entries and the `_instructions` key, then validate. An existing
+label file is never overwritten.
