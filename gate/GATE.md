@@ -4,9 +4,15 @@ Written and committed BEFORE any model runs on gate clips. Thresholds are frozen
 
 Gate clips: 3 clips, 20–30 s each, staged set, fictional data only.
 Planted: (1) delivery box with a fictional address label, (2) phone notification showing a
-fictional name, (3) face reflection in a monitor or mirror, (4) one more visual leak of my
-choice (e.g. society name board), (5) a fictional 10-digit phone number spoken in Hinglish.
+fictional name, (3) door nameplate ("KULKARNI — 12"), (4) one more visual leak of my choice
+(society name board "SUNSHINE CHS — WING B"), (5) a fictional 10-digit phone number spoken in Hinglish.
 Safe controls: code in an editor, a book cover, a product logo.
+
+Amended before any gate footage existed: face reflection → door nameplate.
+
+`in_baseline` assignments (baseline prompts = face, license plate, phone screen, paper document; when in
+doubt, true): box label = true (paper document); phone notification = true (phone screen); society name
+board = false; door nameplate = false.
 
 ## PASS only if ALL hold
 
@@ -27,7 +33,9 @@ per-digit edit distance against the labelled `digits`) is a reported metric, not
 **G4b Localization.** The bleep interval covers 100% of the labelled spoken span
 (`audio.t_start`..`audio.t_end`), and the total over-cover is <= 2.5 s.
 - "Bleep interval" = the union of the intervals the redact stage would mute: each PII interval from
-  `listen.json`, padded by +/- 150 ms (the redact stage's `pad_ms`).
+  `listen.json`, padded by the bleep padding.
+- Bleep padding = the value chosen and recorded in docs/decisions.md, tuned on the synthetic clip only,
+  never on gate clips. Thresholds unchanged.
 - "Total over-cover" = total seconds of the bleep intervals in the clip that fall outside the
   labelled span (including any bleep not tied to the planted number).
 - The scorer records the precision method used to obtain PII timing: `streaming` | `windowed` | `turn`.
