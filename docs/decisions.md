@@ -27,3 +27,9 @@ Source: veil/docs/*.md and veil/artifacts/*. "observed" = saved raw API response
 ## SAM path
 Decision (provisional, from evidence above): hosted video path. P2's "does SAM accept video" question is answered.
 Still to measure: max duration/size limits, latency per clip, behaviour with 4+ concepts per clip.
+
+## Gate clips not filmed (2026-11-01)
+Decision (user): no gate clips will be created. `gate/GATE.md` stays committed as written (incl. pre-footage amendments, `e753217`)
+but **cannot be scored: the gate is "NOT RUN"**. No gate verdict, G1–G4b numbers, or "pass" claim may appear in the README or demo.
+Development and evaluation use the synthetic fixture (`veil/artifacts/smoke-001/input.mp4`, fictional data). Anything measured on it is
+a development check, not a gate result.

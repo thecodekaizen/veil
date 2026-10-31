@@ -17,6 +17,7 @@ dependencies = [
     "python-multipart>=0.0.20",
     "httpx>=0.28,<1",
     "typer>=0.27.3",
+    "rapidfuzz>=3.14.6",
 ]
 [project.scripts]
 veil = "veil.cli:app"
@@ -31,3 +32,4 @@ pythonpath = ["src"]
 [tool.setuptools.package-data]
 "veil.verification" = ["*.swift"]
 "veil" = ["label_template.html"]
+"veil.prompts" = ["*.txt"]
