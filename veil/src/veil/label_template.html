@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Veil labeller</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #0d0f12; color: #e7e3da; font: 13px/1.4 ui-monospace, Menlo, monospace; display: flex; height: 100vh; }
+  #stage { flex: 1; min-width: 0; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+  #wrap { position: relative; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; background: #14171c; border: 1px solid #262b34; }
+  canvas { max-width: 100%; max-height: 100%; cursor: crosshair; }
+  #side { width: 380px; border-left: 1px solid #262b34; padding: 12px; overflow-y: auto; background: #14171c; }
+  h2 { font-size: 13px; margin: 14px 0 6px; color: #e8b04a; }
+  input[type=text], select, textarea { width: 100%; box-sizing: border-box; background: #0d0f12; color: #e7e3da; border: 1px solid #262b34; padding: 4px 6px; font: inherit; }
+  button { background: #262b34; color: #e7e3da; border: 1px solid #3a414d; padding: 4px 10px; font: inherit; cursor: pointer; }
+  button:hover { border-color: #e8b04a; }
+  .item { padding: 4px 6px; border: 1px solid #262b34; margin: 3px 0; cursor: pointer; }
+  .item.sel { border-color: #e8b04a; }
+  .dim { color: #9a968d; }
+  textarea { height: 240px; }
+  #status { color: #9a968d; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="status"></div>
+  <div id="wrap"><canvas id="cv"></canvas></div>
+  <div class="dim">&larr;/&rarr; frame &middot; shift+&larr;/&rarr; &plusmn;2 s &middot; drag = box for selected item &middot; [ start &middot; ] end &middot; u undo last box &middot; Backspace undo last range</div>
+</div>
+<div id="side">
+  <div><b>__CLIP_ID__</b></div>
+  <div class="dim">sha256 <span id="sha"></span></div>
+  <div class="dim">source __WIDTH__&times;__HEIGHT__ &middot; __FPS__ fps &middot; __DURATION__ s &middot; frames at 4 fps</div>
+
+  <h2>Add item</h2>
+  <select id="newType">
+    <option value="visual">visual leak</option>
+    <option value="audio">audio leak (spoken)</option>
+    <option value="control">safe control</option>
+  </select>
+  <input type="text" id="newId" placeholder="id, e.g. L1 or C1">
+  <input type="text" id="newText" placeholder="concept in plain words / control description">
+  <label><input type="checkbox" id="newBase"> in_baseline (face / license plate / phone screen / paper document would cover it)</label>
+  <div id="audioFields" style="display:none">
+    <input type="text" id="aText" placeholder="spoken text (fictional)">
+    <input type="text" id="aDigits" placeholder="10 digits, e.g. 9876543210">
+  </div>
+  <button id="addBtn">Add</button>
+
+  <h2>Items</h2>
+  <div id="items"></div>
+  <div id="detail" class="dim"></div>
+
+  <h2>Export</h2>
+  <button id="exportBtn">Export JSON</button> <button id="copyBtn">Copy</button>
+  <textarea id="out" readonly></textarea>
+</div>
+<script>
+const CFG = __CONFIG__;
+const items = {};
+let order = [], sel = null, idx = 0, pending = null, box = null, drag = null;
+const img = new Image();
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+const $ = id => document.getElementById(id);
+const t_of = i => i / CFG.label_fps;
+const r3 = v => Math.round(v * 1000) / 1000;
+$('sha').textContent = CFG.clip_sha256;
+
+function load() { img.src = CFG.frames[idx]; }
+img.onload = () => { cv.width = img.naturalWidth; cv.height = img.naturalHeight; draw(); };
+
+function draw() {
+  if (!img.naturalWidth) return;
+  ctx.drawImage(img, 0, 0);
+  const t = t_of(idx);
+  for (const id of order) {
+    const it = items[id];
+    for (const b of it.ref_boxes) {
+      if (Math.abs(b.t_s - t) < 0.01) {
+        ctx.strokeStyle = id === sel ? '#e8b04a' : '#6fcf8f'; ctx.lineWidth = Math.max(2, cv.width / 400);
+        ctx.strokeRect(b.x, b.y, b.w, b.h); ctx.fillStyle = ctx.strokeStyle;
+        ctx.font = Math.round(cv.width / 60) + 'px monospace'; ctx.fillText(id, b.x + 3, b.y - 4);
+      }
+    }
+  }
+  if (box) { ctx.strokeStyle = '#e66b5b'; ctx.setLineDash([6, 4]); ctx.strokeRect(box.x, box.y, box.w, box.h); ctx.setLineDash([]); }
+  const inR = sel && items[sel].visible_ranges.some(r => t >= r[0] && t <= r[1]);
+  $('status').textContent = `frame ${idx + 1}/${CFG.frames.length}  t=${t.toFixed(2)}s  selected=${sel || '-'}  ${inR ? '[visible range]' : ''}  ${pending !== null ? 'range start=' + pending.toFixed(2) : ''}`;
+}
+
+function render() {
+  $('items').innerHTML = '';
+  for (const id of order) {
+    const it = items[id], d = document.createElement('div');
+    d.className = 'item' + (id === sel ? ' sel' : '');
+    d.textContent = `${id} · ${it.type} · ${it.text}`;
+    d.onclick = () => { sel = id; render(); draw(); };
+    $('items').appendChild(d);
+  }
+  const it = sel && items[sel];
+  $('detail').textContent = it ? (it.type === 'audio'
+    ? `audio span: ${it.audio.t_start ?? '?'} - ${it.audio.t_end ?? '?'} s`
+    : `ranges: ${JSON.stringify(it.visible_ranges.map(r => r.map(r3)))}  boxes: ${it.ref_boxes.length}`) : '';
+}
+
+$('newType').onchange = () => { $('audioFields').style.display = $('newType').value === 'audio' ? 'block' : 'none'; };
+$('addBtn').onclick = () => {
+  const type = $('newType').value, id = $('newId').value.trim(), text = $('newText').value.trim();
+  if (!id || !text || items[id]) { alert('need a unique id and text'); return; }
+  items[id] = { type, text, in_baseline: $('newBase').checked, visible_ranges: [], ref_boxes: [],
+    audio: { text: $('aText').value.trim(), digits: $('aDigits').value.trim(), t_start: null, t_end: null } };
+  order.push(id); sel = id; $('newId').value = ''; $('newText').value = ''; render(); draw();
+};
+
+function pos(e) {
+  const r = cv.getBoundingClientRect();
+  return { x: (e.clientX - r.left) * cv.width / r.width, y: (e.clientY - r.top) * cv.height / r.height };
+}
+cv.onmousedown = e => { drag = pos(e); };
+cv.onmousemove = e => {
+  if (!drag) return;
+  const p = pos(e);
+  box = { x: Math.min(drag.x, p.x), y: Math.min(drag.y, p.y), w: Math.abs(p.x - drag.x), h: Math.abs(p.y - drag.y) };
+  draw();
+};
+window.onmouseup = () => {
+  if (drag && box && box.w > 4 && box.h > 4 && sel && items[sel].type !== 'audio') {
+    items[sel].ref_boxes.push({ t_s: r3(t_of(idx)), x: Math.round(box.x), y: Math.round(box.y), w: Math.round(box.w), h: Math.round(box.h) });
+    render();
+  }
+  drag = null; box = null; draw();
+};
+
+window.onkeydown = e => {
+  if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+  const step = e.shiftKey ? 8 : 1;
+  if (e.key === 'ArrowRight') idx = Math.min(CFG.frames.length - 1, idx + step);
+  else if (e.key === 'ArrowLeft') idx = Math.max(0, idx - step);
+  else if (e.key === '[' && sel) {
+    if (items[sel].type === 'audio') items[sel].audio.t_start = r3(t_of(idx)); else pending = t_of(idx);
+  } else if (e.key === ']' && sel) {
+    const it = items[sel];
+    if (it.type === 'audio') it.audio.t_end = r3(t_of(idx));
+    else if (pending !== null && t_of(idx) > pending) { it.visible_ranges.push([r3(pending), r3(t_of(idx))]); pending = null; }
+  } else if (e.key === 'u' && sel) items[sel].ref_boxes.pop();
+  else if (e.key === 'Backspace' && sel) items[sel].visible_ranges.pop();
+  else return;
+  e.preventDefault(); load(); render(); draw();
+};
+
+$('exportBtn').onclick = () => {
+  const leaks = [], controls = [];
+  for (const id of order) {
+    const it = items[id];
+    if (it.type === 'control') controls.push({ control_id: id, description: it.text, visible_ranges: it.visible_ranges, ref_boxes: it.ref_boxes });
+    else if (it.type === 'visual') leaks.push({ leak_id: id, kind: 'visual', concept: it.text, in_baseline: it.in_baseline, visible_ranges: it.visible_ranges, ref_boxes: it.ref_boxes, audio: null });
+    else leaks.push({ leak_id: id, kind: 'audio', concept: it.text, in_baseline: it.in_baseline, visible_ranges: [], ref_boxes: [],
+      audio: { text: it.audio.text, digits: it.audio.digits, t_start: it.audio.t_start, t_end: it.audio.t_end } });
+  }
+  $('out').value = JSON.stringify({ clip_id: CFG.clip_id, clip_sha256: CFG.clip_sha256, fps: CFG.fps, leaks, safe_controls: controls }, null, 2);
+};
+$('copyBtn').onclick = () => { $('out').select(); try { document.execCommand('copy'); } catch (e) {} };
+load(); render();
+</script>
+</body>
+</html>

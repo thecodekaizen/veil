@@ -5,7 +5,22 @@ build-backend = "setuptools.build_meta"
 name = "veil-privacy"
 version = "0.1.0"
 requires-python = ">=3.12"
-dependencies = ["openai>=3.40,<4", "meta-sam-parser>=0.1,<0.2", "opencv-python-headless>=4.14,<5", "pydantic>=2,<3", "Pillow>=11", "numpy>=2,<3", "fastapi>=0.115,<1", "uvicorn>=0.30,<1", "python-multipart>=0.0.20", "httpx>=0.28,<1"]
+dependencies = [
+    "openai>=3.40,<4",
+    "meta-sam-parser>=0.1,<0.2",
+    "opencv-python-headless>=4.14,<5",
+    "pydantic>=2,<3",
+    "Pillow>=11",
+    "numpy>=2,<3",
+    "fastapi>=0.115,<1",
+    "uvicorn>=0.30,<1",
+    "python-multipart>=0.0.20",
+    "httpx>=0.28,<1",
+    "typer>=0.27.3",
+]
+[project.scripts]
+veil = "veil.cli:app"
+
 [project.optional-dependencies]
 test = ["pytest>=8,<10"]
 [tool.setuptools.packages.find]
@@ -15,3 +30,4 @@ pythonpath = ["src"]
 
 [tool.setuptools.package-data]
 "veil.verification" = ["*.swift"]
+"veil" = ["label_template.html"]

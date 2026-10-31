@@ -29,3 +29,7 @@ real-driving-1080p.mp4
 **/real-driving-1080p.mp4
 veil/artifacts/driving-footage-001/
 veil/artifacts/private/
+
+# Gate clips and extracted frames (staged-set media stays local)
+gate/clips/
+gate/frames/
