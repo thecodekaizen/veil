@@ -51,8 +51,12 @@ def render(root: Path) -> Path:
                     region[sub > 0] = color
             cv2.rectangle(frame, (l, t), (r, b), color, 1)
             labels.append((l, max(t - 4, 12), f'{src}: {prompt}'))
-        frame = cv2.addWeighted(over, 0.45, frame, 0.55, 0)
+        frame = cv2.addWeighted(over, 0.5, frame, 0.5, 0)
+        used = []
         for x, y, text in labels:
+            while any(abs(x - ux) < 120 and abs(y - uy) < 14 for ux, uy in used):
+                y += 14
+            used.append((x, y))
             cv2.putText(frame, text, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
         cv2.putText(frame, f'frame {idx}', (6, h - 8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
         out.write(frame)

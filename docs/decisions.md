@@ -33,3 +33,21 @@ Decision (user): no gate clips will be created. `gate/GATE.md` stays committed a
 but **cannot be scored: the gate is "NOT RUN"**. No gate verdict, G1–G4b numbers, or "pass" claim may appear in the README or demo.
 Development and evaluation use the synthetic fixture (`veil/artifacts/smoke-001/input.mp4`, fictional data). Anything measured on it is
 a development check, not a gate result.
+
+## Bleep padding = 0.5 s (chosen 2026-11-01, synthetic clip only)
+GATE.md says the bleep padding is the value recorded here, tuned on the synthetic clip only, never on gate clips.
+Evidence: `veil/artifacts/smoke-001/input.mp4`, windowed listen run `runs/synth` (not committed; reproduce with
+`veil run veil/artifacts/smoke-001/input.mp4 --run-id synth`). The windowed PII interval was [4.5, 9.5] s. Reference span for the spoken
+number: onset 4.9 s from model-free energy segmentation, end 9.371 s from the fixture's `speech_end_ms`.
+
+| padding | coverage of reference | over-cover |
+| --- | --- | --- |
+| 0 s | 100% | 0.53 s |
+| 0.15 s | 100% | 0.83 s |
+| **0.5 s** | 100% | **1.53 s** |
+| 0.9 s | 100% | 2.33 s |
+
+Choice: 0.5 s. A word cut by a 2 s window edge can be missed by both windows, so padding hedges that under-coverage; 0.5 s keeps
+~1 s of the 2.5 s G4b budget free for window imprecision on other audio. Over-cover grows as 0.53 + 2 x padding, so the
+largest padding that fits the budget on this clip is ~0.98 s; 0.5 s is deliberately well inside it. One clip, English
+only: this is a setting, not evidence about Hinglish audio. The 2.5 s G4b threshold in GATE.md is unchanged, and the gate itself is not run.

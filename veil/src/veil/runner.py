@@ -17,7 +17,7 @@ from veil.stages import listen as listen_stage
 from veil.stages import track as track_stage
 
 STAGES = ['keyframes', 'discover', 'track', 'listen']
-BLEEP_PAD_S = 0.0  # replaced by the value recorded in docs/decisions.md after tuning on the synthetic clip
+BLEEP_PAD_S = 0.5  # chosen on the synthetic clip only; rationale in docs/decisions.md
 
 
 def find_env() -> Path:

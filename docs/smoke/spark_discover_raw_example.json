@@ -1,0 +1,141 @@
+{
+  "id": "resp_6ae640496233a6d3df3a4ddb",
+  "access_programs": null,
+  "created_at": 1793474633.0,
+  "error": null,
+  "incomplete_details": null,
+  "instructions": null,
+  "metadata": null,
+  "model": "muse-spark-1.3",
+  "object": "response",
+  "output": [
+    {
+      "id": "rs_6ae640496233a6d3df3a4ddb:rs_16ee2971-4a4c-4ddf-b391-4e7ca197ccd1",
+      "summary": [],
+      "type": "reasoning",
+      "content": null,
+      "encrypted_content": null,
+      "status": "completed"
+    },
+    {
+      "id": "msg_4c5e2db2-92bd-4b7c-b6cc-c834a1f46417",
+      "content": [
+        {
+          "annotations": [],
+          "text": "{\"items\": [{\"concept\": \"man's face in ID photo on left\", \"confidence\": 0.99, \"sam_prompt\": \"man's face\", \"why_identifying\": \"Visible face directly identifies the person who filmed or appears in the video.\"}, {\"concept\": \"vehicle plate reading TEST 0146\", \"confidence\": 0.95, \"sam_prompt\": \"license plate\", \"why_identifying\": \"Vehicle plate number can be traced to owner and location.\"}, {\"concept\": \"phone number 202-555-0146 under DEMO CONTACT\", \"confidence\": 0.98, \"sam_prompt\": \"phone number text\", \"why_identifying\": \"Personal phone number identifies and can locate the person.\"}]}",
+          "type": "output_text",
+          "logprobs": []
+        }
+      ],
+      "role": "assistant",
+      "status": "completed",
+      "type": "message",
+      "phase": null
+    }
+  ],
+  "parallel_tool_calls": true,
+  "temperature": 1.0,
+  "tool_choice": "auto",
+  "tools": [],
+  "top_p": 1.0,
+  "background": false,
+  "completed_at": 1793474633.0,
+  "conversation": null,
+  "max_output_tokens": 2000,
+  "max_tool_calls": null,
+  "moderation": null,
+  "previous_response_id": null,
+  "prompt": null,
+  "prompt_cache_diagnostics": null,
+  "prompt_cache_key": null,
+  "prompt_cache_options": null,
+  "prompt_cache_retention": null,
+  "reasoning": {
+    "context": null,
+    "effort": "minimal",
+    "generate_summary": null,
+    "mode": null,
+    "summary": null
+  },
+  "safety_identifier": null,
+  "service_tier": "auto",
+  "status": "completed",
+  "text": {
+    "format": {
+      "name": "discover_items",
+      "schema_": {
+        "title": "Items",
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/$defs/Item"
+            },
+            "maxItems": 8,
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "type": "object",
+        "additionalProperties": false,
+        "$defs": {
+          "Item": {
+            "additionalProperties": false,
+            "properties": {
+              "concept": {
+                "minLength": 1,
+                "title": "Concept",
+                "type": "string"
+              },
+              "confidence": {
+                "maximum": 1,
+                "minimum": 0,
+                "title": "Confidence",
+                "type": "number"
+              },
+              "sam_prompt": {
+                "minLength": 1,
+                "title": "Sam Prompt",
+                "type": "string"
+              },
+              "why_identifying": {
+                "title": "Why Identifying",
+                "type": "string"
+              }
+            },
+            "required": [
+              "concept",
+              "sam_prompt",
+              "why_identifying",
+              "confidence"
+            ],
+            "title": "Item",
+            "type": "object"
+          }
+        }
+      },
+      "type": "json_schema",
+      "description": null,
+      "strict": true
+    },
+    "verbosity": null
+  },
+  "top_logprobs": 0,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 832,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 421,
+    "output_tokens_details": {
+      "reasoning_tokens": 262
+    },
+    "total_tokens": 1253
+  },
+  "user": null,
+  "store": true
+}
