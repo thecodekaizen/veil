@@ -6,4 +6,4 @@ Priorities: detect → frame-aligned opaque covers and audio muting → inspect 
 
 Use synthetic or explicitly consented media only. Document cloud transfers and actual bounded API calls; no hidden retries, fabricated detections or invented metrics. No employer code/data/IP, credentials, .env or real personal media in Git. Ground truth stays evaluation-only. Same-model output review is not fully independent evidence; never promise zero leaks.
 
-Preserve unrelated uncommitted work. User authorized implementation, tests, generated-media inspection and scoped commits/pushes for this hackathon. Explain important engineering decisions briefly without blocking implementation with learning checkpoints. Repository stays private until user authorizes public submission.
+Preserve unrelated uncommitted work. User authorized implementation, tests, generated-media inspection and scoped commits/pushes for this hackathon. Explain important engineering decisions briefly without blocking implementation with learning checkpoints. The repository is public (decided 2026-11-01): never commit media or text of unknown consent or license.

@@ -7,7 +7,7 @@ Date: 28 October 2026. This extends VEIL; no historical THREAD/SHOWME or referen
 - HEAD `49f5f75`; branch main. Existing uncommitted historical `apps/web/` and `docs/handoff/IMPLEMENTATION.md` changes preserved.
 - Existing renderer: per-frame cover and face-only blur, FFmpeg H.264/AAC; existing Timeline remains unchanged.
 - Baseline test run in actual product directory: 30 passed, 3 skipped (compiled local OCR cache absent); same result outside sandbox before cache creation.
-- Consulted LIVE_EVALUATION.md, PUBLIC_CAMERA_RESULTS.md, DATASET_EVALUATION.md and actual model schemas/renderer/OCR. Existing controlled successes do not establish new replacement accuracy.
+- Consulted LIVE_EVALUATION.md, DATASET_EVALUATION.md and actual model schemas/renderer/OCR. Existing controlled successes do not establish new replacement accuracy.
 
 ## Minimal extension
 

@@ -138,7 +138,6 @@ To prevent bias and conform to the project working agreement, human preference t
 |---|---|---|---|---|---|
 | `trial_01_synthetic_car` | Clip_X_091 | Clip_Y_442 | `opaque.mp4` | `natural-tracked.mp4` | **NOT RUN** |
 | `trial_02_synthetic_fallback` | Clip_X_108 | Clip_Y_831 | `fallback.mp4` | `opaque.mp4` | **NOT RUN** |
-| `trial_03_pexels_office` | Clip_X_512 | Clip_Y_290 | `challenge_opaque.mp4` | `challenge_natural.mp4` | **NOT RUN** |
 
 **Current Status**: **NOT RUN**. Zero external human votes have been collected today. In compliance with `ANTIGRAVITY_NATURAL_EXPERIMENTS.md`, human preference must be reported as **NOT RUN**, not estimated or simulated.
 

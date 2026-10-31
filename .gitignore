@@ -23,3 +23,9 @@ experiments/proof-of-magic/*.mp4
 experiments/proof-of-magic/*.mov
 experiments/proof-of-magic/*.json
 experiments/proof-of-magic/runs/
+
+# Media of unknown consent / license: never commit
+real-driving-1080p.mp4
+**/real-driving-1080p.mp4
+veil/artifacts/driving-footage-001/
+veil/artifacts/private/

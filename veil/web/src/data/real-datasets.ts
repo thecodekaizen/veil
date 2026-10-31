@@ -27,41 +27,6 @@ export interface DatasetClip {
 }
 
 export const REAL_DATASET_CLIPS: Record<string, DatasetClip> = {
-  office_challenge: {
-    id: 'office_challenge',
-    title: 'Pexels Office Camera (Real 4K Stock Background)',
-    badge: 'Real Camera Footage · Pexels 8347238',
-    description: 'Real handheld camera pan across an office workstation by Kampus Production. Tested with moving phone numbers and portrait face target.',
-    sourceUrl: '/media/real_office_challenge.mp4',
-    opaqueUrl: '/media/real_office_opaque.mp4',
-    naturalUrl: '/media/real_office_natural.mp4',
-    durationMs: 8000,
-    fps: 12,
-    resolution: '360 × 640 (Portrait)',
-    tracks: [
-      {
-        id: 'face-0',
-        label: 'Portrait Face Target',
-        category: 'face',
-        treatment: 'Gaussian Blur (Sigma = 18.0)',
-        naturalDetails: 'Smooth Gaussian blur applied across all 96 frames without black box.',
-      },
-      {
-        id: 'phone-observed-0',
-        label: 'Moving Phone Display ("202-555-0189")',
-        category: 'phone_number',
-        treatment: 'Natural Screen Replacement / Opaque Fallback',
-        naturalDetails: 'Initial frame rendered with "PRIVATE DEMO" screen template; conservative fallback prevents leaks.',
-      },
-    ],
-    auditMetrics: {
-      scannedFrames: 96,
-      residualsFound: 0,
-      blackouts: 0,
-      meanOutsideDiff: '2.30 / 255 (Codec noise)',
-      ocrVerdict: 'Clean · 0 Leaked Digits',
-    },
-  },
   vehicle_surface: {
     id: 'vehicle_surface',
     title: 'Vehicle License Plate Surface Replacement',

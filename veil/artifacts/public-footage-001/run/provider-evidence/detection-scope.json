@@ -1,9 +1,0 @@
-{
-  "seeded_phone_omission": true,
-  "limitations": [
-    "3 source samples",
-    "one plate and one phone field tracked",
-    "no full-scene recall guarantee",
-    "no exact spoken-number guarantee"
-  ]
-}

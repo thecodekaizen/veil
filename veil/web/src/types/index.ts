@@ -41,7 +41,7 @@ export type StageId = 'import' | 'detect' | 'redact' | 'verify' | 'repair' | 'ex
 
 export type OperatingMode = 'real_dataset' | 'live_upload' | 'recorded';
 
-export type RealClipId = 'office_challenge' | 'vehicle_surface' | 'meta_blur' | 'tri_view';
+export type RealClipId = 'vehicle_surface' | 'meta_blur' | 'tri_view';
 
 export type RedactionStyle = 'natural' | 'opaque';
 

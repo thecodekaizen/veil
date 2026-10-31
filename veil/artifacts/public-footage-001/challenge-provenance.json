@@ -1,9 +1,0 @@
-{
-  "background": "source-provenance.json",
-  "hybrid": true,
-  "not_real_person_data": true,
-  "privacy_targets": "fictional generated portrait and fake visual/spoken phone numbers",
-  "sha256": "a4bd2f9c643a74222569dc06b85e1c65fe881d825b73af051bc0e27a7f1ccf71",
-  "frames": 96,
-  "limitation": "real public camera background with synthetic exposures, not a real-person privacy benchmark"
-}

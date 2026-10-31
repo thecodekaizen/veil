@@ -228,9 +228,8 @@ Fresh variant: `veil/artifacts/face-blur-001/export.mp4`, `frame-2000.jpg`, `fra
 
 ## Real-camera hybrid demonstration and lifetime repair
 
-New evidence: `veil/docs/PUBLIC_CAMERA_RESULTS.md`. Footage is a licensed real-camera Pexels office background with **synthetic privacy targets**, explicitly labeled in-frame. Do not call it naturally occurring personal-data or real-person validation. Credit Kampus Production/Pexels and link the source/license from the report.
+Removed 2026-11-01: the Pexels office hybrid evidence (docs, scripts, `public-footage-001` artifacts) was withdrawn because its license/consent chain was not verified from a primary source. It remains in git history only.
 
-Assets under `veil/artifacts/public-footage-001/`: `challenge.mp4` (input), `run/initial-export.mp4`, `run/legacy-repair.mp4`, `run/final-export.mp4`, `normal-run/final-export.mp4`, actual audits/receipts, and before/after frames. The paired legacy repair leaks the brief second number and blacks out 14 frames; new repair covers 42/42 sensitive phone frames with zero full-frame blackouts. The normal-path clip is a separate follow-up without a deliberate omission. These are per-case measurements, not general accuracy. Synthetic answer keys stay evaluation-only.
 
 The core now emits separate presence-bounded phone tracks with gaps; overlays must honor their actual frame regions rather than extending a box for the entire video. No new frontend processing logic is needed.
 

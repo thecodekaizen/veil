@@ -6,15 +6,13 @@ Assigned by the user on 28 October 2026. This supplements ANTIGRAVITY_VEIL.md. P
 
 Help decide TODAY whether VEIL Natural Editing is credible for submission. We need actual playable outputs, detected failures and visual-quality evidence, not a new design proposal. Work in the existing repository `/Users/thecodekaizen/Code/Projects/hackathons/veil`; product lives in `veil/`.
 
-Read AGENTS.md, veil/AGENTS.md, veil/docs/NATURAL_EDITING_CHECKPOINT.md, veil/docs/DATASET_EVALUATION.md, veil/docs/PUBLIC_CAMERA_RESULTS.md. Baseline core checkpoint is commit `71f205a` (50 local tests passed). Preserve historical dirty `apps/web/` and other agent files. Do not reset/stash another agent's work or overwrite prior experiments.
+Read AGENTS.md, veil/AGENTS.md, veil/docs/NATURAL_EDITING_CHECKPOINT.md, veil/docs/DATASET_EVALUATION.md. Baseline core checkpoint is commit `71f205a` (50 local tests passed). Preserve historical dirty `apps/web/` and other agent files. Do not reset/stash another agent's work or overwrite prior experiments.
 
 ## Work split and exclusive ownership
 
 **Antigravity owns**
-- `veil/docs/NATURAL_DATASET_SELECTION.md`
 - `veil/docs/NATURAL_VISUAL_REVIEW.md`
 - `veil/scripts/evaluate_natural_quality.py` (evaluation only; no renderer code)
-- `veil/artifacts/natural-review-20261028/` (derived comparison media, metric JSON, review sheets, failed-output gallery; source media only when redistribution is permitted)
 - Existing `veil/web/` only if a small existing recorded-example viewer helps review; no frontend expansion before experiment outputs.
 
 **Codex owns**
