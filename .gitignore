@@ -16,13 +16,13 @@ out/
 *.egg-info/
 
 # Local SHOWME video samples and model experiment outputs
-.showme-runs/
+archive/.showme-runs/
 
 # Private SHOWME proof-of-magic media and answer keys
-experiments/proof-of-magic/*.mp4
-experiments/proof-of-magic/*.mov
-experiments/proof-of-magic/*.json
-experiments/proof-of-magic/runs/
+archive/experiments/proof-of-magic/*.mp4
+archive/experiments/proof-of-magic/*.mov
+archive/experiments/proof-of-magic/*.json
+archive/experiments/proof-of-magic/runs/
 
 # Media of unknown consent / license: never commit
 real-driving-1080p.mp4

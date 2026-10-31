@@ -37,9 +37,19 @@ Visit `http://localhost:3000` to interact with the recorded demonstration or con
 
 ---
 
+## Provenance
+
+Commits before `8728e71` (Oct 25–26, 2026) belong to the earlier THREAD prototype and are not part of this submission. The building period is Oct 27 – Nov 4, 2026. The commits from Oct 27 until `610a395` (Oct 28) are THREAD/SHOWME experiments; **all Veil work dates from `610a395` (Oct 28, 2026) onward**. Git history has not been rewritten.
+
+THREAD/SHOWME code and assets are kept in [`archive/`](archive/README.md) and are not imported by the Veil package (`veil/`). Superseded real-footage evidence (stock footage whose license and consent could not be verified from a primary source) was removed on 2026-11-01 and remains only in git history.
+
+Pre-existing code: none is used by Veil.
+
+---
+
 ## Historical Archives (SHOWME & THREAD)
 
-The preceding instructions and prototype surfaces for SHOWME and THREAD remain historical context preserved under `apps/web/` and `docs/archive/`. They do not direct active VEIL development.
+The preceding instructions and prototype surfaces for SHOWME and THREAD remain historical context preserved under `archive/` and `docs/archive/`. They do not direct active VEIL development.
 
 <details>
 <summary>Expand Historical SHOWME Prototype Documentation</summary>
@@ -72,11 +82,11 @@ These screenshots were captured from the production build on October 27, 2026 at
 
 | Teach | Do |
 |---|---|
-| ![Teach: capture a demonstration](design/screenshots/01-teach.jpg) | ![Do: camera preview and learner clip workflow](design/screenshots/02-do.jpg) |
+| ![Teach: capture a demonstration](archive/design/screenshots/01-teach.jpg) | ![Do: camera preview and learner clip workflow](archive/design/screenshots/02-do.jpg) |
 
 | Simulate | What-if result |
 |---|---|
-| ![Simulate: reorder the procedure](design/screenshots/03-simulate.jpg) | ![What-if simulation stops at a confirmed missing prerequisite](design/screenshots/04-simulate-what-if.jpg) |
+| ![Simulate: reorder the procedure](archive/design/screenshots/03-simulate.jpg) | ![What-if simulation stops at a confirmed missing prerequisite](archive/design/screenshots/04-simulate-what-if.jpg) |
 
 </details>
 
