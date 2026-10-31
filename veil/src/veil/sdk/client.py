@@ -79,3 +79,29 @@ class VeilClient:
             job=self.cloud_action(job['id'],'verify')
         self.download(job['id'],destination)
         return {'job':job,'verification':self.verification(job['id']),'receipt':self.receipt(job['id'])}
+
+
+    def process_natural(self, job_id, surfaces, *, media_is_synthetic_or_consented, timeline=None):
+        """Local natural editing; no cloud transfer by this method. Source controls required."""
+        if media_is_synthetic_or_consented is not True:
+            raise ValueError('Explicit synthetic/consented-media confirmation required')
+        response=self.http.post(f'/v1/jobs/{job_id}/natural',json={
+            'media_is_synthetic_or_consented':True,'timeline':timeline,'surfaces':surfaces})
+        response.raise_for_status()
+        return response.json()
+
+    def natural_review(self, job_id):
+        response=self.http.get(f'/v1/jobs/{job_id}/natural-review')
+        response.raise_for_status()
+        return response.json()
+
+    def protect_natural(self, path, destination, surfaces, *, media_is_synthetic_or_consented, timeline):
+        if media_is_synthetic_or_consented is not True:
+            raise ValueError('Explicit synthetic/consented-media confirmation required')
+        job=self.create_job(path)
+        job=self.process_natural(job['id'],surfaces,media_is_synthetic_or_consented=True,timeline=timeline)
+        review=self.natural_review(job['id'])
+        if job['status']!='rendered':
+            return {'job':job,'natural_review':review,'downloaded':False}
+        self.download(job['id'],destination)
+        return {'job':job,'natural_review':review,'receipt':self.receipt(job['id']),'downloaded':True}

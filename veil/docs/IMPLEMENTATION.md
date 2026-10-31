@@ -73,3 +73,18 @@ See REDACTION_STYLES.md. Geometry remains padded boxes; no contour-mask or anony
 - [x] Twelve actual requests total; estimated $0.05581825. Thirty-three local tests pass.
 
 See PUBLIC_CAMERA_RESULTS.md for attribution, measurements and limits. This is a targeted hybrid test, not naturally occurring personal-data or plate validation. Rapid unsampled motion, long benign identifiers, OCR errors and general multi-object association remain open.
+
+## Natural replacement extension — 28 October checkpoint
+
+- [x] Opt-in persistent planar texture, validated homography, local contour initialization and LK/RANSAC tracking.
+- [x] Explicit per-frame opaque fallback on uncertain/missing/out-of-support geometry; prior renderer unchanged by default.
+- [x] Independent all-frame exported-text audit with source positive controls, exact file hashes, one affected-track fallback, incomplete-review blocking.
+- [x] Existing HTTP jobs/API and thin SDK support natural mode; untrusted asset paths are not accepted.
+- [x] Actual SDK/HTTP normal, bad-seed, occlusion and saved-real-Meta-geometry runs; preservation of phone/audio protections checked after rendering.
+- [x] One fresh broad Meta audit: two actual requests, estimated $0.0029225, no exposure observed in sampled checks.
+- [x] Per-track strategy receipts and separate utility diagnostics; stale/current review distinctions and export guards.
+- [ ] Fixed six-case real/consented benchmark: not complete. Self-recorded screen case is missing by user instruction; dataset shortlist requires factual corrections.
+- [ ] Independent blinded visual preference: not run. Do not count agent review as votes.
+- [ ] Natural editing accepted for submission: NOT established by development success.
+
+Read NATURAL_API.md, NATURAL_INTEGRATION_RESULTS.md, and the root ANTIGRAVITY_REVIEW_FEEDBACK.md. Naturalness, broad privacy, and targeted original-text checks remain distinct. Optional room-tone audio/generative removal deferred; do not expand them before the required evidence gate.

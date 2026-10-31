@@ -108,3 +108,13 @@ Report three separate recommendations:
 ## Return handoff
 
 Deliver exact proposed clips/terms first, then your script, actual derived videos, review report, failure gallery, commands/results, commit hash and blockers. No changes to Codex-owned source. Record whether each result is VERIFIED, FAILED, UNTESTED or UNKNOWN. Work on evidence now; postpone marketing copy and visual polish.
+
+## Core integration update — continue your independent evaluation
+
+Read `veil/docs/NATURAL_API.md` and `veil/docs/NATURAL_INTEGRATION_RESULTS.md`. Local server port 8020 now supports opt-in natural jobs and review/receipt/download. New actual SDK/HTTP evidence is under `veil/artifacts/natural-api-*` and `veil/artifacts/natural-meta*-001`. Source/candidate/final checks, per-track decisions and actual comparison videos are available. Existing default API remains compatible; natural mode is NOT general-privacy or visual-quality clearance.
+
+The user explicitly chose **proceed with available footage; mark the self-recorded screen case missing**. Do not request another capture or fabricate it. Keep it missing unless suitable already-available authorized footage is found and clearly classified. These new core runs are development repeats/diagnostics, NOT six cases. Focus your time on exact clip access/terms and honest playback review.
+
+## Required review corrections
+
+Read `ANTIGRAVITY_REVIEW_FEEDBACK.md` before committing the dataset shortlist. Codex measured a portrait-metadata mismatch and HTTP 404 in a claimed verified URL, and found unsupported consent/sequence-name assertions. Correct those claims in your owned files; do not count them as verified footage. Continue quality evaluation while access gaps remain explicit.

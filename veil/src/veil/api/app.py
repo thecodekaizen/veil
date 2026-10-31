@@ -8,6 +8,7 @@ from veil.core.pipeline import MetaPipeline
 from fastapi.responses import FileResponse
 from veil.core.jobs import JobStore, Conflict
 from veil.core.models import Timeline
+from veil.core.natural import NaturalRequest
 
 
 class CloudRequest(StrictModel):
@@ -18,7 +19,7 @@ class CloudRequest(StrictModel):
 
 
 def create_app(root: Path | None = None, pipeline=None):
-    app = FastAPI(title='VEIL', version='0.3.0', description='Bounded Meta detection, redaction, sampled exported-media audit and repair. No zero-leak guarantee.')
+    app = FastAPI(title='VEIL', version='0.4.0', description='Bounded Meta detection, redaction, sampled exported-media audit and repair. No zero-leak guarantee.')
     store = JobStore(root or Path(os.getenv('VEIL_JOBS_DIR', 'artifacts/private/jobs')), pipeline or MetaPipeline(os.getenv('VEIL_ENV_FILE', '.env'),max_calls=int(os.getenv('VEIL_MAX_MODEL_CALLS','12'))))
     app.state.store = store
 
@@ -52,6 +53,17 @@ def create_app(root: Path | None = None, pipeline=None):
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
 
+    @app.post('/v1/jobs/{job_id}/natural')
+    def natural_job(job_id: str, request: NaturalRequest):
+        try:
+            return store.natural(job_id,request)
+        except ValueError as exc:
+            raise HTTPException(422,str(exc)) from exc
+
+    @app.get('/v1/jobs/{job_id}/natural-review')
+    def natural_review(job_id: str):
+        return store.natural_review(job_id)
+
     @app.get('/v1/jobs/{job_id}/findings')
     def findings(job_id: str):
         import json
@@ -71,8 +83,15 @@ def create_app(root: Path | None = None, pipeline=None):
     @app.get('/v1/jobs/{job_id}/export')
     def export(job_id: str):
         directory = store.directory(job_id)
-        if store.get(job_id)['status'] != 'rendered':
+        job=store.get(job_id)
+        if job['status'] != 'rendered':
             raise Conflict('Export is not ready')
+        if 'natural_verification' in job:
+            review=store.natural_review(job_id)
+            if review.get('status')!='original_identifier_check_completed_visual_review_required':
+                raise Conflict('Natural export audit is missing, stale or incomplete; create a fresh reviewed job')
+            if job['verification']=='residual_observed':
+                raise Conflict('Broad output audit observed an exposure; export requires repair and a fresh natural review')
         return FileResponse(directory / 'export.mp4', media_type='video/mp4', filename='veil-redacted.mp4')
 
     @app.post('/v1/jobs/{job_id}/detect')

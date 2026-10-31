@@ -11,7 +11,7 @@ async function loadTypeScript(relativePath) {
   return import(`data:text/javascript;base64,${Buffer.from(javascript).toString("base64")}`);
 }
 
-const { simulateAction, simulateSequence } = await loadTypeScript("../lib/simulate.ts");
+const { simulateAction, simulateSequence, resolveSimulationRecovery, repairSequenceOrder, testRepairedSequence } = await loadTypeScript("../lib/simulate.ts");
 const { processToSkill } = await loadTypeScript("../lib/process-to-skill.ts");
 const { isSavedProcess } = await loadTypeScript("../lib/skill-storage.ts");
 
@@ -211,4 +211,106 @@ test("older candidates without visible facts remain readable without invented re
   const candidate = savedProcess("candidate_constraints");
   delete candidate.states[0].observable_facts;
   assert.deepEqual(processToSkill(candidate).states[0].observableFacts, []);
+});
+
+test("resolveSimulationRecovery checks whether candidate action can execute now", () => {
+  const model = {
+    id: "multi-step",
+    title: "Multi step",
+    status: "learned-from-demonstration",
+    objects: [],
+    initialState: ["start"],
+    states: [{ id: "step1", label: "Step 1 Done" }, { id: "step2", label: "Step 2 Done" }, { id: "step0", label: "Step 0" }],
+    actions: [
+      { id: "action-1", label: "Action 1", objectIds: [], constraints: [{ id: "c0", requiredState: "step0", status: "confirmed", source: "human-confirmation" }], produces: ["step1"] },
+      { id: "action-2", label: "Action 2", objectIds: [], constraints: [{ id: "c1", requiredState: "step1", status: "confirmed", source: "human-confirmation" }], produces: ["step2"] },
+    ],
+  };
+
+  const blockedResult = simulateAction(model, ["start"], "action-2");
+  assert.equal(blockedResult.accepted, false);
+  const recovery = resolveSimulationRecovery(model, blockedResult, ["start"]);
+  assert.equal(recovery.length, 1);
+  assert.equal(recovery[0].candidates.length, 1);
+  assert.equal(recovery[0].candidates[0].action.id, "action-1");
+  // action-1 requires step0, which is missing from ["start"], so canExecuteNow must be false
+  assert.equal(recovery[0].candidates[0].canExecuteNow, false);
+  assert.deepEqual(recovery[0].candidates[0].unmetPrerequisites, ["step0"]);
+});
+
+test("resolveSimulationRecovery handles multiple candidate actions explicitly", () => {
+  const model = {
+    id: "branching-recovery",
+    title: "Branching recovery",
+    status: "learned-from-demonstration",
+    objects: [],
+    initialState: ["start"],
+    states: [{ id: "ready", label: "Ready" }, { id: "done", label: "Done" }],
+    actions: [
+      { id: "route-a", label: "Route A", objectIds: [], constraints: [], produces: ["ready"] },
+      { id: "route-b", label: "Route B", objectIds: [], constraints: [], produces: ["ready"] },
+      { id: "final-step", label: "Final Step", objectIds: [], constraints: [{ id: "c", requiredState: "ready", status: "confirmed", source: "human-confirmation" }], produces: ["done"] },
+    ],
+  };
+
+  const blockedResult = simulateAction(model, ["start"], "final-step");
+  const recovery = resolveSimulationRecovery(model, blockedResult, ["start"]);
+  assert.equal(recovery[0].candidates.length, 2);
+  assert.equal(recovery[0].candidates[0].action.id, "route-a");
+  assert.equal(recovery[0].candidates[0].canExecuteNow, true);
+  assert.equal(recovery[0].candidates[1].action.id, "route-b");
+  assert.equal(recovery[0].candidates[1].canExecuteNow, true);
+  assert.match(recovery[0].explanation, /Multiple modeled actions/);
+});
+
+test("testRepairedSequence reruns the sequence and displays remaining blockers", () => {
+  const model = {
+    id: "chained-requirements",
+    title: "Chained requirements",
+    status: "learned-from-demonstration",
+    objects: [],
+    initialState: ["start"],
+    states: [{ id: "p1", label: "Prereq 1" }, { id: "p2", label: "Prereq 2" }, { id: "done", label: "Done" }],
+    actions: [
+      { id: "act-1", label: "Action 1", objectIds: [], constraints: [], produces: ["p1"] },
+      { id: "act-2", label: "Action 2", objectIds: [], constraints: [{ id: "c1", requiredState: "p1", status: "confirmed", source: "human-confirmation" }], produces: ["p2"] },
+      { id: "act-3", label: "Action 3", objectIds: [], constraints: [{ id: "c2", requiredState: "p2", status: "confirmed", source: "human-confirmation" }], produces: ["done"] },
+    ],
+  };
+
+  // If user only inserts act-2 before act-3, act-2 is now blocked by missing p1
+  const testRun = testRepairedSequence(model, ["act-3"], "act-3", "act-2", ["start"]);
+  assert.equal(testRun.hasRemainingBlockers, true);
+  assert.match(testRun.remainingBlockerMessage, /remains blocked: missing p1/);
+});
+
+test("resolveSimulationRecovery reports unobserved transition as not established by model", () => {
+  const model = {
+    id: "isolated",
+    title: "Isolated",
+    status: "learned-from-demonstration",
+    objects: [],
+    initialState: ["start"],
+    actions: [
+      { id: "action-2", label: "Action 2", objectIds: [], constraints: [{ id: "c1", requiredState: "unproduced-state", status: "confirmed", source: "human-confirmation" }], produces: ["done"] },
+    ],
+  };
+
+  const blockedResult = simulateAction(model, ["start"], "action-2");
+  const recovery = resolveSimulationRecovery(model, blockedResult, ["start"]);
+  assert.equal(recovery.length, 1);
+  assert.equal(recovery[0].candidates.length, 0);
+  assert.match(recovery[0].explanation, /cannot be resolved from the current model/);
+});
+
+test("repairSequenceOrder reorders an existing action to precede the blocked action", () => {
+  const initial = ["action-b", "action-a", "action-c"];
+  const repaired = repairSequenceOrder(initial, "action-b", "action-a");
+  assert.deepEqual(repaired, ["action-a", "action-b", "action-c"]);
+});
+
+test("repairSequenceOrder inserts an unlisted recovery action immediately before blocked action", () => {
+  const initial = ["action-b", "action-c"];
+  const repaired = repairSequenceOrder(initial, "action-b", "action-a");
+  assert.deepEqual(repaired, ["action-a", "action-b", "action-c"]);
 });

@@ -44,7 +44,7 @@ export function simulateAction(
       action,
       missing: [action.fromState],
       kind: "unobserved",
-      message: "This action was not observed from the current state. One demonstration cannot tell us whether the alternative is impossible or unsafe.",
+      message: "This transition is not established by this model. One demonstration cannot tell us whether the alternative is impossible or unsafe.",
     };
   }
 
@@ -85,4 +85,129 @@ export function simulateSequence(
   }
 
   return { status: "completed", initialState, finalState: state, steps };
+}
+
+export type CandidateRecoveryAction = {
+  action: SkillAction;
+  canExecuteNow: boolean;
+  unmetPrerequisites: string[];
+};
+
+export type RecoverySuggestion = {
+  missingStateId: string;
+  missingStateLabel: string;
+  isUnobservedTransition: boolean;
+  candidates: CandidateRecoveryAction[];
+  explanation: string;
+};
+
+/**
+ * Identify recovery options for a blocked or unobserved simulation result.
+ * Checks all actions in the model that produce the missing prerequisite,
+ * verifying whether each candidate can execute from the current simulated state.
+ */
+export function resolveSimulationRecovery(
+  model: SkillModel,
+  result: Extract<SimulationResult, { accepted: false }>,
+  currentState: string[] = result.state,
+): RecoverySuggestion[] {
+  const labelFor = (id: string) =>
+    model.states?.find((s) => s.id === id)?.label ?? id.replaceAll("_", " ");
+  const isUnobserved = result.kind === "unobserved";
+
+  return result.missing.map((stateId) => {
+    const matchingActions = model.actions.filter((action) => action.produces.includes(stateId));
+    const candidates: CandidateRecoveryAction[] = matchingActions.map((action) => {
+      const probe = simulateAction(model, currentState, action.id);
+      return {
+        action,
+        canExecuteNow: probe.accepted,
+        unmetPrerequisites: probe.accepted ? [] : probe.missing,
+      };
+    });
+
+    let explanation: string;
+    if (candidates.length === 0) {
+      explanation = isUnobserved
+        ? `This transition is not established by this model from the current state. No modeled action produces "${labelFor(stateId)}".`
+        : `No modeled action produces required state "${labelFor(stateId)}". This path cannot be resolved from the current model.`;
+    } else if (candidates.length === 1) {
+      const c = candidates[0];
+      explanation = c.canExecuteNow
+        ? `Perform "${c.action.label}" first to achieve required state "${labelFor(stateId)}". This action is executable from the current state.`
+        : `Action "${c.action.label}" produces "${labelFor(stateId)}", but requires prior steps: ${c.unmetPrerequisites.map(labelFor).join(", ")}.`;
+    } else {
+      explanation = `Multiple modeled actions produce "${labelFor(stateId)}". Review candidates below to select a recovery step.`;
+    }
+
+    return {
+      missingStateId: stateId,
+      missingStateLabel: labelFor(stateId),
+      isUnobservedTransition: isUnobserved,
+      candidates,
+      explanation,
+    };
+  });
+}
+
+/**
+ * Reorders a sequence by moving or inserting the recovery action immediately
+ * before the blocked action, creating a candidate sequence.
+ */
+export function repairSequenceOrder(
+  actionIds: readonly string[],
+  blockedActionId: string,
+  recoveryActionId: string,
+): string[] {
+  const filtered = actionIds.filter((id) => id !== recoveryActionId);
+  const targetIndex = filtered.indexOf(blockedActionId);
+  if (targetIndex === -1) {
+    return [recoveryActionId, ...filtered];
+  }
+  return [
+    ...filtered.slice(0, targetIndex),
+    recoveryActionId,
+    ...filtered.slice(targetIndex),
+  ];
+}
+
+export type RepairedSequenceResult = {
+  repairedActionIds: string[];
+  simulation: SequenceSimulation;
+  resolvedBlockedActionId: string;
+  insertedActionId: string;
+  hasRemainingBlockers: boolean;
+  remainingBlockerMessage?: string;
+};
+
+/**
+ * Reruns the repaired sequence against the model from the given starting state,
+ * detecting whether the entire sequence completed or if subsequent blockers remain.
+ */
+export function testRepairedSequence(
+  model: SkillModel,
+  currentActionIds: readonly string[],
+  blockedActionId: string,
+  recoveryActionId: string,
+  startingState: string[] = model.initialState,
+): RepairedSequenceResult {
+  const repairedActionIds = repairSequenceOrder(currentActionIds, blockedActionId, recoveryActionId);
+  const simulation = simulateSequence(model, repairedActionIds, startingState);
+  const failedEntry = simulation.steps.find((s) => !s.result.accepted);
+  const failedStep = failedEntry && !failedEntry.result.accepted ? failedEntry.result : undefined;
+  const hasRemainingBlockers = simulation.status !== "completed";
+  const remainingBlockerMessage = hasRemainingBlockers && failedStep
+    ? failedStep.kind === "unobserved"
+      ? `Step "${failedStep.action.label}" is not established by this model from its simulated state.`
+      : `Step "${failedStep.action.label}" remains blocked: missing ${failedStep.missing.join(", ")}.`
+    : undefined;
+
+  return {
+    repairedActionIds,
+    simulation,
+    resolvedBlockedActionId: blockedActionId,
+    insertedActionId: recoveryActionId,
+    hasRemainingBlockers,
+    remainingBlockerMessage,
+  };
 }
