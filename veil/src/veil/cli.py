@@ -26,7 +26,7 @@ def label(clip: Path = typer.Argument(..., exists=True, dir_okay=False),
 @app.command()
 def run(clip: Path = typer.Argument(..., exists=True, dir_okay=False),
         run_id: str = typer.Option(..., '--run-id'),
-        stages: str = typer.Option('keyframes,discover,track,listen', help='comma-separated: keyframes,discover,track,listen,redact,audit,report'),
+        stages: str = typer.Option('keyframes,discover,track,extend,listen', help='comma-separated: keyframes,discover,track,extend,listen,redact,audit,report'),
         runs_dir: Path = typer.Option(Path('runs')),
         bleep_pad: float = typer.Option(None, help='bleep padding in seconds (default: runner.BLEEP_PAD_S)')):
     """Run pipeline stages for CLIP; artifacts go to RUNS_DIR/RUN_ID/. Prints the concept table and spoken PII."""

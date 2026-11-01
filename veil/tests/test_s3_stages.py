@@ -80,3 +80,45 @@ def test_audit_visual_covered_and_gap(tmp_path):
 
 def test_bleep_union():
     assert bleep_intervals([], 0.5, 10) == []
+
+
+def _masklet(first, last, box=(10, 10, 30, 30)):
+    from veil.schemas import MaskFrame, Masklet
+    return Masklet(concept_id='c', track_id='c:0', frames=[MaskFrame(frame_idx=i, bbox=box) for i in range(first, last + 1)])
+
+
+def test_temporal_pad_fills_ends_and_small_gaps():
+    from veil.stages.extend import temporal_pad
+    from veil.schemas import MaskFrame, Masklet
+    m = Masklet(concept_id='c', track_id='t', frames=[MaskFrame(frame_idx=i, bbox=(0, 0, 5, 5)) for i in (10, 11, 15)])
+    out = {f.frame_idx: f.origin for f in temporal_pad(m, 30).frames}
+    assert min(out) == 7 and max(out) == 18 and out[10] == 'sam' and out[13] == 'temporal_pad' and out[12] == 'temporal_pad'
+    assert set(range(7, 19)) == set(out)
+
+
+def test_extend_holds_back_when_reverse_fails():
+    from veil.stages.extend import extend_masklet
+
+    def boom(*a):
+        raise RuntimeError('no')
+    m, ext = extend_masklet(_masklet(4, 9), 0, 'x', boom, 100)
+    assert ext.method == 'held_back' and 'failed' in ext.note
+    assert [f.frame_idx for f in m.frames] == list(range(0, 10))
+    assert {f.origin for f in m.frames if f.frame_idx < 4} == {'held_back'}
+
+
+def test_extend_uses_reversed_sam_when_it_overlaps():
+    from veil.schemas import MaskFrame
+    from veil.stages.extend import extend_masklet
+    rev = {'0': {i: {'box': [10, 10, 30, 30], 'frame': MaskFrame(frame_idx=i, bbox=(10, 10, 30, 30))} for i in range(0, 10)}}
+    m, ext = extend_masklet(_masklet(4, 9), 0, 'x', lambda *a: rev, 100)
+    assert ext.method == 'sam_reversed'
+    assert {f.origin for f in m.frames if f.frame_idx < 4} == {'sam_reversed'}
+
+
+def test_extend_noop_and_start_rule():
+    from veil.stages.extend import extend_masklet
+    m, ext = extend_masklet(_masklet(0, 5), 0, 'x', None, 100)
+    assert ext.method == 'none' and len(m.frames) == 6
+    m, ext = extend_masklet(_masklet(40, 50), 20, 'x', None, 100)  # later than discovery keyframe 20
+    assert ext.method == 'held_back' and min(f.frame_idx for f in m.frames) == 20

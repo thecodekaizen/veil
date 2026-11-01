@@ -17,7 +17,7 @@ from veil.stages import discover as discover_stage
 from veil.stages import listen as listen_stage
 from veil.stages import track as track_stage
 
-STAGES = ['keyframes', 'discover', 'track', 'listen', 'redact', 'audit', 'report']
+STAGES = ['keyframes', 'discover', 'track', 'extend', 'listen', 'redact', 'audit', 'report']
 BLEEP_PAD_S = 0.5  # chosen on the synthetic clip only; rationale in docs/decisions.md
 
 
@@ -81,6 +81,12 @@ def run(clip: Path, run_id: str, stages: list[str], runs_dir: Path = Path('runs'
                     _write_json(root / 'cloud-cleanup.json', {'deleted': True})
                 except Exception:
                     _write_json(root / 'cloud-cleanup.json', {'deleted': False, 'needs_attention': True})
+    if 'extend' in stages:
+        from veil.stages import extend as extend_stage
+        disc = DiscoverArtifact.model_validate_json((root / 'discover.json').read_text())
+        raw_track = TrackArtifact.model_validate_json((root / 'track.json').read_text())
+        _write(root, 'track_final', extend_stage.run(disc, raw_track, n_frames,
+                                                     extend_stage.make_reverse(c, ledger, root, video)))
     if 'listen' in stages:
         wav = root / 'audio.wav'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(video), '-vn', '-ac', '1', '-ar', '24000',

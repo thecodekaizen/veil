@@ -34,8 +34,8 @@
    },
    "baseline_plus_spark": {
     "frames": 180,
-    "mean_coverage": 0.9778,
-    "frames_covered_pct": 97.8
+    "mean_coverage": 1.0,
+    "frames_covered_pct": 100.0
    }
   }
  },

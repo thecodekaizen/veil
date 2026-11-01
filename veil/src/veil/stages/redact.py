@@ -36,7 +36,7 @@ def plan(disc: DiscoverArtifact, track: TrackArtifact, w: int, h: int, pad: int 
 
 def run(root: Path, pad: int = PAD_PX) -> RedactArtifact:
     disc = DiscoverArtifact.model_validate_json((root / 'discover.json').read_text())
-    track = TrackArtifact.model_validate_json((root / 'track.json').read_text())
+    track = TrackArtifact.model_validate_json((root / 'track_final.json').read_text())
     listen = ListenArtifact.model_validate_json((root / 'listen.json').read_text())
     video = root / 'input.mp4'
     cap = cv2.VideoCapture(str(video))

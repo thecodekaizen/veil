@@ -71,12 +71,22 @@ class MaskFrame(Strict):
     bbox: tuple[FiniteFloat, FiniteFloat, FiniteFloat, FiniteFloat]  # left, top, right, bottom, source pixels
     score: FiniteFloat | None = None  # SAM confidence was null in every observed response
     mask: MaskData | None = None
+    origin: Literal['sam', 'sam_reversed', 'held_back', 'temporal_pad'] = 'sam'
 
 
 class Masklet(Strict):
     concept_id: str
     track_id: str
     frames: list[MaskFrame]
+
+
+class Extension(Strict):
+    concept_id: str
+    track_id: str
+    method: Literal['sam_reversed', 'held_back', 'none']
+    from_frame: int
+    to_frame: int
+    note: str = ''
 
 
 class SkippedConcept(Strict):
@@ -92,6 +102,7 @@ class TrackArtifact(Strict):
     masklets: list[Masklet]
     skipped_concepts: list[SkippedConcept]
     notes: str = ''
+    extensions: list[Extension] = Field(default_factory=list)
 
 
 class Word(Strict):

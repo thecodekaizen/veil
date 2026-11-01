@@ -231,7 +231,7 @@ def _audio_findings(listen: ListenArtifact, red: RedactArtifact, root: Path, rel
 
 def run(root: Path, ocr: OcrFn | None, face: FaceFn | None, relisten: Relisten | None) -> AuditArtifact:
     disc = DiscoverArtifact.model_validate_json((root / 'discover.json').read_text())
-    track = TrackArtifact.model_validate_json((root / 'track.json').read_text())
+    track = TrackArtifact.model_validate_json((root / 'track_final.json').read_text())
     listen = ListenArtifact.model_validate_json((root / 'listen.json').read_text())
     red = RedactArtifact.model_validate_json((root / 'redact.json').read_text())
     cap = cv2.VideoCapture(str(root / 'input.mp4'))

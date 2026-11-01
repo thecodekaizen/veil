@@ -37,3 +37,4 @@ gate/frames/
 # per-run outputs (media, model responses); only runs/demo/ is committed
 runs/*
 !runs/demo/
+!runs/demo-candidates/

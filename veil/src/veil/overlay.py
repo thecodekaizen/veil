@@ -18,7 +18,7 @@ def decode_mask(mask) -> np.ndarray:
 
 def render(root: Path) -> Path:
     disc = DiscoverArtifact.model_validate_json((root / 'discover.json').read_text())
-    track = TrackArtifact.model_validate_json((root / 'track.json').read_text())
+    track = TrackArtifact.model_validate_json((root / 'track_final.json').read_text())
     source = {c.concept_id: (c.source, c.sam_prompt) for c in disc.concepts}
     per_frame: dict[int, list] = {}
     for m in track.masklets:
