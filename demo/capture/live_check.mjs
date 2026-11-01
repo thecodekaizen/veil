@@ -1,0 +1,24 @@
+// Smoke test of the deployed site: landing renders with data, desk loads both runs, videos play, no console errors.
+import { chromium } from 'playwright';
+const BASE = process.argv[2] || 'https://thecodekaizen.github.io/veil/';
+const b = await chromium.launch({ channel: process.env.PW_CHANNEL || undefined });
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+const errors = [];
+p.on('pageerror', e => errors.push(e.message));
+p.on('console', m => m.type() === 'error' && errors.push(m.text()));
+await p.goto(BASE);
+await p.waitForSelector('.cmp-stage video');
+await p.waitForFunction(() => document.querySelector('table.gate tbody tr td'));
+const heroPlaying = await p.evaluate(async () => { const v = document.querySelector('.cmp-stage video'); const t0 = v.currentTime; await new Promise(r => setTimeout(r, 1500)); return v.currentTime > t0; });
+const gateCols = await p.evaluate(() => document.querySelectorAll('table.gate thead th').length - 1);
+await p.click('a.btn-primary:has-text("Open the live desk")');
+await p.waitForSelector('.finding');
+const c2 = await p.evaluate(() => ({ findings: document.querySelectorAll('.finding').length, verdict: document.querySelector('.verdict-title').textContent }));
+await p.click('.finding:not(:disabled)');
+const focused = await p.evaluate(() => !!document.querySelector('.finding.on'));
+await p.click('a.run-tab:has-text("Spoken number")');
+await p.waitForFunction(() => document.querySelector('.desk-title')?.textContent.includes('Spoken'));
+await p.waitForSelector('.audio');
+const c3 = await p.evaluate(() => ({ findings: document.querySelectorAll('.finding').length, audio: document.querySelector('.audio').textContent.slice(0, 120) }));
+console.log(JSON.stringify({ heroPlaying, gateCols, c2, focused, c3, errors }, null, 1));
+await b.close();
