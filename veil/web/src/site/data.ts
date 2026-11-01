@@ -18,7 +18,7 @@ export const REPO = 'https://github.com/thecodekaizen/veil';
 /** Runs shipped with the site: real pipeline outputs exported by `veil export-web`. */
 export const RUNS = [
   { id: 'c2', title: 'Street clip', kind: 'Visual leaks', blurb: 'A delivery notification with a full name and a door plate with a surname and flat number.' },
-  { id: 'c3', title: 'Spoken number', kind: 'Audio leak', blurb: 'A phone number read out in Hindi over street footage, with a book cover as a safe control.' },
+  { id: 'c3', title: 'Spoken number', kind: 'Audio leak', blurb: 'A phone number read out in Hindi over street footage, with a book cover as a harmless control.' },
 ] as const;
 
 type Load<T> = { data: T | null; error: string | null };

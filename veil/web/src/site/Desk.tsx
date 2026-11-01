@@ -177,7 +177,7 @@ function Verdict({ m }: { m: Manifest }) {
     <section className={`verdict card ${unresolved ? 'warn' : ''}`} aria-live="polite">
       <div>
         <strong className="verdict-title">{unresolved ? `${unresolved} unresolved finding${unresolved > 1 ? 's' : ''}. Review before sharing.` : 'No unresolved risks found by the checks listed.'}</strong>
-        <p className="small muted">Veil never says a video is “safe”. It reports what each listed check found on the exported file.</p>
+        <p className="small muted">Veil never gives a video a clean bill of health. It reports what each listed check found on the exported file.</p>
       </div>
       <div className="verdict-bar" aria-hidden="true">
         {STATUSES.map(s => <i key={s} className={`s-${s}`} style={{ flexGrow: n(s) || 0 }} />)}

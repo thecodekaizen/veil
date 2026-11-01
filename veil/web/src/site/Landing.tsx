@@ -37,7 +37,7 @@ export function Nav({ desk = false }: { desk?: boolean }) {
 const STEPS = [
   { n: '01', model: 'Muse Spark 1.3', title: 'Discover what identifies you', body: 'Spark reads keyframes and proposes what in this specific video could identify the creator, each with a reason. Not a fixed list of classes.', checks: 'Strict JSON schema · proposals merged by fuzzy match' },
   { n: '02', model: 'SAM 3.1 · Muse Voice', title: 'Track it, hear it', body: 'SAM 3.1 turns each proposal into masks tracked through every frame. Muse Voice hears spoken digits in Hindi, English or Hinglish.', checks: 'Track-gap check · OCR mask-vs-claim check · digit-run validator' },
-  { n: '03', model: 'Deterministic code', title: 'Verify the file you post', body: 'Veil decodes its own export and checks every cover pixel, runs local OCR and a face detector, and re-transcribes the audio. Anything not cleared stays on the receipt.', checks: 'COVERED · UNRESOLVED · NOT_CHECKED, never "safe"' },
+  { n: '03', model: 'Deterministic code', title: 'Verify the file you post', body: 'Veil decodes its own export and checks every cover pixel, runs local OCR and a face detector, and re-transcribes the audio. Anything not cleared stays on the receipt.', checks: 'COVERED · UNRESOLVED · NOT_CHECKED, never a clean bill of health' },
 ];
 
 function GateRow({ name, k, gates }: { name: string; k: keyof Omit<Gate, 'label' | 'verdict'>; gates: [string, Gate][] }) {
