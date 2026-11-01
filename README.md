@@ -25,6 +25,25 @@ Deterministic code redacts, **re-checks the exported file**, and tells you exact
 
 ---
 
+## Try it live: [thecodekaizen.github.io/veil](https://thecodekaizen.github.io/veil/)
+
+No sign-up and nothing to upload. The site shows **real pipeline output** (end-to-end repeat r1, every check run) on composited clips with fictional data.
+
+<table>
+<tr>
+<td width="50%" valign="top">
+<a href="https://thecodekaizen.github.io/veil/"><img src="docs/media/site-landing.jpg" alt="Veil landing page: headline and a draggable before/after of the real input and exported video"/></a>
+<p><b>Landing page.</b> Drag the divider across the real input (left, with the regions the models proposed) and Veil's real exported file (right). Below: the problem, how it works, a real receipt, the full gate table and the call ledger.</p>
+</td>
+<td width="50%" valign="top">
+<a href="https://thecodekaizen.github.io/veil/#/desk?run=c2"><img src="docs/media/site-desk.jpg" alt="Veil review desk: verdict banner, frame-synced compare, tracks and filterable findings"/></a>
+<p><b>Review desk.</b> A verdict banner (5 COVERED · 2 UNRESOLVED · 0 NOT_CHECKED), frame-synced input/export, clickable tracks, and findings that highlight their region. The box on the code panel is a real false flag (gate G2), shown, not hidden.</p>
+</td>
+</tr>
+</table>
+
+<div align="center"><a href="https://thecodekaizen.github.io/veil/#results"><img src="docs/media/site-results.jpg" alt="Results section of the site: the pre-registered gate across five runs, failures included" width="85%"/></a></div>
+
 ## The problem
 
 A creator films their street. In 25 seconds the clip shows a **delivery notification with their full name**, a **door plate with their surname and flat number**, a **society board**, and they **say their phone number out loud in Hindi**.
@@ -186,7 +205,7 @@ The command prints the concept table, the spoken digits and every finding with i
 | `VEIL_SAM_RETRIES=2` | Retry a failed SAM call up to twice; each retry is logged |
 | `VEIL_DISCOVER=glimmer` | **Experimental, not yet evaluated:** use open-weight Muse Glimmer on a local `llama-server` instead of hosted Spark |
 
-### Open the review desk
+### Open the review desk locally
 
 ```bash
 uv run --project veil veil export-web demo --provenance "my own clip, consented"

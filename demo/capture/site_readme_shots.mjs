@@ -1,0 +1,27 @@
+// README images of the live site (real Chrome so H.264 video renders).
+import { chromium } from 'playwright';
+const OUT = new URL('../../docs/media/', import.meta.url).pathname;
+const BASE = 'https://thecodekaizen.github.io/veil/';
+const b = await chromium.launch({ channel: 'chrome' });
+const p = await b.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
+await p.goto(BASE);
+await p.waitForFunction(() => document.querySelector('.cmp-stage video')?.readyState >= 3, null, { timeout: 60000 });
+await p.evaluate(() => { const v = document.querySelector('.cmp-stage video'); v.currentTime = 7; });
+await p.waitForTimeout(1500);
+await p.evaluate(() => document.querySelectorAll('.reveal').forEach(e => e.classList.add('in')));
+await p.waitForTimeout(400);
+await p.screenshot({ path: OUT + 'site-landing.png' });
+await p.evaluate(() => document.querySelector('#results').scrollIntoView());
+await p.waitForTimeout(600);
+await p.screenshot({ path: OUT + 'site-results.png' });
+await p.goto(BASE + '#/desk?run=c2');
+await p.waitForSelector('.finding');
+await p.waitForFunction(() => document.querySelector('.cmp-stage video')?.readyState >= 3, null, { timeout: 60000 });
+await p.click('.finding:not(:disabled) >> nth=0');
+await p.waitForTimeout(500);
+await p.evaluate(() => { document.querySelectorAll('.cmp-stage video').forEach(v => { v.pause(); v.currentTime = 8; }); });
+await p.waitForFunction(() => [...document.querySelectorAll('.cmp-stage video')].every(v => !v.seeking && v.readyState >= 3), null, { timeout: 60000 });
+await p.waitForTimeout(1200);
+await p.screenshot({ path: OUT + 'site-desk.png' });
+await b.close();
+console.log('ok');
