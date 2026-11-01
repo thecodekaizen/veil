@@ -267,3 +267,4 @@ table.gate { width: 100%; border-collapse: collapse; min-width: 760px; }
 
 .verdict-bar i.s-COVERED { background: var(--covered); } .verdict-bar i.s-UNRESOLVED { background: var(--unresolved); }
 .verdict-bar i.s-NOT_CHECKED { background: var(--unchecked); }
+@media (max-width: 600px) { .cmp-label .long { display: none; } }

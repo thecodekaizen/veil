@@ -89,8 +89,8 @@ export function Compare({ m, run, autoPlay = false, focus, onTime, controls = tr
         <div className="cmp-out" style={{ clipPath: `inset(0 0 0 ${split}%)` }}>
           <video ref={outV} src={media(run, 'output.mp4')} muted playsInline loop preload="auto" />
         </div>
-        <div className="cmp-label l"><span className="dot" /> Input · what the models found</div>
-        <div className="cmp-label r" style={{ opacity: split > 80 ? 0 : 1 }}>Export · what Veil wrote</div>
+        <div className="cmp-label l"><span className="dot" /> Input<span className="long"> · what the models found</span></div>
+        <div className="cmp-label r" style={{ opacity: split > 80 ? 0 : 1 }}>Export<span className="long"> · what Veil wrote</span></div>
         <div className="cmp-handle" style={{ left: `${split}%` }}>
           <button
             type="button"

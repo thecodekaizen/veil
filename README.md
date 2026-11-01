@@ -11,11 +11,11 @@ Deterministic code redacts, **re-checks the exported file**, and tells you exact
 
 [![tests](https://img.shields.io/badge/tests-119%20passing-6FCF8F)](#run-the-tests)
 [![python](https://img.shields.io/badge/python-3.12-blue)](veil/pyproject.toml)
-[![Meta models](https://img.shields.io/badge/Meta-Muse%20Spark%20·%20SAM%203.1%20·%20Muse%20Voice%20·%20Muse%20Glimmer-E8B04A)](#the-meta-models-and-what-each-one-does)
+[![Meta models](https://img.shields.io/badge/Meta-Muse%20Spark%20·%20SAM%203.1%20·%20Muse%20Voice-E8B04A)](#the-meta-models-and-what-each-one-does)
 [![hackathon](https://img.shields.io/badge/Meta%20Global%20AI%20Developer%20Hackathon-2026%20·%20Indie-0B0D10)](SUBMISSION.md)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
-[**Demo video**](#demo-video) · [**Results**](#results) · [**Quickstart**](#quickstart) · [**How it works**](#how-it-works) · [**Limitations**](#honest-limitations)
+[**Live demo**](https://thecodekaizen.github.io/veil/) · [**Demo video**](#demo-video) · [**Results**](#results) · [**Quickstart**](#quickstart) · [**How it works**](#how-it-works) · [**Limitations**](#honest-limitations)
 
 <img src="docs/media/hero-c2.jpg" alt="Veil: input with model-proposed regions (left) and the exported video with covers applied (right)" width="100%"/>
 
@@ -86,7 +86,17 @@ The thresholds were frozen in [`gate/GATE.md`](gate/GATE.md) **before** any mode
 | G4b mute window (100% coverage, ≤2.5 s over) | ❌ FAIL 3.13 s over | ❌ FAIL 2.85 s over |
 | **Verdict** | **FAIL** | **FAIL** |
 
-<!--REPEATS-->
+### Then we re-ran the whole pipeline three times, with every check on
+
+Each repeat re-runs every stage from scratch (fresh Spark discovery, SAM 3.1 tracking with up to 2 **logged** retries, Voice), with no concept cap. Same clips, so this measures run-to-run variance, not generalization ([`eval/repeats/summary.md`](eval/repeats/summary.md)).
+
+| Repeat | G1 discovery | G2 false flags | G3 | G4a | G4b mute window | NOT_CHECKED | Verdict |
+|---|---|---|---|---|---|---|---|
+| r1 | PASS 4/4 | FAIL 2/3 | PASS | PASS | PASS 1.63 s over | 0 | **FAIL** |
+| r2 | PASS 3/4 | FAIL 3/3 | PASS | PASS | FAIL 3.13 s over | 1 | **FAIL** |
+| r3 | PASS 4/4 | PASS 1/3 | PASS | PASS | FAIL 3.13 s over | 1 | **FAIL** |
+
+**What this says:** discovery is the stable strength (passes in every run, 4/4 twice). Over-proposal is the real weakness: Spark sometimes flags safe objects (G2 fails in 2 of 3 runs). Audio localization is borderline (passes in 1 of 3). Logged retries cut `NOT_CHECKED` items from 8 on a single clip to at most 1 per repeat.
 
 ### Veil catches its own models' mistakes
 
@@ -113,18 +123,27 @@ The number was muted and re-transcription of the output found no digit run. But 
 | **Muse Spark 1.3** (`/v1/responses`, strict JSON schema) | Open-vocabulary discovery: per keyframe, proposes identifying things with a reason and a SAM prompt | JSON schema validation; proposals are merged by fuzzy match; only a mask that exists in the video counts |
 | **SAM 3.1** (hosted video input) | Turns each proposal into masks tracked through the whole clip; reversed tracking fixes late track starts | Gap check inside each track; OCR mask-vs-claim check; covers verified pixel by pixel in the decoded output |
 | **Muse Voice Transcribe 1.0** (`/v1/asr/transcribe`) | Hears spoken digits in Hindi, English or Hinglish, in 2 s windows | Digit-run validator (≥6 digits from ≥4 digit tokens); output audio silent in muted spans; re-transcription of the output |
-| **Muse Glimmer 30B** (open weights, local llama.cpp) | Discovery without uploading frames (see above) | Same schema and scorer as Spark |
 
 Removing any model removes a capability: without Spark, 0/4 leaks are found; without SAM nothing is tracked; without Voice the spoken number goes out unmuted.
 
-<!--COSTS-->
+### Every call is on the ledger
+
+Across the 9 clip runs of the three repeats:
+
+| Model | Calls | Failed (then retried) | Median latency | p90 latency | Est. cost |
+|---|---|---|---|---|---|
+| `muse-spark-1.3` | 225 | 0 | 3.57 s | 5.03 s | $0.61 |
+| `muse-voice-transcribe-1.0` | 306 | 0 | 1.92 s | 2.77 s | $0.03 |
+| `sam-3.1` | 220 | 13 | 18.67 s | 267.03 s | $21.04 |
+
+That is about **$2.41 per 25-second clip** (range $1.07–$3.30), estimated from the call ledgers and not reconciled to billing. SAM video tracking dominates both latency and cost.
 
 ## How it works
 
 ```mermaid
 flowchart LR
     V[video.mp4] --> K[keyframes<br/><sub>scene + interval</sub>]
-    K --> D["discover<br/><b>Muse Spark 1.3</b><br/><sub>or Muse Glimmer, local</sub>"]
+    K --> D["discover<br/><b>Muse Spark 1.3</b><br/><sub>or Muse Glimmer, local (experimental)</sub>"]
     D --> T["track<br/><b>SAM 3.1</b>"]
     T --> E[extend<br/><sub>reversed SAM, ±3 frames</sub>]
     E --> X[verify<br/><sub>OCR: mask contains claim?</sub>]
@@ -165,7 +184,7 @@ The command prints the concept table, the spoken digits and every finding with i
 |---|---|
 | `VEIL_SPARK_CAP=50` | Track up to 50 Spark concepts (default 10 is the frozen gate setting) |
 | `VEIL_SAM_RETRIES=2` | Retry a failed SAM call up to twice; each retry is logged |
-| `VEIL_DISCOVER=glimmer` | Use open-weight Muse Glimmer on a local `llama-server` instead of hosted Spark |
+| `VEIL_DISCOVER=glimmer` | **Experimental, not yet evaluated:** use open-weight Muse Glimmer on a local `llama-server` instead of hosted Spark |
 
 ### Open the review desk
 
@@ -176,7 +195,7 @@ cd veil/web && npm install && npm run build && npx vite preview --port 4173
 ```
 
 <details>
-<summary><b>Run discovery fully locally with Muse Glimmer (open weights)</b></summary>
+<summary><b>Experimental: run discovery locally with Muse Glimmer (open weights, not yet evaluated)</b></summary>
 
 ```bash
 brew install llama.cpp
@@ -222,7 +241,7 @@ archive/              superseded THREAD/SHOWME prototypes (not part of the submi
 * **Open vocabulary cuts both ways.** Lifting the 10-concept cap made Spark flag a product logo, so G2 failed again (`gate/postgate2`).
 * **Audio timing is coarse.** Voice returns turn-level timing, so mute windows are wide. A voiced-time refinement once *under*-covered the number; it stays opt-in.
 * **Sampled checks.** OCR at 2 fps and the face detector every 5th frame; anything between samples is not examined. Local OCR is macOS-only.
-* **Cloud processing.** Frames, video and audio are sent to Meta's API (except with Glimmer discovery). Veil is not a privacy guarantee and never says a video is "safe".
+* **Cloud processing.** Frames, video and audio are sent to Meta's API (the experimental Glimmer option keeps discovery local). Veil is not a privacy guarantee and never says a video is "safe".
 
 ## Built during the hackathon
 
