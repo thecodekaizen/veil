@@ -28,8 +28,8 @@ Source: veil/docs/*.md and veil/artifacts/*. "observed" = saved raw API response
 Decision (provisional, from evidence above): hosted video path. P2's "does SAM accept video" question is answered.
 Still to measure: max duration/size limits, latency per clip, behaviour with 4+ concepts per clip.
 
-## Gate clips not filmed (2026-11-01)
-Decision (user): no gate clips will be created. `gate/GATE.md` stays committed as written (incl. pre-footage amendments, `e753217`)
+## Gate clips not filmed (2026-11-01) — SUPERSEDED, see "Gate clips are coming" below
+Earlier decision (user): no gate clips will be created. `gate/GATE.md` stays committed as written (incl. pre-footage amendments, `e753217`)
 but **cannot be scored: the gate is "NOT RUN"**. No gate verdict, G1–G4b numbers, or "pass" claim may appear in the README or demo.
 Development and evaluation use the synthetic fixture (`veil/artifacts/smoke-001/input.mp4`, fictional data). Anything measured on it is
 a development check, not a gate result.
@@ -58,3 +58,20 @@ dedupe threshold (85), keyframe selection, track-start rules (15 frames / earlie
 hold-back), temporal padding (+/-3 frames), cover padding (12 px), bleep padding (0.5 s), audit checks and the GATE.md thresholds.
 Any change after gate footage is processed is reported separately as **post-gate**. Receipt layout checked at 1000 px and
 360 px widths in headless Chrome (CSS-only fix; not a frozen parameter).
+
+## Gate clips are coming (2026-11-01, supersedes "Gate clips not filmed")
+Decision (user): staged clips c1-c3 and their labels will be committed. The gate stays **NOT RUN** in all docs until `make gate`
+actually runs on them; then `gate/GATE_RESULT.md` replaces the wording. The synthetic clip is the DEV set; c1-c3 are the held-out set,
+and the two are reported separately (`eval/results/final/dev_results.*`, `heldout_results.*`).
+
+## Scorer interpretations fixed before any clip exists (2026-11-01)
+`gate/score_gate.py` is written against GATE.md without changing a threshold. Where GATE.md is silent it uses (also listed in the
+scorer output): IoU on SAM mask pixels vs the labelled ref_box; a leak/control matches if ANY ref_box matches (+/-2 frames);
+G1 expects exactly 4 planted visual leaks across the label files; G3 counts real SAM-mask frames of any Spark concept matching the leak
+(coverage including held/padded frames reported beside it); G5 is reported, not gated. A dry run with scratch labels on the synthetic
+run showed G3 undercounting when only the single best concept was used, which is why G3 uses all matching concepts. Dry-run output is not a gate result.
+
+## Reversed-SAM extension check (2026-11-01)
+The 'phone number display' track extended from frame 172 back to 67 by reversed SAM was checked on frames 70/100/130/165/175 of the synthetic
+clip: the box follows the printed "DEMO CONTACT" label, so it is a correct extension, not a false one. Checked by eye on the bbox
+(the mask pixels were not separately tinted).

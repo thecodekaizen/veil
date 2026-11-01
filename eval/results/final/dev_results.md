@@ -1,4 +1,4 @@
-# Eval: baseline-only vs baseline+Spark (synthetic clip, development check)
+# Eval (DEV set): baseline-only vs baseline+Spark, synthetic clip, development check
 
 | target | frames | baseline-only mean cover | baseline+Spark mean cover | baseline-only frames >=90% | baseline+Spark frames >=90% |
 | --- | --- | --- | --- | --- | --- |

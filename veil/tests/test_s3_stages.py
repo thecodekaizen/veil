@@ -122,3 +122,45 @@ def test_extend_noop_and_start_rule():
     assert ext.method == 'none' and len(m.frames) == 6
     m, ext = extend_masklet(_masklet(40, 50), 20, 'x', None, 100)  # later than discovery keyframe 20
     assert ext.method == 'held_back' and min(f.frame_idx for f in m.frames) == 20
+
+
+def test_gate_scorer_helpers():
+    from gate import score_gate as sg
+    assert sg.edit_distance('2025550146', '2145550146') == 2 and sg.edit_distance('a', 'a') == 0
+    assert sg.range_frames([(0.0, 0.5)], 10) == [0, 1, 2, 3, 4, 5]
+    assert sg.frame_of(1.26, 10) == 13
+    g = {k: {'ok': True} for k in ('G1', 'G2', 'G3', 'G4a', 'G4b')}
+    assert sg.verdict_of(g) == 'PASS'
+    g['G3']['ok'] = False
+    assert sg.verdict_of(g) == 'FAIL'
+
+
+def test_gate_scorer_not_run_without_labels(tmp_path):
+    from gate import score_gate as sg
+    r = sg.score(tmp_path / 'labels', tmp_path / 'runs', tmp_path / 'clips')
+    assert r['verdict'] == 'NOT RUN' and sg.render_md(r).startswith('# GATE: NOT RUN')
+
+
+def test_gate_scorer_audio_and_mask_iou():
+    from gate import score_gate as sg
+    from gate.labels_schema import AudioSpan, Leak
+    from veil.schemas import ListenArtifact, MaskData, MaskFrame, SpokenPII
+    import base64
+    leak = Leak(leak_id='A1', kind='audio', concept='n', in_baseline=False,
+                audio=AudioSpan(text='x', digits='2025550146', t_start=5.0, t_end=9.0))
+    pii = SpokenPII(kind='phone', normalized_value='2145550146', t_start=4.5, t_end=9.5, word_indices=[0], validator='v',
+                    precision='window', mobile_pattern=False)
+    la = ListenArtifact(model_id='m', method='windowed', window_s=2, overlap_s=.5, bleep_pad_s=.5, words=[], transcript_text='',
+                        pii=[pii], bleep_intervals=[(4.0, 10.0)])
+    r = sg.score_audio(leak, la)
+    assert r['g4a_detected'] and not r['exact'] and r['edit_distance'] == 2
+    assert r['coverage_pct'] == 100.0 and r['over_cover_s'] == 2.0 and r['g4b_ok']
+    la.bleep_intervals = [(4.0, 12.0)]
+    assert not sg.score_audio(leak, la)['g4b_ok']  # over-cover 4 s > 2.5 s
+    import numpy as np
+    bits = np.packbits(np.ones(100, np.uint8)).tobytes()  # 10x10 solid mask at (0,0)
+    mf = MaskFrame(frame_idx=0, bbox=(0, 0, 10, 10), mask=MaskData(width=10, height=10, packed_b64=base64.b64encode(bits).decode(),
+                                                                    bounds=(0, 0, 10, 10)))
+    assert sg.mask_iou(mf, (0, 0, 10, 10), 50, 50) == 1.0
+    assert abs(sg.mask_iou(mf, (5, 0, 15, 10), 50, 50) - 50 / 150) < 1e-9
+    assert sg.mask_iou(MaskFrame(frame_idx=0, bbox=(0, 0, 1, 1)), (0, 0, 10, 10), 50, 50) == 0.0
