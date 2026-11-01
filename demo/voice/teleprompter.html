@@ -1,0 +1,65 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veil Teleprompter</title>
+<style>
+:root{--bg:#0d0f12;--text:#f2efe8;--dim:#8d8a83;--amber:#e8b04a;--red:#e66b5b}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,"Helvetica Neue",sans-serif;height:100%}
+main{display:grid;grid-template-rows:auto 1fr auto;height:100vh;padding:24px 6vw;box-sizing:border-box}
+.meta{display:flex;justify-content:space-between;color:var(--dim);font-size:15px;letter-spacing:.04em}
+.text{align-self:center;font-size:clamp(28px,5vw,64px);line-height:1.3;font-weight:500;max-width:1200px}
+.text b{color:var(--amber);font-weight:700}
+.next{color:var(--dim);font-size:clamp(16px,2vw,22px);margin-top:28px}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:15px}
+button{background:#1e232b;color:var(--text);border:1px solid #39404b;padding:10px 16px;font:inherit;border-radius:8px;cursor:pointer}
+button.rec{border-color:var(--red)} button.rec.on{background:var(--red);color:#000}
+.hint{color:var(--dim)} .ok{color:#6fcf8f}
+</style></head><body><main>
+<div class="meta"><span id="pos"></span><span id="file"></span></div>
+<div><div class="text" id="t"></div><div class="next" id="n"></div></div>
+<div class="bar">
+<button id="prev">← Prev</button><button id="nxt">Next →</button>
+<button class="rec" id="rec">● Record line (R)</button><span id="st" class="hint"></span>
+<span class="hint">Keys: ←/→ move · R record/stop · Talk like you're explaining to a friend. Mic ~15 cm. Leave 1 s of silence before and after.</span>
+</div></main>
+<script>
+const L = [{"id": "h1", "beat": "Hook", "text": "This clip tells a stranger my name. My building. And my phone number.", "emphasis": ["name", "building", "phone number"], "pause": 500}, {"id": "h2", "beat": "Hook", "text": "All fictional. But creators post clips like this every day.", "emphasis": ["every day"], "pause": 300}, {"id": "h3", "beat": "Problem", "text": "A name on a parcel. A society board behind you. A number you say out loud.", "emphasis": ["out loud"], "pause": 300}, {"id": "p1", "beat": "Problem", "text": "Most redaction tools look for a fixed list. Faces. License plates. Screens. Documents.", "emphasis": ["fixed list"], "pause": 250}, {"id": "p2", "beat": "Problem", "text": "On my held-out clips, that list found zero of four planted leaks.", "emphasis": ["zero of four"], "pause": 600}, {"id": "a1", "beat": "Aha", "text": "So Veil asks a different question. What, in this video, could identify you?", "emphasis": ["this video"], "pause": 300}, {"id": "a2", "beat": "Aha", "text": "Muse Spark looks at keyframes and proposes candidates, each with a reason. The notification shows a full name. The gold plate shows a surname and a flat number.", "emphasis": ["Muse Spark", "reason"], "pause": 250}, {"id": "a2b", "beat": "Aha", "text": "None of these is a face or a license plate. The model has to understand the scene.", "emphasis": ["understand the scene"], "pause": 300}, {"id": "a3", "beat": "Aha", "text": "SAM 3.1 tracks each one through every frame. And the output covers exactly those regions.", "emphasis": ["SAM 3.1", "every frame"], "pause": 300}, {"id": "a4", "beat": "Aha", "text": "With Spark in the loop, three of four planted leaks were found. The delivery-box label was still missed.", "emphasis": ["three of four", "missed"], "pause": 600}, {"id": "f1", "beat": "Proof: verify", "text": "Then code checks the work. Veil decodes its own output and confirms the covers are really there.", "emphasis": ["decodes its own output"], "pause": 250}, {"id": "f1b", "beat": "Proof: verify", "text": "It re-reads the output with local OCR, and runs a face detector on sampled frames.", "emphasis": ["local OCR", "face detector"], "pause": 250}, {"id": "f2", "beat": "Proof: verify", "text": "And models make mistakes. Here, SAM put the name mask on a block of code.", "emphasis": ["mistakes"], "pause": 200}, {"id": "f3", "beat": "Proof: verify", "text": "Local OCR read the mask, found code instead of the name Spark claimed, and threw it out.", "emphasis": ["threw it out"], "pause": 500}, {"id": "v1", "beat": "Proof: voice", "text": "Spoken numbers too. Muse Voice Transcribe hears a phone number read out in Hindi, and Veil mutes it.", "emphasis": ["Hindi", "mutes it"], "pause": 250}, {"id": "v2", "beat": "Proof: voice", "text": "Then it transcribes the output again. No digit run left.", "emphasis": ["again"], "pause": 300}, {"id": "v3", "beat": "Proof: voice", "text": "But the transcript gets digits wrong, and the mute window is still wider than my own limit.", "emphasis": ["wider than my own limit"], "pause": 600}, {"id": "r1", "beat": "Payoff", "text": "That's the point. Veil never says a video is safe.", "emphasis": ["never says"], "pause": 250}, {"id": "r2", "beat": "Payoff", "text": "Every item is covered, unresolved, or not checked. And it tells you why.", "emphasis": ["covered", "unresolved", "not checked"], "pause": 400}, {"id": "r2b", "beat": "Payoff", "text": "In this clip, two items are unresolved. Eight weren't checked, because a model call failed or they hit my cost cap.", "emphasis": ["two", "Eight"], "pause": 400}, {"id": "r3", "beat": "Payoff", "text": "I held myself to that too. I wrote a test gate before running it. It failed. I fixed two narrow failures afterwards, labelled as post-gate. One still fails.", "emphasis": ["failed", "post-gate", "still fails"], "pause": 600}, {"id": "c0", "beat": "CTA", "text": "Run it on a clip, read the receipt, and decide before you post.", "emphasis": ["decide"], "pause": 300}, {"id": "c1", "beat": "CTA", "text": "Models propose. Code decides. Veil. Built solo, with Muse Spark, SAM 3.1, and Muse Voice.", "emphasis": ["Models propose", "Code decides"], "pause": 1200}];
+let i = 0, rec = null, chunks = [];
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function hl(text, em) {
+  let h = esc(text);
+  em.forEach(e => { h = h.replace(new RegExp('(' + e.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'i'), '<b>$1</b>'); });
+  return h;
+}
+function show() {
+  const l = L[i];
+  $('t').innerHTML = hl(l.text, l.emphasis);
+  $('n').textContent = L[i + 1] ? 'Next: ' + L[i + 1].text : 'Last line';
+  $('pos').textContent = `${i + 1} / ${L.length} · ${l.beat} · pause after ${l.pause} ms`;
+  $('file').textContent = `save as voice/raw/line_${l.id}.webm`;
+}
+async function toggle() {
+  if (rec) { rec.stop(); return; }
+  const s = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+  chunks = []; rec = new MediaRecorder(s);
+  const id = L[i].id;
+  rec.ondataavailable = e => chunks.push(e.data);
+  rec.onstop = () => {
+    s.getTracks().forEach(t => t.stop());
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(chunks, { type: rec.mimeType }));
+    a.download = `line_${id}.webm`; a.click();
+    rec = null; $('rec').classList.remove('on'); $('rec').textContent = '● Record line (R)';
+    $('st').innerHTML = `<span class="ok">saved line_${id}.webm, move it to demo/voice/raw/</span>`;
+  };
+  rec.start(); $('rec').classList.add('on'); $('rec').textContent = '■ Stop'; $('st').textContent = 'recording…';
+}
+$('prev').onclick = () => { i = Math.max(0, i - 1); show(); };
+$('nxt').onclick = () => { i = Math.min(L.length - 1, i + 1); show(); };
+$('rec').onclick = toggle;
+addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') $('nxt').click();
+  if (e.key === 'ArrowLeft') $('prev').click();
+  if (e.key.toLowerCase() === 'r') toggle();
+});
+show();
+</script></body></html>

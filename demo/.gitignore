@@ -2,3 +2,7 @@
 capture/node_modules/
 shots/
 exports/
+voice/raw/
+voice/clean/
+voice/*.wav
+timing/

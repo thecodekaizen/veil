@@ -8,8 +8,8 @@
  "phases": {
   "0": "done",
   "1": "done",
-  "2": "gate",
-  "3": "todo",
+  "2": "done",
+  "3": "waiting: user records voice/raw/line_<id>.webm",
   "4": "todo",
   "5": "todo",
   "6": "todo",
@@ -295,5 +295,6 @@
  ],
  "timeline": null,
  "voice_mode": "record_myself",
- "music": "user-provided demo/audio/music.*"
+ "music": "user-provided demo/audio/music.*",
+ "hook": "A"
 }
