@@ -8,6 +8,8 @@ export interface Manifest {
   regions: Region[]; findings: Finding[]; checks: Check[]; concepts_without_masks: string[]; limitations: string[];
   audio: { transcript: string; method: string; window_s: number; bleep_pad_s: number; muted_intervals: number[][];
            pii: { digits: string; t_start: number; t_end: number; precision: string }[] };
-  cost: { calls: number; failed: number; estimated_usd: number };
+  cost: { calls: number; failed: number; estimated_usd: number; unpriced?: number };
+  verify?: { track_id: string; concept_id: string; status: 'verified' | 'rejected'; claimed: string[]; matched: string[] | null;
+             ocr_text: string[]; frames_checked: number[] }[] | null;
   models: Record<string, string>;
 }

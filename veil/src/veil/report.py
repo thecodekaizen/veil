@@ -25,11 +25,24 @@ def esc(v) -> str:
     return html.escape(str(v))
 
 
+def load_calls(root: Path) -> list[dict]:
+    """Every call ledger in the run dir: calls.json plus ledgers set aside when stages were re-run
+    (calls.<label>.json), so a re-run never hides calls already made for this run."""
+    return [c for p in sorted(root.glob('calls*.json')) for c in json.loads(p.read_text())]
+
+
+def ledger_summary(calls: list[dict]) -> str:
+    unpriced = sum(c.get('estimated_usd') is None for c in calls)
+    return (f'{len(calls)} model calls, {sum(c.get("status") != "completed" for c in calls)} failed, '
+            f'est. ${sum(c.get("estimated_usd") or 0 for c in calls):.2f}'
+            + (f' ({unpriced} calls without a price estimate)' if unpriced else ''))
+
+
 def render(root: Path) -> Path:
     audit = AuditArtifact.model_validate_json((root / 'audit.json').read_text())
     red = RedactArtifact.model_validate_json((root / 'redact.json').read_text())
     disc = DiscoverArtifact.model_validate_json((root / 'discover.json').read_text())
-    calls = json.loads((root / 'calls.json').read_text()) if (root / 'calls.json').exists() else []
+    calls = load_calls(root)
     counts = {s: sum(f.status == s for f in audit.findings) for s in ('COVERED', 'UNRESOLVED', 'NOT_CHECKED')}
     not_run = [c for c in audit.checks if c.status == 'NOT_CHECKED']
     if counts['UNRESOLVED']:
@@ -44,8 +57,7 @@ def render(root: Path) -> Path:
     checks = ''.join(f'<tr><td class="{"COVERED" if c.status == "RAN" else "NOT_CHECKED"}">{esc(c.status)}</td>'
                      f'<td>{esc(c.description)}<div class="dim">{esc(c.detail)}</div></td></tr>' for c in audit.checks)
     spark = [c.sam_prompt for c in disc.concepts if c.source == 'spark']
-    ledger = (f'{len(calls)} model calls, {sum(c.get("status") != "completed" for c in calls)} failed, '
-              f'est. ${sum(c.get("estimated_usd") or 0 for c in calls):.2f}')
+    ledger = ledger_summary(calls)
     page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Veil receipt</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body><main>

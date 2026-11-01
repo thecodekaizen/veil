@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Manifest, Status } from './types';
 import './demo.css';
 
-const BASE = import.meta.env.BASE_URL + 'demo/';
+const RUN = new URLSearchParams(location.search).get('run')?.replace(/[^a-z0-9-]/gi, '') || 'c2';
+const BASE = import.meta.env.BASE_URL + 'demo/' + RUN + '/';
 
 export default function DemoApp() {
   const [m, setM] = useState<Manifest | null>(null);
@@ -83,7 +84,16 @@ export default function DemoApp() {
         <div className="cursor" style={{ left: `calc(var(--lbl) + (100% - var(--lbl)) * ${t / dur})` }} />
       </div>
       <p className="dim">Spoken number localized to {m.audio.pii.map(p => `${p.t_start.toFixed(1)}–${p.t_end.toFixed(1)} s`).join(', ') || 'none'} at
-        {' '}{m.audio.window_s} s window precision, then padded by {m.audio.bleep_pad_s} s. Transcript: “{m.audio.transcript}”.</p>
+        {' '}{m.audio.window_s} s window precision{m.audio.pii.some(p => p.precision === 'window_voiced') ? ' (narrowed to voiced audio, post-gate)' : ''}, then padded by {m.audio.bleep_pad_s} s. Transcript: “{m.audio.transcript}”.</p>
+
+      {m.verify && m.verify.length > 0 && <>
+        <h2>Mask check (post-gate)</h2>
+        <p className="dim">Does each SAM mask contain the text Spark said it would? Local OCR reads the masked box; a mask without the claimed text is removed before redaction.</p>
+        <table><tbody>{m.verify.map(v => (
+          <tr key={v.track_id} className="verify"><td className={v.status === 'verified' ? 'COVERED' : 'UNRESOLVED'}>{v.status.toUpperCase()}</td>
+            <td>{v.concept_id.replace(/^spark-/, '').replace(/-/g, ' ')}<div className="dim">claimed: {v.claimed.join(', ')}</div></td>
+            <td>OCR in mask: “{v.ocr_text.slice(0, 3).join(' / ')}”<div className="dim">frames {v.frames_checked.join(', ')}</div></td></tr>))}</tbody></table>
+      </>}
 
       <h2>Findings</h2>
       <table><tbody>{m.findings.map(f => (
@@ -99,7 +109,7 @@ export default function DemoApp() {
       <h2>Limitations</h2>
       <ul>{m.limitations.map(l => <li key={l}>{l}</li>)}</ul>
       <p className="dim">Frames, video and audio were sent to Meta model APIs ({m.models.discover}, {m.models.track}, {m.models.listen});
-        {' '}{m.cost.calls} calls, {m.cost.failed} failed, est. ${m.cost.estimated_usd.toFixed(2)}. Processing is not local.</p>
+        {' '}{m.cost.calls} calls, {m.cost.failed} failed, est. ${m.cost.estimated_usd.toFixed(2)}{m.cost.unpriced ? ` (${m.cost.unpriced} without a price estimate)` : ''}. Processing is not local.</p>
       <footer>{m.footer}</footer>
     </main>
   );

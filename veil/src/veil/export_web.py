@@ -7,7 +7,7 @@ import json
 import shutil
 from pathlib import Path
 
-from veil.report import FOOTER
+from veil.report import FOOTER, load_calls
 from veil.schemas import AuditArtifact, DiscoverArtifact, ListenArtifact, RedactArtifact
 
 import cv2
@@ -18,7 +18,8 @@ def export(root: Path, out: Path, provenance: str) -> Path:
     audit = AuditArtifact.model_validate_json((root / 'audit.json').read_text())
     listen = ListenArtifact.model_validate_json((root / 'listen.json').read_text())
     disc = DiscoverArtifact.model_validate_json((root / 'discover.json').read_text())
-    calls = json.loads((root / 'calls.json').read_text()) if (root / 'calls.json').exists() else []
+    calls = load_calls(root)
+    verify = json.loads((root / 'verify.json').read_text()) if (root / 'verify.json').exists() else None
     cap = cv2.VideoCapture(str(root / 'input.mp4'))
     fps, n = cap.get(cv2.CAP_PROP_FPS), int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     w, h = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -40,7 +41,11 @@ def export(root: Path, out: Path, provenance: str) -> Path:
                   'pii': [{'digits': p.normalized_value, 't_start': p.t_start, 't_end': p.t_end, 'precision': p.precision}
                           for p in listen.pii]},
         'cost': {'calls': len(calls), 'failed': sum(c.get('status') != 'completed' for c in calls),
-                 'estimated_usd': round(sum(c.get('estimated_usd') or 0 for c in calls), 2)},
+                 'estimated_usd': round(sum(c.get('estimated_usd') or 0 for c in calls), 2),
+                 'unpriced': sum(c.get('estimated_usd') is None for c in calls)},
+        'verify': None if verify is None else [
+            {k: r.get(k) for k in ('track_id', 'concept_id', 'status', 'claimed', 'matched', 'ocr_text', 'frames_checked')}
+            for r in verify['results'] if r['status'] != 'not_applicable'],
         'models': {'discover': disc.model_id, 'track': 'sam-3.1', 'listen': listen.model_id},
     }
     (out / 'manifest.json').write_text(json.dumps(manifest, separators=(',', ':')) + '\n')

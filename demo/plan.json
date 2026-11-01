@@ -1,0 +1,5 @@
+{"product":"Veil","renderer":"remotion","formats":["16:9"],"target_length_s":null,
+ "phases":{"0":"done","1":"gate","2":"todo","3":"todo","4":"todo","5":"todo","6":"todo","7":"todo","8":"todo"},
+ "open_questions":["target_length_s","voice_mode","voice_reference","music","brand"],
+ "assets":{"screens":"shots/","brief":"brief.md","ui":"../veil/web (DemoApp)","manifest":"../veil/web/public/demo/manifest.json"},
+ "script":[],"timeline":null}
