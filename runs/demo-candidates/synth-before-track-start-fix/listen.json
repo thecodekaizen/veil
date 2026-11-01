@@ -1,0 +1,114 @@
+{
+ "model_id": "muse-voice-transcribe-1.0",
+ "method": "windowed",
+ "window_s": 2.0,
+ "overlap_s": 0.5,
+ "bleep_pad_s": 0.5,
+ "words": [
+  {
+   "text": "The",
+   "t_start": 3.0,
+   "t_end": 3.5
+  },
+  {
+   "text": "demonstration",
+   "t_start": 3.0,
+   "t_end": 5.0
+  },
+  {
+   "text": "phone",
+   "t_start": 3.0,
+   "t_end": 5.0
+  },
+  {
+   "text": "number",
+   "t_start": 4.5,
+   "t_end": 5.0
+  },
+  {
+   "text": "is",
+   "t_start": 4.5,
+   "t_end": 5.0
+  },
+  {
+   "text": "two",
+   "t_start": 4.5,
+   "t_end": 5.0
+  },
+  {
+   "text": "zero",
+   "t_start": 4.5,
+   "t_end": 6.5
+  },
+  {
+   "text": "two",
+   "t_start": 4.5,
+   "t_end": 6.5
+  },
+  {
+   "text": "five",
+   "t_start": 6.0,
+   "t_end": 6.5
+  },
+  {
+   "text": "five",
+   "t_start": 6.0,
+   "t_end": 8.0
+  },
+  {
+   "text": "five",
+   "t_start": 6.0,
+   "t_end": 8.0
+  },
+  {
+   "text": "zero",
+   "t_start": 7.5,
+   "t_end": 8.0
+  },
+  {
+   "text": "one",
+   "t_start": 7.5,
+   "t_end": 9.5
+  },
+  {
+   "text": "four",
+   "t_start": 7.5,
+   "t_end": 9.5
+  },
+  {
+   "text": "six",
+   "t_start": 7.5,
+   "t_end": 9.5
+  }
+ ],
+ "transcript_text": "The demonstration phone number is two zero two five five five zero one four six",
+ "pii": [
+  {
+   "kind": "phone",
+   "normalized_value": "2025550146",
+   "t_start": 4.5,
+   "t_end": 9.5,
+   "word_indices": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+   ],
+   "validator": "spoken_digit_run_v1",
+   "precision": "window",
+   "mobile_pattern": false
+  }
+ ],
+ "bleep_intervals": [
+  [
+   4.0,
+   10.0
+  ]
+ ]
+}

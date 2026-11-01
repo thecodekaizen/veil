@@ -1,0 +1,230 @@
+{
+ "findings": [
+  {
+   "finding_id": "visual:spark-man-s-face",
+   "kind": "visual",
+   "label": "man's face",
+   "source": "spark",
+   "status": "COVERED",
+   "reasons": [
+    "cover verified in decoded output on all 180 masked frames (0-179)"
+   ],
+   "evidence": {
+    "first_frame": 0,
+    "last_frame": 179,
+    "masked_frames": 180,
+    "gap_frames": 0
+   }
+  },
+  {
+   "finding_id": "visual:spark-man-s-face-portrait",
+   "kind": "visual",
+   "label": "man's face portrait",
+   "source": "spark",
+   "status": "COVERED",
+   "reasons": [
+    "cover verified in decoded output on all 180 masked frames (0-179)"
+   ],
+   "evidence": {
+    "first_frame": 0,
+    "last_frame": 179,
+    "masked_frames": 180,
+    "gap_frames": 0
+   }
+  },
+  {
+   "finding_id": "visual:spark-man-s-face-photo",
+   "kind": "visual",
+   "label": "man's face photo",
+   "source": "spark",
+   "status": "COVERED",
+   "reasons": [
+    "cover verified in decoded output on all 180 masked frames (0-179)"
+   ],
+   "evidence": {
+    "first_frame": 0,
+    "last_frame": 179,
+    "masked_frames": 180,
+    "gap_frames": 0
+   }
+  },
+  {
+   "finding_id": "visual:spark-license-plate",
+   "kind": "visual",
+   "label": "license plate",
+   "source": "spark",
+   "status": "COVERED",
+   "reasons": [
+    "cover verified in decoded output on all 180 masked frames (0-179)"
+   ],
+   "evidence": {
+    "first_frame": 0,
+    "last_frame": 179,
+    "masked_frames": 180,
+    "gap_frames": 0
+   }
+  },
+  {
+   "finding_id": "visual:spark-phone-number-label",
+   "kind": "visual",
+   "label": "phone number label",
+   "source": "spark",
+   "status": "COVERED",
+   "reasons": [
+    "cover verified in decoded output on all 180 masked frames (0-179)"
+   ],
+   "evidence": {
+    "first_frame": 0,
+    "last_frame": 179,
+    "masked_frames": 180,
+    "gap_frames": 0
+   }
+  },
+  {
+   "finding_id": "visual:spark-phone-number-display",
+   "kind": "visual",
+   "label": "phone number display",
+   "source": "spark",
+   "status": "COVERED",
+   "reasons": [
+    "cover verified in decoded output on all 113 masked frames (67-179)"
+   ],
+   "evidence": {
+    "first_frame": 67,
+    "last_frame": 179,
+    "masked_frames": 113,
+    "gap_frames": 0
+   }
+  },
+  {
+   "finding_id": "visual:spark-license-plate-text",
+   "kind": "visual",
+   "label": "license plate text",
+   "source": "spark",
+   "status": "NOT_CHECKED",
+   "reasons": [
+    "not tracked: over cap of 10 spark concepts (cost guard)"
+   ],
+   "evidence": {}
+  },
+  {
+   "finding_id": "visual:spark-half-human-face",
+   "kind": "visual",
+   "label": "half human face",
+   "source": "spark",
+   "status": "NOT_CHECKED",
+   "reasons": [
+    "not tracked: over cap of 10 spark concepts (cost guard)"
+   ],
+   "evidence": {}
+  },
+  {
+   "finding_id": "visual:baseline-face",
+   "kind": "visual",
+   "label": "face",
+   "source": "baseline",
+   "status": "COVERED",
+   "reasons": [
+    "cover verified in decoded output on all 180 masked frames (0-179)"
+   ],
+   "evidence": {
+    "first_frame": 0,
+    "last_frame": 179,
+    "masked_frames": 180,
+    "gap_frames": 0
+   }
+  },
+  {
+   "finding_id": "visual:baseline-license-plate",
+   "kind": "visual",
+   "label": "license plate",
+   "source": "baseline",
+   "status": "COVERED",
+   "reasons": [
+    "cover verified in decoded output on all 180 masked frames (0-179)"
+   ],
+   "evidence": {
+    "first_frame": 0,
+    "last_frame": 179,
+    "masked_frames": 180,
+    "gap_frames": 0
+   }
+  },
+  {
+   "finding_id": "audio:0",
+   "kind": "audio",
+   "label": "spoken phone-like number",
+   "source": "voice",
+   "status": "COVERED",
+   "reasons": [
+    "detected span is inside a muted interval, output is silent there, and re-transcription of the output found no phone-like digit run"
+   ],
+   "evidence": {
+    "t_start": 4.5,
+    "t_end": 9.5,
+    "precision": "window",
+    "muted_intervals": [
+     [
+      4.0,
+      10.0
+     ]
+    ]
+   }
+  }
+ ],
+ "checks": [
+  {
+   "check_id": "cover_pixels",
+   "description": "Covered boxes are black in the decoded output",
+   "status": "RAN",
+   "detail": ""
+  },
+  {
+   "check_id": "track_gaps",
+   "description": "No mask gaps inside each concept track span",
+   "status": "RAN",
+   "detail": ""
+  },
+  {
+   "check_id": "ocr_output",
+   "description": "Independent OCR on output frames (phone-like text; covered input text still readable)",
+   "status": "RAN",
+   "detail": "36 output frames and 36 input frames at 2 fps; 36 text rows read in output"
+  },
+  {
+   "check_id": "face_output",
+   "description": "Haar-cascade face detector on output frames",
+   "status": "RAN",
+   "detail": "face detector fired on 36 input and 0 output sampled frames"
+  },
+  {
+   "check_id": "audio_silence",
+   "description": "Output audio is silent inside muted intervals",
+   "status": "RAN",
+   "detail": ""
+  },
+  {
+   "check_id": "audio_recheck",
+   "description": "Re-transcription of output audio for phone-like digit runs",
+   "status": "RAN",
+   "detail": ""
+  }
+ ],
+ "concepts_without_masks": [
+  "phone number text",
+  "half male face",
+  "phone number card",
+  "phone number box",
+  "phone screen",
+  "paper document"
+ ],
+ "limitations": [
+  "Sampled-frame checks only (OCR at 2 fps, face detector every 5th frame); text or faces between samples are not examined.",
+  "A frame where SAM returned no mask cannot be told apart from a frame where the object is absent; only gaps inside a track are flagged.",
+  "The Haar-cascade face check is weak (misses profile/occluded faces; can fire on non-faces).",
+  "Spoken-number re-check uses the same vendor family as the first pass, so it is not independent evidence.",
+  "OCR runs on macOS only (Swift/Vision); elsewhere it is NOT_CHECKED.",
+  "Speech timing has ~2 s window precision; Hinglish audio is untested.",
+  "Non-phone identifiers (names, addresses) are not detected in speech or in OCR text unless they fall inside a covered region."
+ ]
+}

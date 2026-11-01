@@ -1,0 +1,76 @@
+{
+ "extensions": [
+  {
+   "concept_id": "spark-man-s-face",
+   "track_id": "spark-man-s-face:0",
+   "method": "none",
+   "from_frame": 0,
+   "to_frame": 0,
+   "note": ""
+  },
+  {
+   "concept_id": "spark-man-s-face-portrait",
+   "track_id": "spark-man-s-face-portrait:0",
+   "method": "none",
+   "from_frame": 0,
+   "to_frame": 0,
+   "note": ""
+  },
+  {
+   "concept_id": "spark-man-s-face-photo",
+   "track_id": "spark-man-s-face-photo:0",
+   "method": "none",
+   "from_frame": 0,
+   "to_frame": 0,
+   "note": ""
+  },
+  {
+   "concept_id": "spark-license-plate",
+   "track_id": "spark-license-plate:0",
+   "method": "none",
+   "from_frame": 0,
+   "to_frame": 0,
+   "note": ""
+  },
+  {
+   "concept_id": "baseline-license-plate",
+   "track_id": "baseline-license-plate:0",
+   "method": "none",
+   "from_frame": 0,
+   "to_frame": 0,
+   "note": ""
+  },
+  {
+   "concept_id": "spark-phone-number-label",
+   "track_id": "spark-phone-number-label:0",
+   "method": "sam_reversed",
+   "from_frame": 4,
+   "to_frame": 0,
+   "note": ""
+  },
+  {
+   "concept_id": "spark-phone-number-label",
+   "track_id": "spark-phone-number-label:1",
+   "method": "sam_reversed",
+   "from_frame": 6,
+   "to_frame": 0,
+   "note": ""
+  },
+  {
+   "concept_id": "spark-phone-number-display",
+   "track_id": "spark-phone-number-display:0",
+   "method": "sam_reversed",
+   "from_frame": 172,
+   "to_frame": 70,
+   "note": ""
+  },
+  {
+   "concept_id": "baseline-face",
+   "track_id": "baseline-face:0",
+   "method": "none",
+   "from_frame": 0,
+   "to_frame": 0,
+   "note": ""
+  }
+ ]
+}
