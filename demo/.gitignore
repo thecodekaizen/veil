@@ -1,2 +1,4 @@
 .venv/
 capture/node_modules/
+shots/
+exports/
