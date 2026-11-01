@@ -1,0 +1,130 @@
+{
+ "verdict": "FAIL",
+ "criteria": {
+  "G1": {
+   "covered": 2,
+   "planted": 2,
+   "covered_not_in_baseline": 1,
+   "ok": false,
+   "rows": [
+    {
+     "clip": "c2",
+     "leak_id": "L2",
+     "concept": "phone notification showing a name",
+     "in_baseline": true,
+     "iou": 0.979,
+     "concept_id": "spark-message-notification-banner",
+     "ref_t_s": 6.2,
+     "frame": 154,
+     "matched": true,
+     "matched_concepts": [
+      "spark-message-notification-banner"
+     ],
+     "matched_prompt": "message notification banner",
+     "g3": {
+      "frames_in_ranges": 276,
+      "mask_pct": 100.0,
+      "with_held_pct": 100.0
+     }
+    },
+    {
+     "clip": "c2",
+     "leak_id": "L3",
+     "concept": "door nameplate",
+     "in_baseline": false,
+     "iou": 0.993,
+     "concept_id": "spark-message-notification-banner",
+     "ref_t_s": 6.4,
+     "frame": 162,
+     "matched": true,
+     "matched_concepts": [
+      "spark-message-notification-banner"
+     ],
+     "matched_prompt": "message notification banner",
+     "g3": {
+      "frames_in_ranges": 551,
+      "mask_pct": 100.0,
+      "with_held_pct": 100.0
+     }
+    }
+   ]
+  },
+  "G2": {
+   "controls_matched": 0,
+   "controls": 1,
+   "ok": true,
+   "rows": [
+    {
+     "clip": "c2",
+     "control_id": "C2",
+     "description": "code in an editor",
+     "iou": 0.0,
+     "concept_id": null,
+     "ref_t_s": null,
+     "frame": null,
+     "matched": false,
+     "matched_concepts": [],
+     "matched_prompt": null
+    }
+   ]
+  },
+  "G3": {
+   "ok": true,
+   "rows": [
+    {
+     "clip": "c2",
+     "leak_id": "L2",
+     "concept_id": "spark-message-notification-banner",
+     "g3": {
+      "frames_in_ranges": 276,
+      "mask_pct": 100.0,
+      "with_held_pct": 100.0
+     }
+    },
+    {
+     "clip": "c2",
+     "leak_id": "L3",
+     "concept_id": "spark-message-notification-banner",
+     "g3": {
+      "frames_in_ranges": 551,
+      "mask_pct": 100.0,
+      "with_held_pct": 100.0
+     }
+    }
+   ]
+  },
+  "G4a": {
+   "ok": false,
+   "rows": []
+  },
+  "G4b": {
+   "ok": false,
+   "rows": []
+  },
+  "G5": {
+   "ok": false,
+   "per_clip": {
+    "c2": {
+     "paths": {
+      "run": "/tmp/gruns/c2",
+      "track": "/tmp/gruns/c2/track_final.json",
+      "listen": "/tmp/gruns/c2/listen.json"
+     },
+     "audit_unresolved": [
+      "visual:baseline-license-plate"
+     ]
+    }
+   },
+   "note": "reported, not a kill criterion"
+  }
+ },
+ "notes": [
+  "G1/G2 IoU uses the SAM mask pixels (not its bbox) against the labelled ref_box; frames without a mask (held/padded) never count.",
+  "A leak/control counts as matched if ANY of its ref_boxes is matched by a concept at that ref_box time (+/-2 frames).",
+  "G1 aggregates visual leaks across all label files and expects exactly 4 planted visual leaks.",
+  "G3 (gate decision) counts frames with a real SAM mask of ANY Spark concept that matches the leak (IoU>=0.5 at a ref_box) inside visible_ranges; coverage including held/padded frames is reported next to it.",
+  "G4a takes the PII hit overlapping the labelled audio span (else the hit nearest to it); digit accuracy is reported, not gated.",
+  "G5 is reported, not a kill criterion: PASS if the audit has no UNRESOLVED finding; otherwise the findings are listed."
+ ],
+ "on_fail": "GATE.md: if G1-G4 fail, stop Veil; fallback = Andaaz gate at Sunday breakfast"
+}

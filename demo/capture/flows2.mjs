@@ -117,3 +117,16 @@ await flow('site_cta', '#/', async ({ p, log, scrollTo, glide }) => {
   await glide('.cta .btn-primary', 900); await log('hover', '.cta .btn-primary');
   await p.waitForTimeout(3500);
 });
+
+if (process.env.ONLY === 'desk_natural' || !process.env.ONLY) await flow('desk_natural', '#/desk?run=c2', async ({ p, log, seek, glide }) => {
+  await seek(9); await p.waitForTimeout(500);
+  await log('focus', '.desk-stage');
+  await glide('.seg button >> nth=1', 900); await p.click('.seg button >> nth=1'); await log('click', '.seg button >> nth=1');
+  await p.waitForFunction(() => [...document.querySelectorAll('.cmp-stage video')].every(v => v.readyState >= 3));
+  await p.evaluate(() => document.querySelectorAll('.cmp-stage video').forEach(v => { v.currentTime = 9; }));
+  await p.waitForTimeout(900);
+  await drag(p, 0.70, 0.18, 2200); await log('drag', '.cmp-stage');
+  await p.waitForTimeout(1000);
+  await drag(p, 0.18, 0.62, 1800);
+  await p.waitForTimeout(1500);
+});

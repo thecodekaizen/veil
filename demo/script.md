@@ -1,43 +1,41 @@
 # Script: Veil (2:30 judge cut)
 
-Words: **387** (budget 375 ±10% = 338–413). Est. read time at 150 wpm incl. pauses: **164 s**.
+Words: **357** (budget 338 ±10% = 304–371). Est. read time at 150 wpm incl. pauses: **150 s**.
 
 | Beat | words | est. s |
 |---|---|---|
-| Hook | 23 | 9.2 |
-| Problem | 41 | 16.4 |
-| Aha | 95 | 38.0 |
-| Proof: verify | 64 | 25.6 |
-| Proof: voice | 47 | 18.8 |
-| Payoff | 91 | 36.4 |
-| CTA | 26 | 10.4 |
+| Hook | 28 | 11.2 |
+| Impact | 18 | 7.2 |
+| Problem | 39 | 15.6 |
+| Aha | 58 | 23.2 |
+| Verify | 49 | 19.6 |
+| Natural | 30 | 12.0 |
+| Voice | 23 | 9.2 |
+| Open weights | 37 | 14.8 |
+| Payoff | 24 | 9.6 |
+| Evidence | 35 | 14.0 |
+| CTA | 16 | 6.4 |
 
 | id | VO | On screen | Emphasis | Pause | Evidence |
 |---|---|---|---|---|---|
-| h1 | This clip tells a stranger my name. My building. And my phone number. | c2 input playing full-bleed; notification 'Rohan Kulkarni' and gold 'KULKARNI — 12' visible; kinetic words NAME / BUILDING / NUMBER | name, building, phone number | 500 ms | `runs-postgate/c2 input; c3 audio` |
-| h2 | All fictional. But creators post clips like this every day. | Caption chip: 'fictional data · composited clip' | every day | 300 ms | `gate/GATE.md (composited clips)` |
-| h3 | A name on a parcel. A society board behind you. A number you say out loud. | Three quick crops from c1/c2/c3: label, board, waveform | out loud | 300 ms | `gate/labels/c1-c3.json` |
-| p1 | Most redaction tools look for a fixed list. Faces. License plates. Screens. Documents. | Kinetic list of four classes, each ticking off | fixed list | 250 ms | `eval/results/final/heldout_results.md baseline concepts` |
-| p2 | On my held-out clips, that list found zero of four planted leaks. | Big stat card: 0 / 4 | zero of four | 600 ms | `heldout_results.md: baseline-only 0/4` |
-| a1 | So Veil asks a different question. What, in this video, could identify you? | Cut to Veil UI (c2), floating window | this video | 300 ms | `DemoApp` |
-| a2 | Muse Spark looks at keyframes and proposes candidates, each with a reason. The notification shows a full name. The gold plate shows a surname and a flat number. | Zoom on amber Spark boxes + callouts with 'why' text from manifest | Muse Spark, reason | 250 ms | `discover.json why_identifying` |
-| a2b | None of these is a face or a license plate. The model has to understand the scene. | Hold on callouts; small grey 'baseline: face · plate' chips with no box on the name | understand the scene | 300 ms | `discover.json; c2 baseline concepts` |
-| a3 | SAM 3.1 tracks each one through every frame. And the output covers exactly those regions. | Scrub slider 6s→12s; output pane shows covers following; timeline bars | SAM 3.1, every frame | 300 ms | `track_final.json; redact.json` |
-| a4 | With Spark in the loop, three of four were found. Then I re-ran the whole pipeline three times: discovery passed every run. | Stat card: 0/4 → 3/4, small line 'missed: delivery-box label' | three of four, missed | 600 ms | `heldout_results.md: baseline+Spark 3/4, L1 missed` |
-| f1 | Then code checks the work. Veil decodes its own output and confirms the covers are really there. | Findings rows: 'cover verified in decoded output on all 557 masked frames' | decodes its own output | 250 ms | `audit.json` |
-| f1b | It re-reads the output with local OCR, and runs a face detector on sampled frames. | Checks listed panel: RAN rows | local OCR, face detector | 250 ms | `audit.json checks` |
-| f2 | And models make mistakes. Here, SAM put the name mask on a block of code. | Zoom on Mask check table: REJECTED row | mistakes | 200 ms | `verify.json` |
-| f3 | Local OCR read the mask, found code instead of the name Spark claimed, and threw it out. | Highlight OCR text 'def total(items)' vs claimed 'KULKARNI' | threw it out | 500 ms | `verify.json rejected spark-name-overlay-label:0` |
-| v1 | Spoken numbers too. Muse Voice Transcribe hears a phone number read out in Hindi, and Veil mutes it. | c3 UI (?run=c3): transcript in Devanagari, red mute bar on timeline | Hindi, mutes it | 250 ms | `runs-postgate/c3 listen.json, redact.json` |
-| v2 | Then it transcribes the output again. No digit run left. | Findings row: 're-transcription of the output found no phone-like digit run' | again | 300 ms | `c3 audit.json` |
-| v3 | But Voice still gets digits wrong, and the mute window met my limit in only one of three runs. | Callout on garbled digits; small card 'over-cover 2.85 s · limit 2.5 s' | wider than my own limit | 600 ms | `gate/postgate/GATE_RESULT.md G4b` |
-| r1 | That's the point. Veil never says a video is safe. | Headline panel: 'unresolved finding(s). Review them before sharing.' | never says | 250 ms | `DemoApp headline` |
-| r2 | Every item is covered, unresolved, or not checked. And it tells you why. | Findings table: COVERED / UNRESOLVED / NOT_CHECKED rows with reasons | covered, unresolved, not checked | 400 ms | `audit.json statuses` |
-| r2b | In this run, two items are unresolved: a plate track with gaps, and a face-like region. Nothing was left unchecked. | Zoom: UNRESOLVED rows (red) and NOT_CHECKED rows (amber) with reasons | two, Eight | 400 ms | `runs-postgate/c2 audit.json` |
-| r3 | I held myself to that too. I wrote a test gate before running it. It failed. And false flags still fail two of three re-runs. It's all in the repo. | GATE_RESULT.md FAIL table → post-gate table (G2 PASS post-gate, G4b FAIL) | failed, post-gate, still fails | 600 ms | `gate/GATE_RESULT.md; gate/postgate/GATE_RESULT.md` |
-| u1 | Every model call is on a ledger. Seven hundred and fifty-one calls, about two dollars forty per clip. | Ledger section of the live site: per-model calls, latency, cost | ledger | 400 ms | `eval/repeats/summary.json` |
-| c0 | Try it live, read the receipt, and decide before you post. | Terminal: 'veil run clip.mp4 --run-id demo' then receipt | decide | 300 ms | `veil/src/veil/cli.py` |
-| c1 | Models propose. Code decides. Veil. Built solo, with Muse Spark, SAM 3.1, and Muse Voice. | Outro: Veil wordmark, three model chips, repo URL, footage attribution | Models propose, Code decides | 1200 ms | `README` |
+| h1 | This clip tells a stranger my name, my building, and my phone number. | c2 input full-bleed; kinetic NAME / BUILDING / NUMBER | name, building, phone number | 400 ms | `runs-rep/r1/c2 input; c3 audio` |
+| h2 | All fictional. But creators post clips like this every day, and nobody re-watches every frame. | Chip: fictional data, composited clip | every frame | 300 ms | `gate/GATE.md (composited clips)` |
+| i1 | In these twenty-five seconds, a full name is on screen for twenty-three seconds. A flat number, for twenty-two. | Two exposure bars over the clip: name 23.3 s, flat number 22.3 s | twenty-three, twenty-two | 400 ms | `runs-rep/r1/c2 manifest: frames 22-603 and 47-603 at 25 fps` |
+| p1 | Face and plate detectors flag none of it. On my test clips, a fixed list found zero of four planted leaks. | Card: Face and plate detectors 0 / 4 | none of it, zero of four | 300 ms | `eval/results/final/heldout_results.md` |
+| p2 | Veil found three of four on its first run, and all four in two of three full re-runs. | Card: Veil 3 / 4 then 4 / 4 in 2 of 3 re-runs | all four | 500 ms | `gate/GATE_RESULT.md; gate/repeats/r1-r3` |
+| a1 | Here's the live product. Veil asks one question: what, in this video, could identify you? | Live site hero, drag the before/after divider | identify you | 300 ms | `thecodekaizen.github.io/veil` |
+| a2 | Muse Spark looks at keyframes and proposes candidates, each with a reason. The notification shows a full name. The gold plate shows a surname and a flat number. | Desk: Spark evidence frames + callouts quoting the model's why text | Muse Spark, reason | 250 ms | `runs-rep/r1/c2 discover.json why_identifying` |
+| a3 | SAM 3.1 tracks each one through every frame, and the export covers exactly those regions. | Desk: click a track, covers follow in the export | SAM 3.1, every frame | 300 ms | `track_final.json; redact.json` |
+| f1 | Then code checks the work. Veil decodes its own export and verifies the cover on every masked frame. | Desk findings: cover verified in decoded output on all 557 masked frames | checks the work | 300 ms | `runs-rep/r1/c2 audit.json` |
+| f2 | Models make mistakes. Here, SAM put the name mask on a block of code. | Mask check: REJECTED rows | mistakes | 200 ms | `runs-rep/r1/c2 verify.json` |
+| f3 | Local OCR read the mask, found code instead of the name Spark claimed, and threw it out. | OCR text 'def total(items)' vs claimed 'KULKARNI' | threw it out | 400 ms | `runs-rep/r1/c2 verify.json rejected x3` |
+| n1 | And if black boxes ruin the shot, switch to natural. Veil re-renders the text with fictional names, then runs the same OCR audit to check the real ones are gone. | Desk: Covers to Natural toggle; divider across the notification: Rohan Kulkarni becomes Aarav Sharma, KULKARNI 12 becomes SHARMA 87 | natural, fictional names | 400 ms | `runs-rep/r1/c2 natural.json (audit COVERED, 0 residual words)` |
+| v1 | Spoken numbers too. Muse Voice Transcribe hears a phone number said in Hindi. Veil mutes it, then transcribes the export again to confirm. | Desk c3: Devanagari transcript, mute bar, COVERED spoken number | Hindi, mutes it | 400 ms | `runs-rep/r1/c3 listen.json, audit.json` |
+| g1 | Discovery can also run on open weights. Muse Glimmer runs right on this laptop, so for this step the frames never leave the device. On this clip it found both leaks, and left the code panel alone. | Glimmer: llama-server on the laptop, its proposals on c2 keyframes | open weights, never leave, both leaks | 400 ms | `runs-glimmer/c2s; gate/glimmer; eval/glimmer/summary.md` |
+| r1 | Every finding ends as covered, unresolved, or not checked. Veil never gives a clean bill of health. It shows you what's left to review. | Desk verdict banner and Unresolved filter | what's left to review | 300 ms | `runs-rep/r1/c2 audit.json` |
+| e1 | And I measured it: three full re-runs with every check on, seven hundred and fifty-one logged model calls, about two dollars forty per clip. The full results, including what still fails, are in the repo. | Live site: ledger, then results table | measured it, what still fails | 400 ms | `eval/repeats/summary.json; gate/` |
+| c0 | Try it live, read the receipt, and decide before you post. | Live site final CTA, URL chip | decide | 300 ms | `thecodekaizen.github.io/veil` |
+| c1 | Veil. Models propose. Code decides. | Outro: wordmark, model chips, URLs, credits | Code decides | 1200 ms | `README` |
 
 ## Alternative hooks
 - **B:** "Here's what a stranger learns from twenty-five seconds of my street." (on screen: findings ticking in)

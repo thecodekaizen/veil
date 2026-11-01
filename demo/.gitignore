@@ -19,3 +19,4 @@ voice/takes/
 voice/reference.wav
 capture/out/
 __pycache__/
+.venv-kokoro/

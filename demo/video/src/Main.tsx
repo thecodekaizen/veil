@@ -2,10 +2,10 @@ import { Audio, Video } from "@remotion/media";
 import { AbsoluteFill, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { Background } from "./components/Background";
 import { Captions } from "./components/Captions";
-import { Callout, Chip, KineticTitle, StatCard } from "./components/Cards";
+import { Callout, Chip, KineticTitle } from "./components/Cards";
 import { Window, type CursorKey, type ZoomKey } from "./components/Window";
 import flows from "./data/flows2.json";
-import wave from "../public/c3_wave.json";
+import glimmer from "./data/glimmer.json";
 import { C, EASE, FPS, T, at, body, clamp, display, emph, mono } from "./theme";
 
 type Box = [number, number, number, number];
@@ -63,91 +63,121 @@ const Hook: React.FC = () => {
   );
 };
 
-const Tile: React.FC<{ at: number; label: string; children: React.ReactNode }> = ({ at: a, label, children }) => {
+// v3 scenes. Every number is from a committed artifact (see demo/script.md evidence column).
+const ImpactCard: React.FC = () => {
   const frame = useCurrentFrame();
-  const p = interpolate(frame, [a, a + 12], [0, 1], { ...clamp, easing: EASE });
+  const o = at("i1");
+  const bars = [
+    { label: "Full name", sample: "“Rohan Kulkarni”", secs: 23.3, at: emph("i1", "twenty-three") - o },
+    { label: "Surname + flat number", sample: "“KULKARNI — 12”", secs: 22.3, at: emph("i1", "twenty-two") - o },
+  ];
   return (
-    <div style={{ width: 540, opacity: p, translate: `0px ${interpolate(p, [0, 1], [40, 0])}px` }}>
-      <div style={{ width: 540, height: 340, borderRadius: 18, overflow: "hidden", border: `1px solid ${C.line}`, position: "relative", background: C.panel, boxShadow: "0 30px 80px rgba(0,0,0,0.5)" }}>{children}</div>
-      <div style={{ fontFamily: body, fontWeight: 600, fontSize: 40, color: C.text, marginTop: 22, textAlign: "center" }}>{label}</div>
-    </div>
+    <AbsoluteFill>
+      <AbsoluteFill style={{ opacity: 0.16, filter: "blur(2px)" }}><Video src={staticFile("clips/c2_input.mp4")} muted trimBefore={5 * FPS} style={{ width: 1920, height: 1080 }} /></AbsoluteFill>
+      <AbsoluteFill style={{ background: "linear-gradient(90deg, rgba(11,13,16,0.92) 0%, rgba(11,13,16,0.7) 100%)" }} />
+      <AbsoluteFill style={{ justifyContent: "center", padding: "0 180px", gap: 54 }}>
+        <div style={{ fontFamily: display, fontWeight: 700, fontSize: 84, color: C.text, opacity: interpolate(frame, [0, 10], [0, 1], clamp) }}>On screen, in a 25-second clip:</div>
+        {bars.map((b) => {
+          const p = interpolate(frame, [b.at, b.at + 26], [0, b.secs / 25], { ...clamp, easing: EASE });
+          return (
+            <div key={b.label} style={{ display: "grid", gap: 14, opacity: interpolate(frame, [b.at - 6, b.at + 4], [0, 1], clamp) }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontFamily: body, fontSize: 40, color: C.text }}>
+                <span><b>{b.label}</b> <span style={{ color: C.dim, fontFamily: mono, fontSize: 32 }}>{b.sample}</span></span>
+                <span style={{ fontFamily: mono, color: C.amber }}>{(p * 25).toFixed(1)} s</span>
+              </div>
+              <div style={{ height: 22, borderRadius: 11, background: "rgba(255,255,255,0.08)", overflow: "hidden" }}>
+                <div style={{ width: `${p * 100}%`, height: "100%", background: C.amber, borderRadius: 11 }} />
+              </div>
+            </div>
+          );
+        })}
+        <div style={{ fontFamily: mono, fontSize: 24, color: C.dim }}>Measured from Veil's track spans on the real run (runs-rep/r1/c2). Fictional data.</div>
+      </AbsoluteFill>
+    </AbsoluteFill>
   );
 };
 
-/** Crop of a 960x540 clip to box b, filling a 540x340 tile. */
-const Crop: React.FC<{ src: string; b: Box }> = ({ src, b }) => {
-  const s = Math.min(540 / b[2], 340 / b[3]) * 0.8;
-  return (
-    <div style={{ position: "absolute", left: 270 - (b[0] + b[2] / 2) * s, top: 170 - (b[1] + b[3] / 2) * s, width: 960 * s, height: 540 * s }}>
-      <Video src={staticFile(src)} muted style={{ width: 960 * s, height: 540 * s }} trimBefore={8 * FPS} />
-    </div>
-  );
-};
-
-const Triptych: React.FC = () => {
+const DetectorsCard: React.FC = () => {
   const frame = useCurrentFrame();
-  const o = at("h3");
-  const sp = wave.span as [number, number];
+  const o = at("p1");
+  const show = (f: number) => ({ opacity: interpolate(frame, [f, f + 10], [0, 1], clamp), translate: `0px ${interpolate(frame, [f, f + 14], [24, 0], { ...clamp, easing: EASE })}px` });
+  const zeroF = emph("p1", "zero of four") - o, veilF = at("p2") - o, allF = emph("p2", "all four") - o;
   return (
     <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
-      <div style={{ display: "flex", gap: 50 }}>
-        <Tile at={wordAt("h3", "parcel") - o} label="a parcel label"><Crop src="clips/c1_input.mp4" b={[40, 372, 230, 150]} /></Tile>
-        <Tile at={wordAt("h3", "society") - o} label="a society board"><Crop src="clips/c1_input.mp4" b={[620, 40, 320, 70]} /></Tile>
-        <Tile at={wordAt("h3", "number") - o} label="a number, spoken">
-          <svg width="540" height="340">
-            {wave.peaks.map((pk, i) => {
-              const t = (i / wave.peaks.length) * wave.duration_s;
-              const inSpan = t >= sp[0] && t <= sp[1];
-              const h = Math.max(4, pk * 280 * interpolate(frame, [wordAt("h3", "number") - o, wordAt("h3", "number") - o + 20], [0, 1], clamp));
-              return <rect key={i} x={20 + i * 2.5} y={170 - h / 2} width={1.6} height={h} fill={inSpan ? C.amber : C.dim} />;
-            })}
-          </svg>
-        </Tile>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, width: 1560 }}>
+        <div style={{ padding: 48, borderRadius: 28, background: C.panel, border: `1px solid ${C.line}`, ...show(0) }}>
+          <div style={{ fontFamily: mono, fontSize: 30, color: C.dim }}>Face & plate detectors</div>
+          <div style={{ fontFamily: display, fontWeight: 700, fontSize: 200, lineHeight: 1.05, color: C.dim, ...show(zeroF) }}>0 / 4</div>
+          <div style={{ fontFamily: body, fontSize: 34, color: C.dim, ...show(zeroF) }}>planted leaks found on held-out clips</div>
+        </div>
+        <div style={{ padding: 48, borderRadius: 28, background: C.panel, border: `2px solid ${C.amber}`, boxShadow: "0 0 80px rgba(232,176,74,0.12)", ...show(veilF) }}>
+          <div style={{ fontFamily: mono, fontSize: 30, color: C.amber }}>Veil (Muse Spark + SAM 3.1)</div>
+          <div style={{ fontFamily: display, fontWeight: 700, fontSize: 200, lineHeight: 1.05, color: C.text }}>
+            {frame < allF ? "3 / 4" : "4 / 4"}
+          </div>
+          <div style={{ fontFamily: body, fontSize: 34, color: C.text }}>{frame < allF ? "first (frozen) run" : "in 2 of 3 full re-runs · 3/4 in the third"}</div>
+        </div>
+      </div>
+      <div style={{ position: "absolute", bottom: 150, fontFamily: mono, fontSize: 24, color: C.dim }}>Sources: eval/results/final/heldout_results.md · gate/GATE_RESULT.md · gate/repeats/</div>
+    </AbsoluteFill>
+  );
+};
+
+type GlimmerData = { frames: number; frames_ok: number; median_s: number | null; tok_s: number | null; proposals: { frame: number; concept: string; why: string }[]; result: string | null; quant: string };
+const GlimmerScene: React.FC<{ g: GlimmerData }> = ({ g }) => {
+  const frame = useCurrentFrame();
+  const o = at("g1");
+  const show = (f: number) => ({ opacity: interpolate(frame, [f, f + 10], [0, 1], clamp), translate: `0px ${interpolate(frame, [f, f + 14], [20, 0], { ...clamp, easing: EASE })}px` });
+  const neverF = emph("g1", "never leave") - o;
+  return (
+    <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
+      <div style={{ width: 1640, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 36 }}>
+        <div style={{ borderRadius: 20, background: "#0E1014", border: `1px solid ${C.line}`, padding: "28px 32px", fontFamily: mono, fontSize: 24, lineHeight: 1.6, color: C.dim, ...show(0) }}>
+          <div style={{ color: C.amber, marginBottom: 12 }}>● this laptop · Apple M4 Pro · no upload</div>
+          <div><span style={{ color: C.green }}>$ </span><span style={{ color: C.text }}>llama-server -m Muse-Glimmer-30B ({g.quant})</span></div>
+          <div style={{ color: C.text }}>  --mmproj vision  --port 8088</div>
+          <div><span style={{ color: C.green }}>$ </span><span style={{ color: C.text }}>VEIL_DISCOVER=glimmer veil run c2.mp4</span></div>
+          <div style={{ marginTop: 14 }}>{g.frames_ok} of {g.frames} keyframes answered (rest timed out) · median {g.median_s?.toFixed(0)} s each · {g.tok_s?.toFixed(1)} tokens/s</div>
+          <div>same prompt, same JSON schema, same scorer as hosted Spark</div>
+          {g.result && <div style={{ marginTop: 14, color: C.text }}>{g.result}</div>}
+        </div>
+        <div style={{ display: "grid", gap: 14, alignContent: "start" }}>
+          <div style={{ fontFamily: display, fontWeight: 700, fontSize: 56, color: C.text, ...show(4) }}>Muse Glimmer proposed, locally:</div>
+          {g.proposals.slice(0, 4).map((p, i) => (
+            <div key={i} style={{ padding: "16px 20px", borderRadius: 14, background: C.panel, border: `1px solid ${C.amber}`, ...show(14 + i * 8) }}>
+              <div style={{ fontFamily: body, fontWeight: 700, fontSize: 30, color: C.amber }}>{p.concept} <span style={{ fontFamily: mono, fontSize: 22, color: C.dim }}>· frame {p.frame}</span></div>
+              <div style={{ fontFamily: body, fontSize: 24, color: C.text }}>“{p.why}”</div>
+            </div>
+          ))}
+          <div style={{ fontFamily: mono, fontSize: 26, color: C.green, ...show(neverF) }}>keyframes processed on-device for this stage</div>
+        </div>
       </div>
     </AbsoluteFill>
   );
 };
 
-const FixedList: React.FC = () => {
-  const o = at("p1");
-  const p2 = at("p2") - o;
-  const frame = useCurrentFrame();
-  const listOut = interpolate(frame, [p2 - 6, p2], [1, 0], clamp);
-  return (
-    <AbsoluteFill>
-      <AbsoluteFill style={{ opacity: listOut }}>
-        <KineticTitle size={70} top={180} words={[{ text: "Most tools look for a fixed list:", at: 0 }]} />
-        <KineticTitle size={120} words={["Faces.", "License plates.", "Screens.", "Documents."].map((w) => ({ text: w, at: wordAt("p1", w.split(" ")[0]) - o }))} />
-      </AbsoluteFill>
-      <Sequence from={p2}>
-        <StatCard value="0 / 4" label="planted leaks found by the fixed list · held-out clips" at={0} />
-      </Sequence>
-    </AbsoluteFill>
-  );
-};
-
-// Zoom rectangles are in capture pixels (2560x1440), read off frames of each Playwright capture of the live site.
 const STAGE_TRACKS: Box = [160, 120, 1390, 1100];
 const FINDINGS_COL: Box = [1585, 770, 815, 670];
 
 export const Main: React.FC = () => {
   const sc = (a: string, b: string | null) => ({ from: Math.max(0, at(a)), durationInFrames: (b ? at(b) : T.total) - Math.max(0, at(a)) });
   const S = {
-    hook: sc("h1", "h3"), trip: sc("h3", "p1"), list: sc("p1", "a1"), hero: sc("a1", "a2"), aha: sc("a2", "a3"), tracks: sc("a3", "a4"),
-    stat: sc("a4", "f1"), find: sc("f1", "f1b"), checks: sc("f1b", "f2"), mask: sc("f2", "v1"), voice: sc("v1", "r1"),
-    pay: sc("r1", "r2b"), pay2: sc("r2b", "r3"), gate: sc("r3", "u1"), ledger: sc("u1", "c0"), cta: sc("c0", "c1"), outro: sc("c1", null),
+    hook: sc("h1", "i1"), impact: sc("i1", "p1"), det: sc("p1", "a1"), hero: sc("a1", "a2"), aha: sc("a2", "a3"), tracks: sc("a3", "f1"),
+    find: sc("f1", "f2"), mask: sc("f2", "n1"), nat: sc("n1", "v1"), voice: sc("v1", "g1"), glim: sc("g1", "r1"), pay: sc("r1", "e1"), ev: sc("e1", "c0"),
+    cta: sc("c0", "c1"), outro: sc("c1", null),
   };
   const allEmph = (T as unknown as { emph: Record<string, Record<string, number>> }).emph;
   const emphasis = Object.values(allEmph).flatMap((o) => Object.keys(o));
   const rel = (f: number, s: { from: number }) => f - s.from;
-  const sec = (id: string, s: { from: number }) => (at(id) - s.from) / FPS; // scene-local seconds where a line starts
+  const sec = (id: string, s: { from: number }) => (at(id) - s.from) / FPS;
+  const evSplit = wordAt("e1", "full") - S.ev.from;
 
   return (
     <AbsoluteFill style={{ backgroundColor: C.bg }}>
       <Background />
       <Sequence name="Hook" {...S.hook}><Hook /></Sequence>
-      <Sequence name="Triptych" {...S.trip}><Triptych /></Sequence>
-      <Sequence name="Fixed list" {...S.list}><FixedList /></Sequence>
+      <Sequence name="Impact" {...S.impact}><ImpactCard /></Sequence>
+      <Sequence name="Detectors vs Veil" {...S.det}><DetectorsCard /></Sequence>
 
       <Sequence name="Site hero" {...S.hero}>
         <FlowScene flow="hero" trim={1.0} len={S.hero.durationInFrames}
@@ -156,7 +186,6 @@ export const Main: React.FC = () => {
           <Chip text="thecodekaizen.github.io/veil · real pipeline output" at={0} x={150} y={14} color={C.amber} />
         </FlowScene>
       </Sequence>
-
       <Sequence name="Aha: discovery" {...S.aha}>
         <FlowScene flow="desk_play" trim={1.1} len={S.aha.durationInFrames} zoom={[{ t: 1.1, box: STAGE_TRACKS }]}>
           <Sequence from={rel(wordAt("a2", "notification"), S.aha)}>
@@ -164,9 +193,6 @@ export const Main: React.FC = () => {
           </Sequence>
           <Sequence from={rel(wordAt("a2", "gold"), S.aha)}>
             <Callout x={1210} y={520} at={0} text="Spark: black gold nameplate" sub="“Contains surname Kulkarni with number, potentially vehicle plate or personal identifier”" />
-          </Sequence>
-          <Sequence from={rel(at("a2b"), S.aha)}>
-            <Chip text="fixed classes: face · plate · screen · document" at={0} x={150} y={14} />
           </Sequence>
         </FlowScene>
       </Sequence>
@@ -176,16 +202,8 @@ export const Main: React.FC = () => {
           <Chip text="SAM 3.1 masks → covers in the exported file" at={6} x={150} y={14} color={C.amber} />
         </FlowScene>
       </Sequence>
-      <Sequence name="Stat 0/4 -> 3/4" {...S.stat}>
-        <StatCard value="0 / 4" label="fixed list" next={{ value: "3 / 4", label: "with Muse Spark", at: emph("a4", "three out of four") - at("a4") }}
-          note={{ text: "discovery passed in 3 of 3 full re-runs (4/4 twice) · gate/repeats/", at: wordAt("a4", "then") - at("a4") }} />
-      </Sequence>
-
       <Sequence name="Verify: covers" {...S.find}>
         <FlowScene flow="desk_checks" trim={1.0} len={S.find.durationInFrames} zoom={[{ t: 1.0, box: FINDINGS_COL }]} />
-      </Sequence>
-      <Sequence name="Verify: checks" {...S.checks}>
-        <FlowScene flow="desk_checks" trim={5.0} len={S.checks.durationInFrames} zoom={[{ t: 5.0, box: [160, 100, 2240, 720] }]} />
       </Sequence>
       <Sequence name="Mask check" {...S.mask}>
         <FlowScene flow="desk_mask" trim={2.6} len={S.mask.durationInFrames}
@@ -196,33 +214,29 @@ export const Main: React.FC = () => {
           </Sequence>
         </FlowScene>
       </Sequence>
-
+      <Sequence name="Natural export" {...S.nat}>
+        <FlowScene flow="desk_natural" trim={3.6} len={S.nat.durationInFrames}
+          zoom={[{ t: 3.6, box: [160, 740, 1400, 700] }]}
+          cursor={[{ t: 3.6, x: 1100, y: 1100 }, { t: 4.74, x: 387, y: 808, click: true }, { t: 5.9, x: 2700, y: 900 }]}>
+          <Sequence from={rel(wordAt("n1", "fictional"), S.nat)}>
+            <Callout x={1220} y={170} at={0} text="Natural export · audited" sub="“Rohan Kulkarni” → “Aarav Sharma” · “KULKARNI — 12” → “SHARMA - 87”. OCR on the natural file: 0 original words in 53 frames." />
+          </Sequence>
+        </FlowScene>
+      </Sequence>
       <Sequence name="Voice" {...S.voice}>
         <FlowScene flow="desk_voice" trim={2.6} len={S.voice.durationInFrames}
-          zoom={[{ t: 2.6, box: [160, 860, 1400, 580] }, { t: 2.6 + sec("v2", S.voice) * 0.6, box: [1585, 960, 815, 380] }, { t: 2.6 + sec("v3", S.voice) * 0.6, box: [160, 1120, 1400, 320] }]}>
-          <Sequence from={rel(at("v3"), S.voice)}>
-            <Callout x={1100} y={150} at={0} color={C.red} text="Gate G4b: passes in 1 of 3 runs" sub="Heard 9877651543210 for 98765 43210. Mute window: 1.63 s over in this run, 3.13 s in the other two (limit 2.5 s)." />
-          </Sequence>
-        </FlowScene>
+          zoom={[{ t: 2.6, box: [160, 860, 1400, 580] }, { t: 2.6 + (wordAt("v1", "mutes") - S.voice.from) / FPS * 0.6, box: [1585, 960, 815, 380] }]} />
       </Sequence>
-
+      <Sequence name="Open weights (Glimmer)" {...S.glim}><GlimmerScene g={glimmer as GlimmerData} /></Sequence>
       <Sequence name="Payoff: verdict" {...S.pay}>
         <FlowScene flow="desk_verdict" trim={3.6} len={S.pay.durationInFrames}
-          zoom={[{ t: 3.6, box: [160, 480, 2240, 280], pad: 1.1 }, { t: 3.6 + sec("r2", S.pay) * 0.5, box: null }]}>
-          <Sequence from={rel(wordAt("r1", "never"), S.pay)}>
-            <Chip text="never “safe” · COVERED · UNRESOLVED · NOT_CHECKED" at={0} x={150} y={14} color={C.amber} />
-          </Sequence>
-        </FlowScene>
+          zoom={[{ t: 3.6, box: [160, 480, 2240, 280], pad: 1.1 }, { t: 3.6 + (wordAt("r1", "shows") - S.pay.from) / FPS * 0.5, box: FINDINGS_COL }]} />
       </Sequence>
-      <Sequence name="Payoff: unresolved" {...S.pay2}>
-        <FlowScene flow="desk_verdict" trim={7.7} len={S.pay2.durationInFrames} zoom={[{ t: 7.7, box: FINDINGS_COL }]} />
+      <Sequence name="Evidence: ledger" from={S.ev.from} durationInFrames={evSplit}>
+        <FlowScene flow="site_ledger" trim={3.1} len={evSplit} zoom={[{ t: 3.1, box: [160, 160, 2240, 840], pad: 1.05 }]} />
       </Sequence>
-
-      <Sequence name="Gate (live site)" {...S.gate}>
-        <FlowScene flow="site_results" trim={2.2} len={S.gate.durationInFrames} zoom={[{ t: 2.2, box: [162, 120, 2236, 1000], pad: 1.04 }]} />
-      </Sequence>
-      <Sequence name="Ledger (live site)" {...S.ledger}>
-        <FlowScene flow="site_ledger" trim={3.1} len={S.ledger.durationInFrames} zoom={[{ t: 3.1, box: [160, 160, 2240, 840], pad: 1.05 }]} />
+      <Sequence name="Evidence: results" from={S.ev.from + evSplit} durationInFrames={S.ev.durationInFrames - evSplit}>
+        <FlowScene flow="site_results" trim={2.2} len={S.ev.durationInFrames - evSplit} zoom={[{ t: 2.2, box: [162, 120, 2236, 1000], pad: 1.04 }]} />
       </Sequence>
       <Sequence name="CTA (live site)" {...S.cta}>
         <FlowScene flow="site_cta" trim={1.9} len={S.cta.durationInFrames} zoom={[{ t: 1.9, box: null }]}
@@ -240,22 +254,21 @@ export const Main: React.FC = () => {
 
 const Outro: React.FC = () => {
   const frame = useCurrentFrame();
-  const o = at("c1");
   const p = (f: number) => ({ opacity: interpolate(frame, [f, f + 12], [0, 1], clamp), translate: `0px ${interpolate(frame, [f, f + 14], [20, 0], { ...clamp, easing: EASE })}px` });
   return (
     <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", gap: 26 }}>
       <div style={{ fontFamily: mono, fontSize: 40, color: C.dim, ...p(0) }}>Models propose. <span style={{ color: C.amber }}>Code decides.</span></div>
-      <div style={{ fontFamily: display, fontWeight: 700, fontSize: 220, color: C.text, lineHeight: 1, ...p(wordAt("c1", "veil") - o) }}>Veil</div>
-      <div style={{ display: "flex", gap: 18, ...p(wordAt("c1", "muse") - o) }}>
-        {["Muse Spark 1.3", "SAM 3.1", "Muse Voice Transcribe"].map((m) => (
+      <div style={{ fontFamily: display, fontWeight: 700, fontSize: 220, color: C.text, lineHeight: 1, ...p(0) }}>Veil</div>
+      <div style={{ display: "flex", gap: 18, ...p(8) }}>
+        {["Muse Spark 1.3", "SAM 3.1", "Muse Voice Transcribe", "Muse Glimmer (local)"].map((m) => (
           <div key={m} style={{ fontFamily: mono, fontSize: 32, color: C.amber, border: `1px solid ${C.amber}`, borderRadius: 999, padding: "8px 22px" }}>{m}</div>
         ))}
       </div>
-      <div style={{ fontFamily: body, fontSize: 44, fontWeight: 600, color: C.text, marginTop: 16, ...p(wordAt("c1", "muse") - o + 10) }}>thecodekaizen.github.io/veil</div>
-      <div style={{ fontFamily: mono, fontSize: 30, color: C.dim, ...p(wordAt("c1", "muse") - o + 16) }}>github.com/thecodekaizen/veil</div>
+      <div style={{ fontFamily: body, fontSize: 44, fontWeight: 600, color: C.text, marginTop: 16, ...p(14) }}>thecodekaizen.github.io/veil</div>
+      <div style={{ fontFamily: mono, fontSize: 30, color: C.dim, ...p(20) }}>github.com/thecodekaizen/veil</div>
       <div style={{ position: "absolute", bottom: 150, width: 1500, textAlign: "center", fontFamily: body, fontSize: 22, lineHeight: 1.4, color: C.dim, ...p(10) }}>
         Street footage: Subhashish Panigrahi (Cuttack) and Fowler&amp;fowler (Delhi), Wikimedia Commons, CC BY-SA 3.0, composited with fictional graphics.
-        Voiceover: synthetic clone of the author's own voice (Chatterbox, watermarked). All results from committed run artifacts.
+        Narration: AI voice (Kokoro TTS). All results from committed run artifacts.
       </div>
     </AbsoluteFill>
   );

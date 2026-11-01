@@ -1,0 +1,45 @@
+{
+ "frames": 9,
+ "frames_ok": 5,
+ "median_s": 559.0,
+ "tok_s": 5.0,
+ "proposals": [
+  {
+   "frame": 150,
+   "concept": "personal name notification",
+   "why": "Shows name Rohan Kulkarni and parcel message, revealing identity"
+  },
+  {
+   "frame": 150,
+   "concept": "surname overlay text",
+   "why": "Displays KULKARNI — 12, potentially identifying residence or building"
+  },
+  {
+   "frame": 225,
+   "concept": "Message notification with name Rohan Kulkarni",
+   "why": "Displays personal name Rohan Kulkarni and parcel alert, linking identity to the filmed scene"
+  },
+  {
+   "frame": 225,
+   "concept": "KULKARNI — 12 label",
+   "why": "Shows surname Kulkarni with number 12, suggesting residence or apartment identifier"
+  },
+  {
+   "frame": 375,
+   "concept": "Personal name in message notification",
+   "why": "Shows 'Rohan Kulkarni' and 'Your parcel is at the gate', revealing a real name and a location-specific delivery alert"
+  },
+  {
+   "frame": 375,
+   "concept": "Surname and house number on car window",
+   "why": "Displays 'KULKARNI — 12' on the vehicle, indicating family name and a residence identifier"
+  },
+  {
+   "frame": 450,
+   "concept": "name overlay",
+   "why": "Displays 'KULKARNI — 12' which is a personal name/identifier that could link to creator or location"
+  }
+ ],
+ "result": "on c2: 2/2 planted leaks found, code-panel control not flagged",
+ "quant": "unsloth UD-Q3_K_XL GGUF"
+}
