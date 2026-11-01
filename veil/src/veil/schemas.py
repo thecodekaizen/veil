@@ -121,3 +121,54 @@ class ListenArtifact(Strict):
     transcript_text: str
     pii: list[SpokenPII]
     bleep_intervals: list[tuple[FiniteFloat, FiniteFloat]]
+
+
+Status = Literal['COVERED', 'UNRESOLVED', 'NOT_CHECKED']
+
+
+class RegionFrame(Strict):
+    frame_idx: int = Field(ge=0)
+    box: tuple[int, int, int, int]  # left, top, right, bottom of the applied cover, source pixels (padding included)
+
+
+class AppliedRegion(Strict):
+    concept_id: str
+    track_id: str
+    source: Literal['spark', 'baseline']
+    sam_prompt: str
+    frames: list[RegionFrame]
+
+
+class RedactArtifact(Strict):
+    """The region map actually applied to the output, so the audit never trusts model state."""
+    input_sha256: str
+    output_path: str
+    output_sha256: str
+    pad_px: int
+    action: Literal['cover']
+    regions: list[AppliedRegion]
+    muted_intervals: list[tuple[FiniteFloat, FiniteFloat]]
+
+
+class Check(Strict):
+    check_id: str
+    description: str
+    status: Literal['RAN', 'NOT_CHECKED']
+    detail: str = ''
+
+
+class Finding(Strict):
+    finding_id: str
+    kind: Literal['visual', 'audio', 'output_check']
+    label: str
+    source: Literal['spark', 'baseline', 'voice', 'ocr']
+    status: Status
+    reasons: list[str]
+    evidence: dict = Field(default_factory=dict)
+
+
+class AuditArtifact(Strict):
+    findings: list[Finding]
+    checks: list[Check]
+    concepts_without_masks: list[str]
+    limitations: list[str]

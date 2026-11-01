@@ -1,0 +1,68 @@
+{
+ "clip": "veil/artifacts/smoke-001/input.mp4 (synthetic, English, 1 clip)",
+ "frame_cover_threshold": 0.9,
+ "targets": {
+  "face_source_panel": {
+   "baseline_only": {
+    "frames": 180,
+    "mean_coverage": 0.3924,
+    "frames_covered_pct": 0.0
+   },
+   "baseline_plus_spark": {
+    "frames": 180,
+    "mean_coverage": 0.3932,
+    "frames_covered_pct": 0.0
+   }
+  },
+  "plate": {
+   "baseline_only": {
+    "frames": 180,
+    "mean_coverage": 0.9693,
+    "frames_covered_pct": 93.3
+   },
+   "baseline_plus_spark": {
+    "frames": 180,
+    "mean_coverage": 0.9693,
+    "frames_covered_pct": 93.3
+   }
+  },
+  "printed_phone": {
+   "baseline_only": {
+    "frames": 180,
+    "mean_coverage": 0.0,
+    "frames_covered_pct": 0.0
+   },
+   "baseline_plus_spark": {
+    "frames": 180,
+    "mean_coverage": 0.9778,
+    "frames_covered_pct": 97.8
+   }
+  }
+ },
+ "audio": {
+  "spoken_span_s": [
+   4.9,
+   9.371
+  ],
+  "muted_intervals_s": [
+   [
+    4.0,
+    10.0
+   ]
+  ],
+  "span_covered_pct": 100.0,
+  "over_cover_s": 1.53,
+  "detected_digits": [
+   "2025550146"
+  ],
+  "true_digits": "2025550146",
+  "precision": "window",
+  "reference": "number span: onset 4.9 s energy-based, end from fixture speech_end_ms",
+  "note": "baseline has no audio component; audio is Veil-only"
+ },
+ "caveats": [
+  "One synthetic clip; targets are rendered panels, not real footage. This is a development check, not the preregistered gate (gate NOT RUN).",
+  "face_source_panel is the whole rendered portrait panel; the models cover the face inside it, so ~0.39 cover is a ground-truth-definition effect, not a measured miss of the face.",
+  "The concept set was developed while looking at this clip; numbers are not held-out evidence."
+ ]
+}

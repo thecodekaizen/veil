@@ -33,3 +33,7 @@ veil/artifacts/private/
 # Gate clips and extracted frames (staged-set media stays local)
 gate/clips/
 gate/frames/
+
+# per-run outputs (media, model responses); only runs/demo/ is committed
+runs/*
+!runs/demo/

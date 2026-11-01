@@ -3,6 +3,7 @@ import hashlib
 import json
 import shutil
 import subprocess
+import time
 from pathlib import Path
 
 import cv2
@@ -16,7 +17,7 @@ from veil.stages import discover as discover_stage
 from veil.stages import listen as listen_stage
 from veil.stages import track as track_stage
 
-STAGES = ['keyframes', 'discover', 'track', 'listen']
+STAGES = ['keyframes', 'discover', 'track', 'listen', 'redact', 'audit', 'report']
 BLEEP_PAD_S = 0.5  # chosen on the synthetic clip only; rationale in docs/decisions.md
 
 
@@ -85,6 +86,21 @@ def run(clip: Path, run_id: str, stages: list[str], runs_dir: Path = Path('runs'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(video), '-vn', '-ac', '1', '-ar', '24000',
                         '-c:a', 'pcm_s16le', str(wav)], check=True)
         _write(root, 'listen', listen_stage.run(wav, listen_stage.make_transcribe(c.api_key, ledger), bleep_pad_s))
+    if 'redact' in stages:
+        from veil.stages import redact as redact_stage
+        redact_stage.run(root)
+    if 'audit' in stages:
+        from veil.stages import audit as audit_stage
+        from veil.verification.ocr import inspect_text
+        cache = root / 'audit_cache'
+        transcribe = listen_stage.make_transcribe(c.api_key, ledger, name_prefix=f'audit-listen-{int(time.time())}')
+        audit_stage.run(root,
+                        lambda frames, fw, fh: inspect_text(frames, fw, fh, cache, include_text_rows=True),
+                        audit_stage.haar_faces,
+                        lambda wav: listen_stage.run(wav, transcribe, bleep_pad_s))
+    if 'report' in stages:
+        from veil import report
+        report.render(root)
     return root
 
 
@@ -116,4 +132,15 @@ def summarize(root: Path) -> str:
             lines.append(f'spoken PII: digits={p.normalized_value} {p.t_start:.2f}-{p.t_end:.2f}s '
                          f'precision={p.precision} mobile_pattern={p.mobile_pattern}')
         lines.append(f'bleep intervals (pad {lis.bleep_pad_s}s): {[(round(a, 2), round(b, 2)) for a, b in lis.bleep_intervals]}')
+    return '\n'.join(lines)
+
+
+def summarize_audit(root: Path) -> str:
+    from veil.schemas import AuditArtifact
+    if not (root / 'audit.json').exists():
+        return ''
+    a = AuditArtifact.model_validate_json((root / 'audit.json').read_text())
+    lines = ['', 'audit:']
+    lines += [f'  {f.status:11} {f.kind:12} {f.label[:34]:34} {f.reasons[0][:90]}' for f in a.findings]
+    lines += [f'  check {c.status:11} {c.check_id}: {c.detail[:80]}' for c in a.checks]
     return '\n'.join(lines)

@@ -26,7 +26,7 @@ def label(clip: Path = typer.Argument(..., exists=True, dir_okay=False),
 @app.command()
 def run(clip: Path = typer.Argument(..., exists=True, dir_okay=False),
         run_id: str = typer.Option(..., '--run-id'),
-        stages: str = typer.Option('keyframes,discover,track,listen', help='comma-separated: keyframes,discover,track,listen'),
+        stages: str = typer.Option('keyframes,discover,track,listen', help='comma-separated: keyframes,discover,track,listen,redact,audit,report'),
         runs_dir: Path = typer.Option(Path('runs')),
         bleep_pad: float = typer.Option(None, help='bleep padding in seconds (default: runner.BLEEP_PAD_S)')):
     """Run pipeline stages for CLIP; artifacts go to RUNS_DIR/RUN_ID/. Prints the concept table and spoken PII."""
@@ -36,7 +36,7 @@ def run(clip: Path = typer.Argument(..., exists=True, dir_okay=False),
     if bad:
         raise typer.BadParameter(f'unknown stages: {bad}')
     root = runner.run(clip, run_id, chosen, runs_dir, runner.BLEEP_PAD_S if bleep_pad is None else bleep_pad)
-    typer.echo(runner.summarize(root))
+    typer.echo(runner.summarize(root) + runner.summarize_audit(root))
 
 
 @app.command('debug-overlay')
