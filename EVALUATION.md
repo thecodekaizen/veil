@@ -41,6 +41,11 @@ Owner asked to spend more; `VEIL_SPARK_CAP=50`, SAM re-tracked every proposed co
 
 Findings: more Spark concepts bring more false flags, not more leaks found. The voiced-time refinement can under-cover when Voice mis-times digits (1 of 3 Voice runs); under-coverage is the worse failure for privacy, so `--refine-voiced` stays opt-in and is not recommended. SAM stream errors left 3 c2 concepts NOT_CHECKED (shown, not hidden). The demo uses the capped post-gate runs.
 
+### 3c. POST-GATE experiment 3: mask check also verifies cited proper names (`gate/repeats-v2/`, `eval/repeats-v2/`)
+Three fresh end-to-end runs (uncapped, logged SAM retries, all checks). G1 4/4 in all three (12 of 12). G2 PASS in all three (0, 1, 1 of 3);
+the c2 code-panel false flag no longer occurs. G4b FAIL in all three (3.13 s, 1.98 s with only 88% coverage, 3.13 s). NOT_CHECKED 4, 2, 2
+(SAM stream errors left after retries). 769 calls, est. $22.06. Same clips, fix designed after seeing failures.
+
 ## 4. Dev set (synthetic fixture, `eval/results/final/dev_results.md`)
 One synthetic clip, used for development and padding choice. Live re-run on 2026-11-01: all 8 visual findings COVERED, spoken number muted and re-transcription check ran, 0 faces in output samples.
 

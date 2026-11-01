@@ -1,0 +1,331 @@
+{
+ "verdict": "FAIL",
+ "criteria": {
+  "G1": {
+   "covered": 4,
+   "planted": 4,
+   "covered_not_in_baseline": 2,
+   "ok": true,
+   "rows": [
+    {
+     "clip": "c1",
+     "leak_id": "L1",
+     "concept": "delivery box with an address label",
+     "in_baseline": true,
+     "iou": 0.533,
+     "concept_id": "spark-parcel-address-label",
+     "ref_t_s": 12.0,
+     "frame": 302,
+     "matched": true,
+     "matched_concepts": [
+      "spark-parcel-address-label",
+      "spark-society-name-overlay"
+     ],
+     "matched_prompt": "parcel address label",
+     "g3": {
+      "frames_in_ranges": 501,
+      "mask_pct": 100.0,
+      "with_held_pct": 100.0
+     }
+    },
+    {
+     "clip": "c1",
+     "leak_id": "L4",
+     "concept": "society name board",
+     "in_baseline": false,
+     "iou": 0.982,
+     "concept_id": "spark-green-society-sign",
+     "ref_t_s": 19.8,
+     "frame": 496,
+     "matched": true,
+     "matched_concepts": [
+      "spark-green-building-sign",
+      "spark-green-sign-overlay",
+      "spark-green-society-sign",
+      "spark-green-text-box",
+      "spark-society-name-board",
+      "spark-society-name-sign"
+     ],
+     "matched_prompt": "green society sign",
+     "g3": {
+      "frames_in_ranges": 526,
+      "mask_pct": 100.0,
+      "with_held_pct": 100.0
+     }
+    },
+    {
+     "clip": "c2",
+     "leak_id": "L2",
+     "concept": "phone notification showing a name",
+     "in_baseline": true,
+     "iou": 0.979,
+     "concept_id": "spark-message-notification-banner",
+     "ref_t_s": 12.8,
+     "frame": 318,
+     "matched": true,
+     "matched_concepts": [
+      "spark-message-notification-banner",
+      "spark-name-overlay",
+      "spark-notification-banner",
+      "spark-text-overlay",
+      "spark-text-overlay-label"
+     ],
+     "matched_prompt": "message notification banner",
+     "g3": {
+      "frames_in_ranges": 276,
+      "mask_pct": 100.0,
+      "with_held_pct": 100.0
+     }
+    },
+    {
+     "clip": "c2",
+     "leak_id": "L3",
+     "concept": "door nameplate",
+     "in_baseline": false,
+     "iou": 0.992,
+     "concept_id": "spark-message-notification-banner",
+     "ref_t_s": 6.4,
+     "frame": 162,
+     "matched": true,
+     "matched_concepts": [
+      "spark-message-notification-banner",
+      "spark-name-overlay",
+      "spark-notification-banner",
+      "spark-text-overlay",
+      "spark-text-overlay-label"
+     ],
+     "matched_prompt": "message notification banner",
+     "g3": {
+      "frames_in_ranges": 551,
+      "mask_pct": 100.0,
+      "with_held_pct": 100.0
+     }
+    }
+   ]
+  },
+  "G2": {
+   "controls_matched": 1,
+   "controls": 3,
+   "ok": true,
+   "rows": [
+    {
+     "clip": "c1",
+     "control_id": "C1",
+     "description": "product logo badge",
+     "iou": 0.791,
+     "concept_id": "spark-zenith-building-sign",
+     "ref_t_s": 19.4,
+     "frame": 487,
+     "matched": true,
+     "matched_concepts": [
+      "spark-zenith-building-sign"
+     ],
+     "matched_prompt": "ZENITH building sign"
+    },
+    {
+     "clip": "c2",
+     "control_id": "C2",
+     "description": "code in an editor",
+     "iou": 0.0,
+     "concept_id": null,
+     "ref_t_s": null,
+     "frame": null,
+     "matched": false,
+     "matched_concepts": [],
+     "matched_prompt": null
+    },
+    {
+     "clip": "c3",
+     "control_id": "C3",
+     "description": "book cover",
+     "iou": 0.0,
+     "concept_id": null,
+     "ref_t_s": null,
+     "frame": null,
+     "matched": false,
+     "matched_concepts": [],
+     "matched_prompt": null
+    }
+   ]
+  },
+  "G3": {
+   "ok": true,
+   "rows": [
+    {
+     "clip": "c1",
+     "leak_id": "L1",
+     "concept_id": "spark-parcel-address-label",
+     "g3": {
+      "frames_in_ranges": 501,
+      "mask_pct": 100.0,
+      "with_held_pct": 100.0
+     }
+    },
+    {
+     "clip": "c1",
+     "leak_id": "L4",
+     "concept_id": "spark-green-society-sign",
+     "g3": {
+      "frames_in_ranges": 526,
+      "mask_pct": 100.0,
+      "with_held_pct": 100.0
+     }
+    },
+    {
+     "clip": "c2",
+     "leak_id": "L2",
+     "concept_id": "spark-message-notification-banner",
+     "g3": {
+      "frames_in_ranges": 276,
+      "mask_pct": 100.0,
+      "with_held_pct": 100.0
+     }
+    },
+    {
+     "clip": "c2",
+     "leak_id": "L3",
+     "concept_id": "spark-message-notification-banner",
+     "g3": {
+      "frames_in_ranges": 551,
+      "mask_pct": 100.0,
+      "with_held_pct": 100.0
+     }
+    }
+   ]
+  },
+  "G4a": {
+   "ok": true,
+   "rows": [
+    {
+     "clip": "c3",
+     "leak_id": "A1",
+     "label_span_s": [
+      9.655,
+      12.521
+     ],
+     "precision_method": "windowed",
+     "pii_precision": [
+      "window"
+     ],
+     "bleep_pad_s": 0.5,
+     "bleep_intervals": [
+      [
+       8.5,
+       14.5
+      ]
+     ],
+     "g4a_detected": true,
+     "detected_digits": "9876515432100",
+     "exact": false,
+     "edit_distance": 3,
+     "mobile_pattern": false,
+     "pii_span_s": [
+      9.0,
+      14.0
+     ],
+     "coverage_pct": 100.0,
+     "over_cover_s": 3.13,
+     "g4b_ok": false,
+     "paths": {
+      "run": "runs-rep2/r3/c3",
+      "track": "runs-rep2/r3/c3/track_final.json",
+      "listen": "runs-rep2/r3/c3/listen.json"
+     }
+    }
+   ]
+  },
+  "G4b": {
+   "ok": false,
+   "rows": [
+    {
+     "clip": "c3",
+     "leak_id": "A1",
+     "label_span_s": [
+      9.655,
+      12.521
+     ],
+     "bleep_intervals": [
+      [
+       8.5,
+       14.5
+      ]
+     ],
+     "coverage_pct": 100.0,
+     "over_cover_s": 3.13,
+     "precision_method": "windowed",
+     "pii_precision": [
+      "window"
+     ],
+     "bleep_pad_s": 0.5
+    }
+   ]
+  },
+  "G5": {
+   "ok": false,
+   "per_clip": {
+    "c1": {
+     "paths": {
+      "run": "runs-rep2/r3/c1",
+      "track": "runs-rep2/r3/c1/track_final.json",
+      "listen": "runs-rep2/r3/c1/listen.json"
+     },
+     "audit_unresolved": [
+      "face-output:45",
+      "face-output:50",
+      "face-output:60",
+      "face-output:80",
+      "face-output:120",
+      "face-output:360",
+      "face-output:365",
+      "face-output:370",
+      "face-output:375",
+      "face-output:380",
+      "face-output:420",
+      "face-output:425",
+      "face-output:430",
+      "face-output:445",
+      "face-output:465",
+      "face-output:470",
+      "face-output:485",
+      "face-output:490",
+      "face-output:495",
+      "face-output:505",
+      "face-output:510",
+      "face-output:525",
+      "face-output:530",
+      "face-output:590"
+     ]
+    },
+    "c2": {
+     "paths": {
+      "run": "runs-rep2/r3/c2",
+      "track": "runs-rep2/r3/c2/track_final.json",
+      "listen": "runs-rep2/r3/c2/listen.json"
+     },
+     "audit_unresolved": [
+      "visual:baseline-license-plate",
+      "face-output:60"
+     ]
+    },
+    "c3": {
+     "paths": {
+      "run": "runs-rep2/r3/c3",
+      "track": "runs-rep2/r3/c3/track_final.json",
+      "listen": "runs-rep2/r3/c3/listen.json"
+     },
+     "audit_unresolved": []
+    }
+   },
+   "note": "reported, not a kill criterion"
+  }
+ },
+ "notes": [
+  "G1/G2 IoU uses the SAM mask pixels (not its bbox) against the labelled ref_box; frames without a mask (held/padded) never count.",
+  "A leak/control counts as matched if ANY of its ref_boxes is matched by a concept at that ref_box time (+/-2 frames).",
+  "G1 aggregates visual leaks across all label files and expects exactly 4 planted visual leaks.",
+  "G3 (gate decision) counts frames with a real SAM mask of ANY Spark concept that matches the leak (IoU>=0.5 at a ref_box) inside visible_ranges; coverage including held/padded frames is reported next to it.",
+  "G4a takes the PII hit overlapping the labelled audio span (else the hit nearest to it); digit accuracy is reported, not gated.",
+  "G5 is reported, not a kill criterion: PASS if the audit has no UNRESOLVED finding; otherwise the findings are listed."
+ ],
+ "on_fail": "GATE.md: if G1-G4 fail, stop Veil; fallback = Andaaz gate at Sunday breakfast"
+}

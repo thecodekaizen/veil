@@ -117,6 +117,23 @@ Each repeat re-runs every stage from scratch (fresh Spark discovery, SAM 3.1 tra
 
 **What this says:** discovery is the stable strength (passes in every run, 4/4 twice). Over-proposal is the real weakness: Spark sometimes flags safe objects (G2 fails in 2 of 3 runs). Audio localization is borderline (passes in 1 of 3). Logged retries cut `NOT_CHECKED` items from 8 on a single clip to at most 1 per repeat.
 
+### After one fix: the mask check also verifies names Spark cites (post-gate v2)
+
+The re-runs showed that most false flags were **grounding errors**: SAM put a "notification banner" mask on the code panel, and the
+mask check skipped it because the concept quoted no ALL-CAPS text. v2 also checks proper names Spark cites ("Rohan Kulkarni").
+Three fresh end-to-end runs, everything else unchanged ([`eval/repeats-v2/summary.md`](eval/repeats-v2/summary.md)):
+
+| | v1 runs (original check) | **v2 runs (names check)** |
+|---|---|---|
+| Discovery (G1) | 4/4 · 3/4 · 4/4 = 11 of 12 | **4/4 · 4/4 · 4/4 = 12 of 12** |
+| False flags (G2, limit ≤ 1 of 3) | FAIL · FAIL · PASS | **PASS · PASS · PASS** (0, 1, 1) |
+| Code panel wrongly covered (c2) | in 3 of 3 runs | **in 0 of 3 runs** |
+| Mute window (G4b) | PASS in 1 of 3 | **FAIL in 3 of 3**; run 2 covered only 88% of the spoken number |
+| NOT_CHECKED (SAM stream errors left after retries) | 0 · 1 · 1 | 4 · 2 · 2 |
+
+Same composited clips as the gate, and a fix designed after seeing failures, so this is **not** an untouched evaluation.
+Audio timing (Voice returns turn-level timestamps only) is Veil's weakest part and it is still failing.
+
 ### Veil catches its own models' mistakes
 
 SAM 3.1 grounded Spark's "name overlay label" on a **block of code**. The post-gate mask check runs local OCR inside every mask that claims specific text, and it removed that mask before redaction:
