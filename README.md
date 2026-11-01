@@ -228,6 +228,8 @@ archive/              superseded THREAD/SHOWME prototypes (not part of the submi
 
 All Veil code dates from commit `610a395` (2026-10-28) onward, within the Oct 27 – Nov 4 build window. The repository started on 2026-10-25 with docs and experiments for an earlier idea (THREAD); those are kept in `archive/`, are not imported by Veil, and git history has not been rewritten. Decisions are logged in [`docs/decisions.md`](docs/decisions.md).
 
+**Why the repository is new but the history is old:** Veil was first pushed to a GitHub repo of the same name between Oct 25 and Oct 28 (e.g. [`610a395`, Oct 28](https://github.com/thecodekaizen/context/commit/610a395)). That repository was later renamed and reused for a different project, so on Nov 1 the full, unmodified history (same commit SHAs and dates) was pushed here.
+
 ## Data, media and licences
 
 * Code: [MIT](LICENSE).
