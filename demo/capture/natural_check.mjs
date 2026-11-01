@@ -1,0 +1,17 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch({ channel: 'chrome' });
+const p = await b.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
+const errs = []; p.on('pageerror', e => errs.push(e.message));
+await p.goto('http://localhost:4173/#/desk?run=c2');
+await p.waitForSelector('.seg');
+await p.click('.seg button:has-text("Natural")');
+await p.waitForFunction(() => [...document.querySelectorAll('.cmp-stage video')].every(v => v.readyState >= 3));
+await p.evaluate(() => document.querySelectorAll('.cmp-stage video').forEach(v => { v.pause(); v.currentTime = 9; }));
+await p.waitForFunction(() => [...document.querySelectorAll('.cmp-stage video')].every(v => !v.seeking && v.readyState >= 3));
+await p.waitForTimeout(500);
+const src = await p.evaluate(() => document.querySelectorAll('.cmp-stage video')[1].src);
+await p.screenshot({ path: '/tmp/desk_natural.png' });
+await p.evaluate(() => document.querySelector('#nat-h').scrollIntoView());
+await p.screenshot({ path: '/tmp/desk_natural_panel.png' });
+console.log(JSON.stringify({ src, errs }));
+await b.close();

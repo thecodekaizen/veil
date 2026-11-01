@@ -268,3 +268,11 @@ table.gate { width: 100%; border-collapse: collapse; min-width: 760px; }
 .verdict-bar i.s-COVERED { background: var(--covered); } .verdict-bar i.s-UNRESOLVED { background: var(--unresolved); }
 .verdict-bar i.s-NOT_CHECKED { background: var(--unchecked); }
 @media (max-width: 600px) { .cmp-label .long { display: none; } }
+
+/* segmented export toggle */
+.seg { display: inline-flex; padding: 3px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--ink-2); }
+.seg button { height: 30px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: 600 13px var(--ui); cursor: pointer; transition: background 0.2s, color 0.2s; }
+.seg button.on { background: var(--paper); color: var(--ink); }
+.seg button:not(.on):hover { color: var(--paper); }
+.stage-bar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.strike { text-decoration: line-through; text-decoration-color: var(--unresolved); color: var(--muted); }

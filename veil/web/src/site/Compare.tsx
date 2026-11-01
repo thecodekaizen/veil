@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { media, regionsAt, type Manifest } from './data';
+import { media, regionsAt, type ExportFile, type Manifest } from './data';
 
 /**
  * The product's core capability as one surface: the real input (with the regions models proposed) and Veil's real
  * exported file, frame-synced, split by a draggable divider. Left of the divider = input, right = export.
  */
-export function Compare({ m, run, autoPlay = false, focus, onTime, controls = true, initialSplit = 52, playing: playingProp, startAt = 0 }: {
+export function Compare({ m, run, autoPlay = false, focus, onTime, controls = true, initialSplit = 52, playing: playingProp, startAt = 0, exportFile = 'output.mp4' }: {
   m: Manifest; run: string; autoPlay?: boolean; focus?: string | null; onTime?: (t: number) => void; controls?: boolean;
-  initialSplit?: number; playing?: boolean; startAt?: number;
+  initialSplit?: number; playing?: boolean; startAt?: number; exportFile?: ExportFile;
 }) {
   const inV = useRef<HTMLVideoElement>(null);
   const outV = useRef<HTMLVideoElement>(null);
@@ -87,10 +87,11 @@ export function Compare({ m, run, autoPlay = false, focus, onTime, controls = tr
           onLoadedMetadata={e => { if (startAt) e.currentTarget.currentTime = startAt; }} />
         <canvas ref={cv} aria-hidden="true" />
         <div className="cmp-out" style={{ clipPath: `inset(0 0 0 ${split}%)` }}>
-          <video ref={outV} src={media(run, 'output.mp4')} muted playsInline loop preload="auto" />
+          <video ref={outV} key={exportFile} src={media(run, exportFile)} muted playsInline loop preload="auto"
+            onLoadedData={e => { if (inV.current) e.currentTarget.currentTime = inV.current.currentTime; }} />
         </div>
         <div className="cmp-label l"><span className="dot" /> Input<span className="long"> · what the models found</span></div>
-        <div className="cmp-label r" style={{ opacity: split > 80 ? 0 : 1 }}>Export<span className="long"> · what Veil wrote</span></div>
+        <div className="cmp-label r" style={{ opacity: split > 80 ? 0 : 1 }}>{exportFile === 'output_natural.mp4' ? 'Natural export' : 'Export'}<span className="long"> · {exportFile === 'output_natural.mp4' ? 'fictional text, same audit' : 'what Veil wrote'}</span></div>
         <div className="cmp-handle" style={{ left: `${split}%` }}>
           <button
             type="button"

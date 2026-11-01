@@ -27,6 +27,9 @@ def export(root: Path, out: Path, provenance: str) -> Path:
     out.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(root / 'input.mp4', out / 'input.mp4')
     shutil.copyfile(root / red.output_path, out / 'output.mp4')
+    natural = json.loads((root / 'natural.json').read_text()) if (root / 'natural.json').exists() else None
+    if natural:
+        shutil.copyfile(root / natural['output'], out / 'output_natural.mp4')
     why = {c.concept_id: c.why_identifying for c in disc.concepts}
     regions = [{'concept_id': r.concept_id, 'label': r.sam_prompt, 'source': r.source, 'why': why.get(r.concept_id, ''),
                 'frames': [[f.frame_idx, *f.box] for f in r.frames]} for r in red.regions]
@@ -47,6 +50,8 @@ def export(root: Path, out: Path, provenance: str) -> Path:
             {k: r.get(k) for k in ('track_id', 'concept_id', 'status', 'claimed', 'matched', 'ocr_text', 'frames_checked')}
             for r in verify['results'] if r['status'] != 'not_applicable'],
         'models': {'discover': disc.model_id, 'track': 'sam-3.1', 'listen': listen.model_id},
+        'natural': None if not natural else {k: natural[k] for k in ('replacements', 'text_surface_frames', 'fallback_cover_frames', 'cover_regions')}
+                   | {'audit': {k: natural['audit'][k] for k in ('status', 'sampled_frames', 'check')}, 'residual_words': len(natural['audit']['residual_original_words'])},
     }
     (out / 'manifest.json').write_text(json.dumps(manifest, separators=(',', ':')) + '\n')
     return out / 'manifest.json'

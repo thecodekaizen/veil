@@ -40,7 +40,8 @@ function useJson<T>(url: string | null): Load<T> {
 
 export const useManifest = (run: string) => useJson<Manifest>(`${BASE}demo/${run}/manifest.json`);
 export const useResults = () => useJson<Results>(`${BASE}data/results.json`);
-export const media = (run: string, file: 'input.mp4' | 'output.mp4') => `${BASE}demo/${run}/${file}`;
+export type ExportFile = 'output.mp4' | 'output_natural.mp4';
+export const media = (run: string, file: 'input.mp4' | ExportFile) => `${BASE}demo/${run}/${file}`;
 
 /** Region boxes present at a given frame. */
 export function regionsAt(m: Manifest, frame: number) {

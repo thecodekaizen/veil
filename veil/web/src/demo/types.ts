@@ -12,4 +12,6 @@ export interface Manifest {
   verify?: { track_id: string; concept_id: string; status: 'verified' | 'rejected'; claimed: string[]; matched: string[] | null;
              ocr_text: string[]; frames_checked: number[] }[] | null;
   models: Record<string, string>;
+  natural?: { replacements: { original: string; fictional: string }[]; text_surface_frames: number; fallback_cover_frames: number;
+             cover_regions: number; audit: { status: string; sampled_frames: number; check: string }; residual_words: number } | null;
 }

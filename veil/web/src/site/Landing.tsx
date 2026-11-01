@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Compare } from './Compare';
-import { REPO, prettyConcept, useManifest, useResults, type Gate } from './data';
+import { REPO, prettyConcept, useManifest, useResults, type ExportFile, type Gate } from './data';
+import { ExportToggle } from './ExportToggle';
 import { Brand } from './Logo';
 
 function useReveal() {
@@ -56,6 +57,7 @@ export function Landing() {
   const { data: m } = useManifest('c2');
   const { data: res } = useResults();
   const heroRef = useRef<HTMLDivElement>(null);
+  const [exp, setExp] = useState<ExportFile>('output.mp4');
   const gates = res ? (Object.entries(res.gates) as [string, Gate][]) : [];
   const repeats = gates.filter(([id]) => /^r\d$/.test(id));
   const g1All = repeats.filter(([, g]) => g.G1.ok).length;
@@ -82,8 +84,9 @@ export function Landing() {
               <p className="small muted reveal hero-note">Real pipeline output on a composited clip with fictional data. No sign-up; nothing to upload.</p>
             </div>
             <div className="hero-visual reveal" ref={heroRef}>
-              {m ? <Compare m={m} run="c2" autoPlay controls={false} initialSplit={66} startAt={5} /> : <div className="cmp-skeleton" />}
+              {m ? <Compare m={m} run="c2" autoPlay controls={false} initialSplit={66} startAt={5} exportFile={m.natural ? exp : 'output.mp4'} /> : <div className="cmp-skeleton" />}
               <div className="hero-caption">
+                {m?.natural && <ExportToggle value={exp} onChange={setExp} />}
                 <span className="chip"><span className="dot" style={{ color: 'var(--signal)' }} />Drag to compare</span>
                 {uniqueSpark.slice(0, 2).map(r => <span key={r.label} className="chip hide-xs">Spark · {r.label}</span>)}
               </div>

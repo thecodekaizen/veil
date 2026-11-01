@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { Compare, seekVideo } from './Compare';
-import { RUNS, prettyConcept, useManifest, type Manifest } from './data';
+import { RUNS, prettyConcept, useManifest, type ExportFile, type Manifest } from './data';
+import { ExportToggle } from './ExportToggle';
 import { Footer, Nav } from './Landing';
 
 type Status = 'COVERED' | 'UNRESOLVED' | 'NOT_CHECKED';
@@ -45,6 +46,7 @@ export function Desk({ run }: { run: string }) {
   const [focus, setFocus] = useState<string | null>(null);
   const [filter, setFilter] = useState<Status | 'ALL'>('ALL');
   const [t, setT] = useState(0);
+  const [exp, setExp] = useState<ExportFile>('output.mp4');
   const stageRef = useRef<HTMLDivElement>(null);
   const onTime = useCallback((s: number) => setT(s), []);
   const meta = RUNS.find(r => r.id === run) ?? RUNS[0];
@@ -88,7 +90,13 @@ export function Desk({ run }: { run: string }) {
             <Verdict m={m} />
             <div className="desk-grid">
               <section className="desk-stage" ref={stageRef} aria-label="Input and exported video">
-                <Compare m={m} run={run} focus={focus} onTime={onTime} />
+                {m.natural && (
+                  <div className="stage-bar">
+                    <ExportToggle value={exp} onChange={setExp} />
+                    <span className="small muted">{exp === 'output_natural.mp4' ? `Text re-rendered with fictional values · OCR audit ${m.natural.audit.status}` : 'Opaque covers on every finding'}</span>
+                  </div>
+                )}
+                <Compare m={m} run={run} focus={focus} onTime={onTime} exportFile={m.natural ? exp : 'output.mp4'} />
                 <Tracks m={m} t={t} focus={focus} onPick={(c, s) => pick(focus === c ? null : c, s)} />
                 <Audio m={m} />
               </section>
@@ -125,6 +133,21 @@ export function Desk({ run }: { run: string }) {
                 <p className="small faint">{filter !== 'ALL' && MEANING[filter as Status]}</p>
               </aside>
             </div>
+
+            {m.natural && (
+              <section className="panel card" aria-labelledby="nat-h">
+                <div className="panel-head"><h2 className="h2" id="nat-h">Natural export</h2><span className={`status s-${m.natural.audit.status}`}>{m.natural.audit.status}</span></div>
+                <p className="muted">Instead of black boxes, text Veil verified is re-rendered with fictional values in the original's colours. Everything else keeps an opaque cover. The natural file gets its own audit.</p>
+                <div className="rows">
+                  {m.natural.replacements.map(r => (
+                    <div key={r.original} className="row"><span className="status s-COVERED">REPLACED</span>
+                      <div><span className="mono strike">{r.original}</span> <span className="muted">→</span> <span className="mono">{r.fictional}</span> <span className="small muted">· fictional</span></div></div>
+                  ))}
+                  <div className="row"><span className={`status s-${m.natural.audit.status}`}>AUDIT</span>
+                    <div><div>{m.natural.audit.check}</div><div className="mono small muted">{m.natural.audit.sampled_frames} frames read · {m.natural.residual_words} original words found · {m.natural.fallback_cover_frames} frames fell back to a cover · {m.natural.cover_regions} regions kept as covers</div></div></div>
+                </div>
+              </section>
+            )}
 
             {m.verify && m.verify.length > 0 && (
               <section className="panel card" aria-labelledby="mask-h">
