@@ -24,7 +24,7 @@ def speakable(text, line_id=''):
 
 ap = argparse.ArgumentParser()
 ap.add_argument('--model', default='turbo'); ap.add_argument('--only', default=''); ap.add_argument('--takes', type=int, default=5)
-ap.add_argument('--out', default='voice/tts')
+ap.add_argument('--out', default='voice/tts'); ap.add_argument('--round', type=int, default=0)
 a = ap.parse_args()
 dev = 'mps' if torch.backends.mps.is_available() else 'cpu'
 if a.model == 'turbo':
@@ -41,7 +41,7 @@ for line in plan['script']:
     if only and line['id'] not in only:
         continue
     for k, s in enumerate(settings[:a.takes]):
-        torch.manual_seed(1000 + k)
+        torch.manual_seed(1000 + k + 100 * a.round)
         wav = model.generate(speakable(line['text'], line['id']), audio_prompt_path='voice/reference.wav', **s)
-        torchaudio.save(str(out / f"line_{line['id']}_{a.model}_t{k}.wav"), wav.cpu(), model.sr)
+        torchaudio.save(str(out / f"line_{line['id']}_{a.model}_t{k + 5 * a.round}.wav"), wav.cpu(), model.sr)
     print(line['id'], 'done', flush=True)

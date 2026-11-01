@@ -9,9 +9,10 @@
 | Meta inference | YES: live run 2026-11-01 (Spark, SAM 3.1, Voice) and post-gate c1-c3 re-run |
 | Runnable tests | YES: 117 passed |
 | Negative-case behavior | YES: rejected mask (verify.json), UNRESOLVED/NOT_CHECKED in audits; gate FAIL preserved |
-| Demo recording | NO |
+| Demo recording | Rendered locally: demo/out/veil-demo-web.mp4 (2:06, 1080p). Not uploaded. Voice = synthetic clone of the author's own voice (disclosed); listen before upload |
 | Submission form | NO |
 | Secrets | `.env` gitignored; gitleaks on commit passed; re-scan before push |
 | Unsupported claims | None known; keep "no certification/guarantee" wording |
 | Open-weight bonus | NOT claimed |
+| Demo video licence | CC BY-SA 3.0 derivative (Wikimedia street footage); credit on end card |
 | Licensed footage in public/demo | Uncommitted; CC BY-SA attribution required if committed |

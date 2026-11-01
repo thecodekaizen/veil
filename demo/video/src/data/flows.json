@@ -1,0 +1,232 @@
+{
+ "checks": {
+  "duration_s": 6.17,
+  "events": [
+   {
+    "t": 0.44,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 1.959,
+    "type": "focus",
+    "box": [
+     240,
+     83,
+     2080,
+     478
+    ]
+   },
+   {
+    "t": 6.461,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "findings": {
+  "duration_s": 11.17,
+  "events": [
+   {
+    "t": 0.691,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 2.204,
+    "type": "focus",
+    "box": [
+     240,
+     65,
+     2080,
+     1360
+    ]
+   },
+   {
+    "t": 5.611,
+    "type": "focus",
+    "box": [
+     240,
+     -758,
+     195,
+     107
+    ]
+   },
+   {
+    "t": 9.111,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "maskcheck": {
+  "duration_s": 9.83,
+  "events": [
+   {
+    "t": 0.512,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 2.028,
+    "type": "focus",
+    "box": [
+     240,
+     203,
+     2080,
+     107
+    ]
+   },
+   {
+    "t": 2.948,
+    "type": "hover",
+    "box": [
+     240,
+     203,
+     2080,
+     107
+    ]
+   },
+   {
+    "t": 7.063,
+    "type": "hover",
+    "box": [
+     240,
+     309,
+     2080,
+     107
+    ]
+   },
+   {
+    "t": 10.065,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "overview": {
+  "duration_s": 13.93,
+  "events": [
+   {
+    "t": 0.543,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 2.413,
+    "type": "click",
+    "box": [
+     240,
+     1097,
+     214,
+     75
+    ]
+   },
+   {
+    "t": 2.445,
+    "type": "focus",
+    "box": [
+     240,
+     457,
+     2080,
+     623
+    ]
+   },
+   {
+    "t": 12.45,
+    "type": "click",
+    "box": [
+     474,
+     1097,
+     142,
+     75
+    ]
+   },
+   {
+    "t": 13.778,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "scrub": {
+  "duration_s": 7.87,
+  "events": [
+   {
+    "t": 0.525,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 1.462,
+    "type": "press",
+    "box": [
+     640,
+     1118,
+     1440,
+     32
+    ]
+   },
+   {
+    "t": 5.676,
+    "type": "release",
+    "box": [
+     240,
+     457,
+     2080,
+     623
+    ]
+   },
+   {
+    "t": 7.68,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "voice": {
+  "duration_s": 11.43,
+  "events": [
+   {
+    "t": 0.243,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 1.756,
+    "type": "focus",
+    "box": [
+     240,
+     65,
+     2080,
+     520
+    ]
+   },
+   {
+    "t": 4.26,
+    "type": "focus",
+    "box": [
+     240,
+     615,
+     2080,
+     93
+    ]
+   },
+   {
+    "t": 8.165,
+    "type": "focus",
+    "box": [
+     240,
+     65,
+     2080,
+     441
+    ]
+   },
+   {
+    "t": 11.666,
+    "type": "end",
+    "box": null
+   }
+  ]
+ }
+}

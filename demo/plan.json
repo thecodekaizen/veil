@@ -9,12 +9,12 @@
   "0": "done",
   "1": "done",
   "2": "done",
-  "3": "waiting: user records voice/raw/line_<id>.webm",
-  "4": "todo",
-  "5": "todo",
-  "6": "todo",
-  "7": "todo",
-  "8": "todo"
+  "3": "done (clone of own voice, user request)",
+  "4": "done",
+  "5": "done",
+  "6": "done",
+  "7": "done (no music provided)",
+  "8": "done"
  },
  "open_questions": [
   "brand logo (optional)"
@@ -294,7 +294,7 @@
   }
  ],
  "timeline": null,
- "voice_mode": "record_myself",
+ "voice_mode": "clone (own voice)",
  "music": "user-provided demo/audio/music.*",
  "hook": "A"
 }

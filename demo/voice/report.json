@@ -1,0 +1,282 @@
+{
+ "lines": [
+  {
+   "id": "h1",
+   "file": "line_h1.wav",
+   "duration_s": 4.37,
+   "peak": 0.602,
+   "wer": 0.0,
+   "heard": "This clip tells a stranger my name, my building, and my phone number.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "h2",
+   "file": "line_h2.wav",
+   "duration_s": 3.8,
+   "peak": 0.923,
+   "wer": 0.0,
+   "heard": "All fictional. But creators post clips like this every day.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "h3",
+   "file": "line_h3.wav",
+   "duration_s": 4.22,
+   "peak": 0.18,
+   "wer": 0.0,
+   "heard": "A name on a parcel, a society board behind you, a number you say out loud.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "p1",
+   "file": "line_p1.wav",
+   "duration_s": 5.28,
+   "peak": 0.189,
+   "wer": 0.077,
+   "heard": "Most redaction tools look for a fixed list, basis, license plates, screens, documents.",
+   "flags": [
+    "WER 8% > 5%",
+    "missing ['faces']"
+   ],
+   "status": "check"
+  },
+  {
+   "id": "p2",
+   "file": "line_p2.wav",
+   "duration_s": 3.97,
+   "peak": 0.802,
+   "wer": 0.154,
+   "heard": "On my held out clips, that list found zero or four planted leaves.",
+   "flags": [
+    "WER 15% > 5%",
+    "missing ['of', 'leaks']"
+   ],
+   "status": "check"
+  },
+  {
+   "id": "a1",
+   "file": "line_a1.wav",
+   "duration_s": 3.72,
+   "peak": 0.218,
+   "wer": 0.0,
+   "heard": "So Veil asks a different question. What in this video could identify you?",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "a2",
+   "file": "line_a2.wav",
+   "duration_s": 10.13,
+   "peak": 0.272,
+   "wer": 0.0,
+   "heard": "Muse Spark looks at keyframes and proposes candidates, each with a reason. The notification shows a full name. The gold plate shows a surname and a flat number.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "a2b",
+   "file": "line_a2b.wav",
+   "duration_s": 4.1,
+   "peak": 0.166,
+   "wer": 0.0,
+   "heard": "None of these is a face or a license plate. The model has to understand the scene.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "a3",
+   "file": "line_a3.wav",
+   "duration_s": 4.94,
+   "peak": 0.296,
+   "wer": 0.0,
+   "heard": "SAM 3.1 tracks each one through every frame and the output covers exactly those regions.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "a4",
+   "file": "line_a4.wav",
+   "duration_s": 5.89,
+   "peak": 0.369,
+   "wer": 0.0,
+   "heard": "With Spark in the loop, three of four planted leaks were found. The delivery box label was still missed.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "f1",
+   "file": "line_f1.wav",
+   "duration_s": 5.4,
+   "peak": 0.896,
+   "wer": 0.0,
+   "heard": "Then code checks the work. Veil decodes its own output and confirms the covers are really there.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "f1b",
+   "file": "line_f1b.wav",
+   "duration_s": 5.6,
+   "peak": 0.916,
+   "wer": 0.0,
+   "heard": "It re-reads the output with local OCR and runs a face detector on sampled frames.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "f2",
+   "file": "line_f2.wav",
+   "duration_s": 4.18,
+   "peak": 0.219,
+   "wer": 0.0,
+   "heard": "And models make mistakes. Here Sam put the name mask on a block of code.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "f3",
+   "file": "line_f3.wav",
+   "duration_s": 5.65,
+   "peak": 0.291,
+   "wer": 0.059,
+   "heard": "Local OCR. Re-reads. The mask found code instead of the name Spark claimed and threw it out.",
+   "flags": [
+    "WER 6% > 5%",
+    "missing ['read']"
+   ],
+   "status": "check"
+  },
+  {
+   "id": "v1",
+   "file": "line_v1.wav",
+   "duration_s": 7.26,
+   "peak": 0.839,
+   "wer": 0.111,
+   "heard": "Spoken Numbers 2. Muse Voice Transcribe. Here's a phone number read out in Hindi, and Veil mutes it.",
+   "flags": [
+    "WER 11% > 5%",
+    "missing ['too', 'hears']"
+   ],
+   "status": "check"
+  },
+  {
+   "id": "v2",
+   "file": "line_v2.wav",
+   "duration_s": 3.04,
+   "peak": 0.215,
+   "wer": 0.0,
+   "heard": "Then it transcribes the output again. No digit run left.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "v3",
+   "file": "line_v3.wav",
+   "duration_s": 4.76,
+   "peak": 0.221,
+   "wer": 0.0,
+   "heard": "But the transcript gets digits wrong and the mute window is still wider than my own limit.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "r1",
+   "file": "line_r1.wav",
+   "duration_s": 2.43,
+   "peak": 0.359,
+   "wer": 0.0,
+   "heard": "That's the point. Veil never says a video is safe.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "r2",
+   "file": "line_r2.wav",
+   "duration_s": 3.73,
+   "peak": 0.309,
+   "wer": 0.0,
+   "heard": "Every item is covered, unresolved or not checked and it tells you why.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "r2b",
+   "file": "line_r2b.wav",
+   "duration_s": 4.87,
+   "peak": 0.608,
+   "wer": 0.143,
+   "heard": "Muse Spark. Two items are unresolved. Eight weren't checked because a model call failed or they hit my cost cap.",
+   "flags": [
+    "WER 14% > 5%",
+    "missing ['in', 'this', 'clip']"
+   ],
+   "status": "check"
+  },
+  {
+   "id": "r3",
+   "file": "line_r3.wav",
+   "duration_s": 8.27,
+   "peak": 0.271,
+   "wer": 0.036,
+   "heard": "I held myself to that too. I wrote a test gate before running it. It failed. Every fix since is labeled post-gate and the gate still failed.",
+   "flags": [
+    "missing ['fails']"
+   ],
+   "status": "check"
+  },
+  {
+   "id": "c0",
+   "file": "line_c0.wav",
+   "duration_s": 3.11,
+   "peak": 0.265,
+   "wer": 0.077,
+   "heard": "Send it on a clip, read the receipt and decide before you post.",
+   "flags": [
+    "WER 8% > 5%",
+    "missing ['run']"
+   ],
+   "status": "check"
+  },
+  {
+   "id": "c1",
+   "file": "line_c1.wav",
+   "duration_s": 7.87,
+   "peak": 0.624,
+   "wer": 0.0,
+   "heard": "Models Propose. And Code Decides. Veil. Built Solo with Muse Spark. SAM 3.1. And Muse Voice.",
+   "flags": [],
+   "status": "ok"
+  }
+ ],
+ "recorded": 23,
+ "of": 23,
+ "loudness": {
+  "integrated_lufs": -16.06,
+  "true_peak_dbtp": -1.5,
+  "lra": 7.8
+ },
+ "vo_duration_s": 125.94,
+ "vo_wer": 0.0809,
+ "vo_missing_words": [
+  "parcel",
+  "redaction",
+  "faces",
+  "muse",
+  "flat",
+  "muse",
+  "hears",
+  "digits",
+  "wrong",
+  "never",
+  "says",
+  "eight",
+  "werent",
+  "fails",
+  "muse",
+  "muse"
+ ],
+ "pass": false
+}

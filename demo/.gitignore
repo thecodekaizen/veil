@@ -6,3 +6,16 @@ voice/raw/
 voice/clean/
 voice/*.wav
 timing/
+.venv-tts/
+out/
+review/
+video/node_modules/
+video/public/clips/
+video/public/flows/
+video/public/vo.wav
+video/public/c3_wave.json
+voice/tts/
+voice/takes/
+voice/reference.wav
+capture/out/
+__pycache__/

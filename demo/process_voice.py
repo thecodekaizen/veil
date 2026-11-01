@@ -21,6 +21,8 @@ ROOT = Path(__file__).parent
 SR = 48000
 MODEL = 'mlx-community/whisper-large-v3-turbo'
 CLEAN = 'highpass=f=80,afftdn=nf=-25,acompressor=threshold=-20dB:ratio=3:attack=5:release=80:makeup=2,deesser=i=0.4'
+CLEAN_SYNTH = 'highpass=f=60,acompressor=threshold=-18dB:ratio=2:attack=5:release=80'  # generated takes: no denoise/de-ess
+MAX_PAUSE_S = 0.45  # internal pauses longer than this are shortened (keeps pace; never removes speech)
 NUM = {'0': 'zero', '1': 'one', '2': 'two', '3': 'three', '4': 'four', '5': 'five', '6': 'six', '7': 'seven',
        '8': 'eight', '9': 'nine', '.': ' point '}
 SAME = {'okay': 'ok', "weren't": 'werent', "that's": 'thats', "didn't": 'didnt', 'labelled': 'labeled'}
@@ -75,6 +77,20 @@ def internal_silences(x: np.ndarray, min_s=0.7, thr_db=-45) -> list[float]:
         return []
     gaps = np.diff(voiced) / 100
     return [round(float(g), 2) for g in gaps if g > min_s]
+
+
+def cap_pauses(x: np.ndarray, max_s=MAX_PAUSE_S, thr_db=-45) -> np.ndarray:
+    hop = SR // 100
+    n = len(x) // hop
+    db = 20 * np.log10(np.sqrt((x[:n * hop].reshape(n, hop) ** 2).mean(1)) + 1e-9)
+    keep = np.ones(n, bool)
+    run = 0
+    for i in range(n):
+        run = run + 1 if db[i] <= thr_db else 0
+        if run > max_s * 100:
+            keep[i] = False
+    out = np.concatenate([x[i * hop:(i + 1) * hop] for i in range(n) if keep[i]] + [x[n * hop:]])
+    return out
 
 
 def trim(x: np.ndarray, thr_db=-45, keep_s=0.05) -> np.ndarray:
@@ -149,8 +165,9 @@ def main():
         x = read(dec)
         raws.append(x)
         peak = float(np.abs(x).max())
-        ff('-i', str(dec), '-af', CLEAN, '-ar', str(SR), '-ac', '1', '-c:a', 'pcm_s16le', str(out))
-        y = trim(read(out))
+        synth = src.suffix == '.wav'  # generated takes are copied in as .wav; mic recordings arrive as .webm
+        ff('-i', str(dec), '-af', CLEAN_SYNTH if synth else CLEAN, '-ar', str(SR), '-ac', '1', '-c:a', 'pcm_s16le', str(out))
+        y = cap_pauses(trim(read(out)))
         write(out, y)
         hyp = transcribe(out)['text']
         e, missing = wer(norm(line['text']), norm(hyp))
@@ -168,9 +185,14 @@ def main():
         print('\n'.join(problems))
     tone = room_tone(raws)
     seq = [loop_to(tone, int(0.15 * SR))]
+    offsets, pos = [], len(seq[0])
     for line, y in pieces:
-        seq += [fade(y), loop_to(tone, int(line['pause_after_ms'] / 1000 * SR))]
+        offsets.append({'id': line['id'], 'start_s': round(pos / SR, 3), 'end_s': round((pos + len(y)) / SR, 3)})
+        gap = loop_to(tone, int(line['pause_after_ms'] / 1000 * SR))
+        seq += [fade(y), gap]
+        pos += len(y) + len(gap)
     vo = np.concatenate(seq)
+    (ROOT / 'timing/lines.json').write_text(json.dumps(offsets, indent=1))  # exact: computed while stitching
     vo = vo + loop_to(tone, len(vo)) * 0.5  # low room-tone bed under everything so gaps never go dead
     stitched = ROOT / 'voice/vo.stitched.wav'
     write(stitched, vo)
