@@ -14,8 +14,12 @@ Deterministic code redacts, **re-checks the exported file**, and tells you exact
 [![Meta models](https://img.shields.io/badge/Meta-Muse%20Spark%20·%20SAM%203.1%20·%20Muse%20Voice-E8B04A)](#the-meta-models-and-what-each-one-does)
 [![hackathon](https://img.shields.io/badge/Meta%20Global%20AI%20Developer%20Hackathon-2026%20·%20Indie-0B0D10)](SUBMISSION.md)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
+[![open weights](https://img.shields.io/badge/open%20weights-Muse%20Glimmer%2030B%20on%20a%20laptop-6FCF8F)](#how-veil-uses-metas-open-weights-muse-glimmer)
 
-[**Live demo**](https://thecodekaizen.github.io/veil/) · [**Demo video**](#demo-video) · [**Results**](#results) · [**Quickstart**](#quickstart) · [**How it works**](#how-it-works) · [**Limitations**](#honest-limitations)
+[**Live demo**](https://thecodekaizen.github.io/veil/) · [**▶ Demo video (2:05)**](https://thecodekaizen.github.io/veil/video/veil-demo.mp4) · [**Results**](#results) · [**Quickstart**](#quickstart) · [**How it works**](#how-it-works) · [**Limitations**](#honest-limitations)
+
+<a href="https://thecodekaizen.github.io/veil/video/veil-demo.mp4"><img src="docs/media/site-landing.jpg" alt="Watch the Veil demo video (2:05)" width="100%"/></a>
+<sub><b>▶ <a href="https://thecodekaizen.github.io/veil/video/veil-demo.mp4">Watch the 2-minute demo</a></b>: real pipeline output, narrated by an AI voice (Kokoro), original music.</sub>
 
 <img src="docs/media/hero-c2.jpg" alt="Veil: input with model-proposed regions (left) and the exported video with covers applied (right)" width="100%"/>
 
@@ -69,7 +73,8 @@ SAM 3.1 turns each proposal into masks tracked through every frame. Muse Voice T
 <td width="33%" valign="top">
 
 **3 · Verify the export**<br/>
-Code decodes the **output** file and checks that covers are really there, OCR finds no readable text, a face detector stays quiet, and re-transcription finds no digit run. Every finding ends as `COVERED`, `UNRESOLVED` or `NOT_CHECKED`, never "safe".
+Code decodes the **output** file and checks that covers are really there, OCR finds no readable text, a face detector stays quiet, and re-transcription finds no digit run. Every finding ends as `COVERED`, `UNRESOLVED` or `NOT_CHECKED`, never "safe".<br/><br/>
+**Natural mode:** instead of black boxes, verified text is re-rendered with fictional values, and the natural file is audited again.
 
 </td>
 </tr>
@@ -157,20 +162,39 @@ SAM 3.1 grounded Spark's "name overlay label" on a **block of code**. The post-g
 
 The number was muted and re-transcription of the output found no digit run. But Voice misheard digits ("987765 · 5432100" for 98765 43210), and the mute window is still wider than our own limit (G4b FAIL).
 
-### Discovery on open weights: Muse Glimmer, on a laptop
+### How Veil uses Meta's open weights (Muse Glimmer)
 
-The discovery stage can run on **Muse Glimmer 30B** (Meta's Apache-2.0 open weights) served by `llama.cpp` on the author's Apple M4 Pro, so **keyframes never leave the machine** for that step. Same prompt, same strict JSON schema, same scorer. Experiment declared before results: every 3rd keyframe of gate clip c2 (9 frames).
+**Why it matters for this product:** Veil handles exactly the footage people least want to upload. With `VEIL_DISCOVER=glimmer`, the
+discovery step (deciding *what in this video could identify you*) runs on **Muse Glimmer 30B, Meta's Apache-2.0 open-weight model, on the
+author's own laptop**. The keyframes never leave the machine for that step.
+
+**What was built** (all in this repo):
+- `make_glimmer_ask()` in [`veil/src/veil/stages/discover.py`](veil/src/veil/stages/discover.py) is an OpenAI-compatible client for a local
+  `llama-server`. It sends the **same prompt and the same strict JSON schema** as hosted Muse Spark, and validates the reply with the same pydantic model
+  (one repair retry, then the error is recorded).
+- [`veil/src/veil/runner.py`](veil/src/veil/runner.py) switches providers on `VEIL_DISCOVER=glimmer`; nothing downstream changes (SAM 3.1 tracking,
+  the mask check, redaction, the audit and the gate scorer are identical).
+- Every call goes in the same ledger. A Glimmer call reads `model: muse-glimmer-30b (unsloth UD-Q3_K_XL GGUF, local llama.cpp)`,
+  `endpoint: local:http://127.0.0.1:8088/v1/chat/completions`, `cloud_transfer: "1 keyframe JPEG …, not uploaded"`, `estimated_usd: 0`.
+
+**How it was served:** `llama.cpp` 0.8.0 (`llama-server`, Metal, all layers on the GPU) on an Apple M4 Pro with 24 GB. The weights are the
+unsloth `UD-Q3_K_XL` GGUF of `meta-models/Muse-Glimmer-30B` plus its vision projector (`mmproj`), **SHA-256 verified** against Hugging Face
+(`820d18e0…37e15`, `f48b4523…7c00c6`). A 3-bit build was needed for the model to fit the laptop's GPU memory.
+
+**Result (experiment declared before running it: every 3rd keyframe of gate clip c2, 9 frames):**
 
 | Gate clip c2 | Hosted Muse Spark (repeat r1, 25 keyframes) | **Muse Glimmer, local (9 keyframes, 5 answered)** |
 |---|---|---|
-| Planted leaks found (notification, door plate) | 2/2 | **2/2** (mask IoU 0.979, 0.993) |
-| Safe control (code panel) flagged | yes | **no** |
-| Cost / where frames go | ~$0.07 of Spark calls per clip (ledger), Meta API | $0, stays local |
-| Speed | ~3.6 s per keyframe | ~9 min per keyframe; 4 of 9 timed out |
+| Planted private details found (notification, door plate) | 2/2 | **2/2** (SAM mask IoU 0.979, 0.993) |
+| Safe decoy (code panel) wrongly flagged | yes | **no** |
+| Cost · where frames go | ~$0.07 of Spark calls per clip · Meta API | **$0 · stays on the laptop** |
+| Speed | ~3.6 s per keyframe | ~9 min per keyframe; 4 of 9 hit the 600 s timeout (15 GB model swapping on 24 GB) |
 
-Glimmer's own reasoning, verbatim: *"Shows surname Kulkarni with number 12, suggesting residence or apartment identifier."* **Caveats:** one clip, a third of the keyframes, a 3-bit quantization, and a 24 GB laptop that swaps. This shows the open-weight path works end to end; it is not a quality ranking. Full details: [`eval/glimmer/summary.md`](eval/glimmer/summary.md).
-
-
+Glimmer's own reasoning, verbatim: *"Shows surname Kulkarni with number 12, suggesting residence or apartment identifier."*
+**Caveats:** one clip, a third of the keyframes, a 3-bit quantization, and a slow laptop. It shows the open-weight path works end to end
+on real hardware and finds the same leaks; it is not a quality ranking. Tracking (SAM 3.1) and listening (Muse Voice) still use the Meta API.
+Reproduce with the commands under **Quickstart → Run discovery locally**. Evidence: [`eval/glimmer/summary.md`](eval/glimmer/summary.md),
+[`gate/glimmer/GATE_RESULT.md`](gate/glimmer/GATE_RESULT.md) (its G1 "FAIL" only means one clip was scored, not four leaks).
 
 ## The Meta models, and what each one does
 
@@ -276,7 +300,10 @@ The gate clips are generated by `gate/make_composite_clips.py` from licensed Wik
 
 ## Demo video
 
-`demo/` holds the full, reproducible pipeline for the submission video: a Remotion composition, Playwright captures of the real UI, a word-timed caption map, and loudness QA. See [`demo/out/README.md`](demo/out/README.md) for what is real and what is typeset. Narration is an AI voice (Kokoro-82M, Apache-2.0), disclosed on the end card.
+**▶ [Watch the 2:05 demo](https://thecodekaizen.github.io/veil/video/veil-demo.mp4).** It is built by a reproducible pipeline in `demo/`:
+Playwright recordings of the live site, a Remotion edit whose every zoom and caption is keyed to word timestamps of the narration, two
+HyperFrames motion units (`demo/hf-sting`, `demo/hf-proof`), Kokoro AI narration and an original music bed synthesized in code
+(`demo/compose_bed.py`). What is real and what is typeset: [`demo/out/README.md`](demo/out/README.md).
 
 ## Repository map
 

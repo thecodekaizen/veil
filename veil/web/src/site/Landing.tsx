@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Compare } from './Compare';
-import { REPO, prettyConcept, useManifest, useResults, type ExportFile, type Gate } from './data';
+import { BASE, REPO, prettyConcept, useManifest, useResults, type ExportFile, type Gate } from './data';
 import { ExportToggle } from './ExportToggle';
 import { Brand } from './Logo';
 
@@ -79,7 +79,7 @@ export function Landing() {
               <p className="lead reveal">Veil finds the name on a parcel, the flat number on a door and the phone number you said out loud. It covers them, then checks the exported file and tells you exactly what it could not clear.</p>
               <div className="hero-cta reveal">
                 <a className="btn btn-primary" href="#/desk">Open the live desk <span className="arrow">→</span></a>
-                <a className="btn btn-ghost" href={REPO} target="_blank" rel="noreferrer">View source</a>
+                <a className="btn btn-ghost" href={`${BASE}video/veil-demo.mp4`} target="_blank" rel="noreferrer">Watch the 2-min demo</a>
               </div>
               <p className="small muted reveal hero-note">Real pipeline output on a composited clip with fictional data. No sign-up; nothing to upload.</p>
             </div>
