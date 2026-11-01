@@ -14,6 +14,9 @@ h1{font:600 34px/1.15 Fraunces,Georgia,serif;margin:0 0 4px}h2{font:600 20px Fra
 .dim{color:var(--dim)}.panel{background:var(--panel);border:1px solid var(--line);padding:12px 14px;margin:8px 0}
 .COVERED{color:var(--ok)}.UNRESOLVED{color:var(--bad)}.NOT_CHECKED{color:var(--amber)}
 table{width:100%;border-collapse:collapse}td,th{border-top:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top;font-size:13px}
+body{overflow-wrap:anywhere}
+@media(max-width:640px){table,tbody,tr,td{display:block;width:100%}tr:first-child:has(th){display:none}
+tr{border-top:1px solid var(--line);padding:6px 0}td{border:0;padding:2px 0}h1{font-size:28px}}
 footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;color:var(--dim);font-size:13px}
 '''
 

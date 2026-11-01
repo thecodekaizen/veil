@@ -51,3 +51,10 @@ Choice: 0.5 s. A word cut by a 2 s window edge can be missed by both windows, so
 ~1 s of the 2.5 s G4b budget free for window imprecision on other audio. Over-cover grows as 0.53 + 2 x padding, so the
 largest padding that fits the budget on this clip is ~0.98 s; 0.5 s is deliberately well inside it. One clip, English
 only: this is a setting, not evidence about Hinglish audio. The 2.5 s G4b threshold in GATE.md is unchanged, and the gate itself is not run.
+
+## gate-freeze (2026-11-01)
+Frozen from the `gate-freeze` tag: discover prompt `discover_v1.txt`, Spark concept cap (10) and min confidence (0.3),
+dedupe threshold (85), keyframe selection, track-start rules (15 frames / earliest discovery keyframe, reversed SAM then
+hold-back), temporal padding (+/-3 frames), cover padding (12 px), bleep padding (0.5 s), audit checks and the GATE.md thresholds.
+Any change after gate footage is processed is reported separately as **post-gate**. Receipt layout checked at 1000 px and
+360 px widths in headless Chrome (CSS-only fix; not a frozen parameter).
