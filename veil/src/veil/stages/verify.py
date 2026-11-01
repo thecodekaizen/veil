@@ -26,19 +26,24 @@ OcrRows = Callable[[list, int, int], list[dict]]
 
 
 def claimed_tokens(text: str) -> list[str]:
+    """Text a concept claims is visible: quoted strings, ALL-CAPS words, and (post-gate v2) mid-sentence proper names
+    such as "sender name Rohan Kulkarni" (one or two Capitalized words after a lowercase word)."""
     quoted = [t.strip(" '\"").upper() for t in re.findall(r"""['"]([^'"]{3,})['"]""", text)]
     caps = re.findall(r'\b[A-Z][A-Z]{3,}\b', text)
-    return sorted({t for t in quoted + caps if len(t) >= 4})
+    names = [n.upper() for n in re.findall(r'(?<=[a-z,] )([A-Z][a-z]{3,}(?: [A-Z][a-z]{3,})?)', text)]
+    return sorted({t for t in quoted + caps + names if len(t) >= 4})
 
 
 def found(token: str, rows: list[str]) -> bool:
+    """True if the claimed text, or any word of it with >= 4 letters, is read (fuzzily) in the OCR rows."""
     token = token.upper()
+    parts = [token] + [w for w in re.findall(r'\w+', token) if len(w) >= 4 and w != token]
     for row in rows:
         row = row.upper()
-        if token in row:
+        if any(p in row for p in parts):
             return True
         for w in re.findall(r'\w+', row):
-            if SequenceMatcher(None, token, w).ratio() >= RATIO_MIN:
+            if any(SequenceMatcher(None, p, w).ratio() >= RATIO_MIN for p in parts):
                 return True
     return False
 
