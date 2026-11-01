@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# staged demo export (re-exported from the final run via `veil export-web`; not committed until final)
+public/demo/

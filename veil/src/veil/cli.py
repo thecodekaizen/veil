@@ -46,5 +46,14 @@ def debug_overlay(run_id: str, runs_dir: Path = typer.Option(Path('runs'))):
     typer.echo(str(overlay.render(runs_dir / run_id)))
 
 
+@app.command('export-web')
+def export_web(run_id: str, out: Path = typer.Option(Path('veil/web/public/demo')),
+               provenance: str = typer.Option(..., help='who/what the footage is, e.g. "synthetic fixture, fictional data"'),
+               runs_dir: Path = typer.Option(Path('runs'))):
+    """Copy RUN_ID's input/output video and a compact manifest.json for the static demo UI."""
+    from veil import export_web as ew
+    typer.echo(str(ew.export(runs_dir / run_id, out, provenance)))
+
+
 if __name__ == '__main__':
     app()
