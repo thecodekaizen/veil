@@ -9,6 +9,6 @@
 Audio: spoken span 4.9-9.371s, muted [(4.0, 10.0)], span covered 100.0%, over-cover 1.53 s, detected digits ['2025550146'] (true 2025550146), window precision.
 
 ## Caveats
-- One synthetic clip; targets are rendered panels, not real footage. This is a development check, not the preregistered gate (gate NOT RUN).
+- One synthetic clip; targets are rendered panels, not real footage. This is a development check, not the preregistered gate (the gate was later run on composited clips c1-c3: see gate/GATE_RESULT.md).
 - face_source_panel is the whole rendered portrait panel; the models cover the face inside it, so ~0.39 cover is a ground-truth-definition effect, not a measured miss of the face.
 - The concept set was developed while looking at this clip; numbers are not held-out evidence.

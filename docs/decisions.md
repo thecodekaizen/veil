@@ -84,3 +84,9 @@ c3: spoken number + book-cover control (4 visual leaks, 1 audio leak, 3 controls
 NOT RUN until `make gate` runs; results will say "composited gate set". The clips are gitignored (`gate/clips/`); the sha256 in the
 labels matches this machine's ffmpeg encode, so a rebuild elsewhere may not match and would need regenerated labels (a new gate run).
 Exploratory x1/x2 runs (unlabelled real footage) are separate and are not gate results.
+
+## Gate result (2026-11-01): FAIL on the composited gate set
+`make gate` ran on c1-c3 after the pipeline run (frozen parameters at tag `gate-freeze`; no tuning afterwards). Result in `gate/GATE_RESULT.md`:
+G1 PASS (3/4), G2 FAIL (2/3 controls matched), G3 PASS, G4a PASS (detected, digits not exact), G4b FAIL (over-cover 3.13 s > 2.5 s), G5 UNRESOLVED
+listed. This replaces every "gate NOT RUN" statement above (older entries kept for history; dev_results.md still says NOT RUN in its caveat and is
+superseded by this entry). Per GATE.md: G2 and G4b failing means the preregistered rule says stop Veil / fall back to Andaaz. Any later change is post-gate.

@@ -1,0 +1,110 @@
+{
+ "set": "held-out (gate clips)",
+ "leaks": [
+  {
+   "clip": "c1",
+   "leak_id": "L1",
+   "concept": "delivery box with an address label",
+   "in_baseline": true,
+   "baseline_only": {
+    "matched": false,
+    "iou": 0.0,
+    "concept_id": null,
+    "mask_pct": 0.0
+   },
+   "baseline_plus_spark": {
+    "matched": false,
+    "iou": 0.0,
+    "concept_id": null,
+    "mask_pct": 0.0
+   }
+  },
+  {
+   "clip": "c1",
+   "leak_id": "L4",
+   "concept": "society name board",
+   "in_baseline": false,
+   "baseline_only": {
+    "matched": false,
+    "iou": 0.0,
+    "concept_id": null,
+    "mask_pct": 0.0
+   },
+   "baseline_plus_spark": {
+    "matched": true,
+    "iou": 0.968,
+    "concept_id": "spark-society-name-board",
+    "mask_pct": 100.0
+   }
+  },
+  {
+   "clip": "c2",
+   "leak_id": "L2",
+   "concept": "phone notification showing a name",
+   "in_baseline": true,
+   "baseline_only": {
+    "matched": false,
+    "iou": 0.0,
+    "concept_id": null,
+    "mask_pct": 0.0
+   },
+   "baseline_plus_spark": {
+    "matched": true,
+    "iou": 0.979,
+    "concept_id": "spark-name-overlay-label",
+    "mask_pct": 100.0
+   }
+  },
+  {
+   "clip": "c2",
+   "leak_id": "L3",
+   "concept": "door nameplate",
+   "in_baseline": false,
+   "baseline_only": {
+    "matched": false,
+    "iou": 0.0,
+    "concept_id": null,
+    "mask_pct": 0.0
+   },
+   "baseline_plus_spark": {
+    "matched": true,
+    "iou": 0.983,
+    "concept_id": "spark-notification-banner",
+    "mask_pct": 100.0
+   }
+  }
+ ],
+ "audio": [
+  {
+   "clip": "c3",
+   "leak_id": "A1",
+   "label_span_s": [
+    9.655,
+    12.521
+   ],
+   "precision_method": "windowed",
+   "pii_precision": [
+    "window"
+   ],
+   "bleep_pad_s": 0.5,
+   "bleep_intervals": [
+    [
+     7.0,
+     13.0
+    ]
+   ],
+   "g4a_detected": true,
+   "detected_digits": "4987651543210",
+   "exact": false,
+   "edit_distance": 3,
+   "mobile_pattern": false,
+   "pii_span_s": [
+    7.5,
+    12.5
+   ],
+   "coverage_pct": 100.0,
+   "over_cover_s": 3.13,
+   "g4b_ok": false
+  }
+ ]
+}
