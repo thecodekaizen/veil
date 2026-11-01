@@ -1,0 +1,114 @@
+{
+ "clip_id": "c1",
+ "clip_sha256": "75c238723980fd3708d517ee22be6131e5b07297ffb2a790b66ff302d65abcaa",
+ "fps": 25,
+ "leaks": [
+  {
+   "leak_id": "L1",
+   "kind": "visual",
+   "concept": "delivery box with an address label",
+   "in_baseline": true,
+   "visible_ranges": [
+    [
+     2,
+     22
+    ]
+   ],
+   "ref_boxes": [
+    {
+     "t_s": 6.0,
+     "x": 40,
+     "y": 372,
+     "w": 230,
+     "h": 150
+    },
+    {
+     "t_s": 12.0,
+     "x": 40,
+     "y": 372,
+     "w": 230,
+     "h": 150
+    },
+    {
+     "t_s": 18.0,
+     "x": 40,
+     "y": 372,
+     "w": 230,
+     "h": 150
+    }
+   ],
+   "audio": null
+  },
+  {
+   "leak_id": "L4",
+   "kind": "visual",
+   "concept": "society name board",
+   "in_baseline": false,
+   "visible_ranges": [
+    [
+     3,
+     24
+    ]
+   ],
+   "ref_boxes": [
+    {
+     "t_s": 7.2,
+     "x": 620,
+     "y": 40,
+     "w": 320,
+     "h": 70
+    },
+    {
+     "t_s": 13.5,
+     "x": 620,
+     "y": 40,
+     "w": 320,
+     "h": 70
+    },
+    {
+     "t_s": 19.8,
+     "x": 620,
+     "y": 40,
+     "w": 320,
+     "h": 70
+    }
+   ],
+   "audio": null
+  }
+ ],
+ "safe_controls": [
+  {
+   "control_id": "C1",
+   "description": "product logo badge",
+   "visible_ranges": [
+    [
+     1,
+     24
+    ]
+   ],
+   "ref_boxes": [
+    {
+     "t_s": 5.6,
+     "x": 40,
+     "y": 40,
+     "w": 130,
+     "h": 130
+    },
+    {
+     "t_s": 12.5,
+     "x": 40,
+     "y": 40,
+     "w": 130,
+     "h": 130
+    },
+    {
+     "t_s": 19.4,
+     "x": 40,
+     "y": 40,
+     "w": 130,
+     "h": 130
+    }
+   ]
+  }
+ ]
+}

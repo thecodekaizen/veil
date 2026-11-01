@@ -1,0 +1,56 @@
+{
+ "clip_id": "c3",
+ "clip_sha256": "b5585b494b7c1ed76b14a1a4f4797e312316d92e906c7acc0c960555d151f10e",
+ "fps": 25,
+ "leaks": [
+  {
+   "leak_id": "A1",
+   "kind": "audio",
+   "concept": "spoken 10-digit phone number (Hindi digit words)",
+   "in_baseline": false,
+   "visible_ranges": [],
+   "ref_boxes": [],
+   "audio": {
+    "text": "\u0928\u094c \u0906\u0920 \u0938\u093e\u0924 \u091b\u0939 \u092a\u093e\u0901\u091a \u091a\u093e\u0930 \u0924\u0940\u0928 \u0926\u094b \u090f\u0915 \u0936\u0942\u0928\u094d\u092f",
+    "digits": "9876543210",
+    "t_start": 9.655,
+    "t_end": 12.521
+   }
+  }
+ ],
+ "safe_controls": [
+  {
+   "control_id": "C3",
+   "description": "book cover",
+   "visible_ranges": [
+    [
+     1,
+     24
+    ]
+   ],
+   "ref_boxes": [
+    {
+     "t_s": 5.6,
+     "x": 700,
+     "y": 300,
+     "w": 150,
+     "h": 210
+    },
+    {
+     "t_s": 12.5,
+     "x": 700,
+     "y": 300,
+     "w": 150,
+     "h": 210
+    },
+    {
+     "t_s": 19.4,
+     "x": 700,
+     "y": 300,
+     "w": 150,
+     "h": 210
+    }
+   ]
+  }
+ ]
+}

@@ -75,3 +75,12 @@ run showed G3 undercounting when only the single best concept was used, which is
 The 'phone number display' track extended from frame 172 back to 67 by reversed SAM was checked on frames 70/100/130/165/175 of the synthetic
 clip: the box follows the printed "DEMO CONTACT" label, so it is a correct extension, not a false one. Checked by eye on the bbox
 (the mask pixels were not separately tinted).
+
+## Composited gate clips (2026-11-01, supersedes "Gate clips are coming" for how clips are made)
+User: no staged footage exists and none will be filmed ("find the footage"). Commons search found nothing with doors, parcels or Hindi
+speech, so c1-c3 are built by `gate/make_composite_clips.py` from CC BY-SA Commons footage plus planted FICTIONAL graphics and a Hindi TTS
+number (see the GATE.md amendment). c1: box label + society board + logo control; c2: notification + nameplate + code-editor control;
+c3: spoken number + book-cover control (4 visual leaks, 1 audio leak, 3 controls). Labels committed before any model run. The gate stays
+NOT RUN until `make gate` runs; results will say "composited gate set". The clips are gitignored (`gate/clips/`); the sha256 in the
+labels matches this machine's ffmpeg encode, so a rebuild elsewhere may not match and would need regenerated labels (a new gate run).
+Exploratory x1/x2 runs (unlabelled real footage) are separate and are not gate results.

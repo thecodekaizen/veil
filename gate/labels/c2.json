@@ -1,0 +1,114 @@
+{
+ "clip_id": "c2",
+ "clip_sha256": "fc9b335bfc4d916369dff219459967f5a6bcb58b749f12130dbe0d0b464c172b",
+ "fps": 25,
+ "leaks": [
+  {
+   "leak_id": "L2",
+   "kind": "visual",
+   "concept": "phone notification showing a name",
+   "in_baseline": true,
+   "visible_ranges": [
+    [
+     4,
+     15
+    ]
+   ],
+   "ref_boxes": [
+    {
+     "t_s": 6.2,
+     "x": 280,
+     "y": 28,
+     "w": 400,
+     "h": 92
+    },
+    {
+     "t_s": 9.5,
+     "x": 280,
+     "y": 28,
+     "w": 400,
+     "h": 92
+    },
+    {
+     "t_s": 12.8,
+     "x": 280,
+     "y": 28,
+     "w": 400,
+     "h": 92
+    }
+   ],
+   "audio": null
+  },
+  {
+   "leak_id": "L3",
+   "kind": "visual",
+   "concept": "door nameplate",
+   "in_baseline": false,
+   "visible_ranges": [
+    [
+     2,
+     24
+    ]
+   ],
+   "ref_boxes": [
+    {
+     "t_s": 6.4,
+     "x": 680,
+     "y": 392,
+     "w": 250,
+     "h": 64
+    },
+    {
+     "t_s": 13.0,
+     "x": 680,
+     "y": 392,
+     "w": 250,
+     "h": 64
+    },
+    {
+     "t_s": 19.6,
+     "x": 680,
+     "y": 392,
+     "w": 250,
+     "h": 64
+    }
+   ],
+   "audio": null
+  }
+ ],
+ "safe_controls": [
+  {
+   "control_id": "C2",
+   "description": "code in an editor",
+   "visible_ranges": [
+    [
+     1,
+     24
+    ]
+   ],
+   "ref_boxes": [
+    {
+     "t_s": 5.6,
+     "x": 40,
+     "y": 330,
+     "w": 330,
+     "h": 170
+    },
+    {
+     "t_s": 12.5,
+     "x": 40,
+     "y": 330,
+     "w": 330,
+     "h": 170
+    },
+    {
+     "t_s": 19.4,
+     "x": 40,
+     "y": 330,
+     "w": 330,
+     "h": 170
+    }
+   ]
+  }
+ ]
+}
