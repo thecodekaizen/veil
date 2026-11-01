@@ -4,7 +4,7 @@ import json, re
 from pathlib import Path
 
 WPM = 150
-TARGET_S = 115
+TARGET_S = 125
 L = [  # v4: story-first (STORYBOARD_v4.md). id, beat, VO, on_screen, emphasis, pause_after_ms, evidence
  ('h1','Hook',"This street clip is about to be posted.",
   "c2 playing; About to be posted.",["about to be posted"],250,"runs-rep/r1/c2 input"),
@@ -36,8 +36,10 @@ L = [  # v4: story-first (STORYBOARD_v4.md). id, beat, VO, on_screen, emphasis, 
   "desk Natural toggle",["fictional names"],1300,"runs-rep/r1/c2 natural.json"),
  ('p1','Proof',"I planted four private details across three test clips. Standard detection found none.",
   "proof card: test set; standard 0 of 4",["four private details","found none"],300,"eval/results/final/heldout_results.md"),
- ('p2','Proof',"Across three full runs, Veil found eleven of twelve. In one run it missed a parcel label, and its audit didn't catch it either.",
-  "proof card: 4/4, 3/4, 4/4 = 11 of 12; miss outlined",["eleven of twelve","didn't catch it"],450,"gate/repeats/r1-r3; runs-rep/r2/c1 audit.json"),
+ ('p2','Proof',"Over three full runs, Veil found eleven of twelve. One run missed a parcel label, and its audit didn't catch it.",
+  "stat hit: 4/4, 3/4, 4/4 cells; the miss outlined",["eleven of twelve","didn't catch it"],350,"gate/repeats/r1-r3; runs-rep/r2/c1 audit.json"),
+ ('p2b','Proof',"After one fix to the mask check, three new runs found all twelve. Audio timing still fails my own test.",
+  "stat hit: post-gate v2 row 12 of 12; audio caveat",["all twelve","still fails"],450,"gate/repeats-v2; eval/repeats-v2/summary.md"),
  ('p3','Proof',"Every model call is logged: seven hundred and fifty-one calls, about two dollars forty per clip.",
   "live site ledger",["logged"],450,"eval/repeats/summary.json"),
  ('g1','Open weights',"Discovery also runs on Muse Glimmer, right on this laptop. The frames never leave it.",

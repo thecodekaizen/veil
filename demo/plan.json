@@ -4,7 +4,7 @@
  "formats": [
   "16:9"
  ],
- "target_length_s": 115,
+ "target_length_s": 125,
  "phases": {
   "0": "done",
   "1": "done",
@@ -204,14 +204,26 @@
   {
    "id": "p2",
    "beat": "Proof",
-   "text": "Across three full runs, Veil found eleven of twelve. In one run it missed a parcel label, and its audit didn't catch it either.",
-   "on_screen": "proof card: 4/4, 3/4, 4/4 = 11 of 12; miss outlined",
+   "text": "Over three full runs, Veil found eleven of twelve. One run missed a parcel label, and its audit didn't catch it.",
+   "on_screen": "stat hit: 4/4, 3/4, 4/4 cells; the miss outlined",
    "emphasis": [
     "eleven of twelve",
     "didn't catch it"
    ],
-   "pause_after_ms": 450,
+   "pause_after_ms": 350,
    "evidence": "gate/repeats/r1-r3; runs-rep/r2/c1 audit.json"
+  },
+  {
+   "id": "p2b",
+   "beat": "Proof",
+   "text": "After one fix to the mask check, three new runs found all twelve. Audio timing still fails my own test.",
+   "on_screen": "stat hit: post-gate v2 row 12 of 12; audio caveat",
+   "emphasis": [
+    "all twelve",
+    "still fails"
+   ],
+   "pause_after_ms": 450,
+   "evidence": "gate/repeats-v2; eval/repeats-v2/summary.md"
   },
   {
    "id": "p3",

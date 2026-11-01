@@ -108,6 +108,7 @@ const Hook: React.FC<{ from: number }> = ({ from }) => {
       <FullClip src="clips/c2_input.mp4" startSec={5} overlays={[
         { box: NOTIF, at: nameF, color: C.amber, label: "full name" },
         { box: DOOR, at: flatF, color: C.amber, label: "flat number" },
+        { box: [40, 330, 370, 500], at: 0, color: "#7d7a73", label: "decoy · harmless" },
       ]} />
       <Headline bottom items={[
         { at: 0, text: "About to be posted." },
@@ -134,6 +135,7 @@ const ContrastMiss: React.FC<{ clipAt: number }> = ({ clipAt }) => (
     <FullClip src="clips/c2_fixed.mp4" startSec={clipAt} overlays={[
       { box: NOTIF, at: 0, color: C.red, label: "still exposed" },
       { box: DOOR, at: 0, color: C.red, label: "still exposed" },
+      { box: [40, 330, 370, 500], at: 0, color: "#7d7a73", label: "decoy · harmless" },
     ]} />
     <Headline bottom items={[{ at: 0, text: <>Standard detection: <span style={{ color: C.red }}>both still exposed</span> <span style={{ color: C.dim, fontSize: 28 }}>· 0 of 4 across 3 test clips</span></> }]} />
   </AbsoluteFill>
@@ -154,10 +156,9 @@ const OneLiner: React.FC<{ from: number }> = ({ from }) => {
   );
   return (
     <AbsoluteFill>
-      <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", gap: 18, opacity: titleOut }}>
-        <div style={{ font: `700 200px ${display}`, color: C.text, lineHeight: 1 }}>Veil</div>
-        <div style={{ font: `600 46px ${body}`, color: C.text, textAlign: "center", maxWidth: 1500 }}>finds what identifies you <span style={{ color: C.amber }}>in this specific video</span></div>
-      </AbsoluteFill>
+      <Sequence durationInFrames={splitF} layout="none">
+        <AbsoluteFill style={{ opacity: titleOut }}><Video src={staticFile("clips/hf-sting.mp4")} muted style={{ width: 1920, height: 1080 }} /></AbsoluteFill>
+      </Sequence>
       <Sequence from={splitF} layout="none">
         <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
           <div style={{ display: "flex", gap: 24, marginTop: 40 }}>
@@ -173,44 +174,6 @@ const OneLiner: React.FC<{ from: number }> = ({ from }) => {
 
 const STAGE: Box = [160, 120, 1390, 1100];
 const FINDINGS_COL: Box = [1585, 770, 815, 670];
-
-const ProofCard: React.FC<{ from: number }> = ({ from }) => {
-  const frame = useCurrentFrame();
-  const show = (f: number) => ({ opacity: interpolate(frame, [f, f + 10], [0, 1], clamp), translate: `0px ${interpolate(frame, [f, f + 14], [20, 0], { ...clamp, easing: EASE })}px` });
-  const noneF = wordAt("p1", "found") - from, veilF = wordAt("p2", "eleven") - from, missF = wordAt("p2", "missed") - from;
-  const runs = [["Run 1", "4/4"], ["Run 2", "3/4"], ["Run 3", "4/4"]];
-  return (
-    <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
-      <div style={{ width: 1660, display: "grid", gap: 26 }}>
-        <div style={{ font: `600 32px ${mono}`, color: C.dim, ...show(0) }}>Test set: 3 composited street clips · 4 planted private details</div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 30 }}>
-          <div style={{ padding: 40, borderRadius: 26, background: C.panel, border: `1px solid ${C.line}`, ...show(noneF) }}>
-            <div style={{ font: `600 30px ${mono}`, color: C.dim }}>Standard detection</div>
-            <div style={{ font: `700 150px ${display}`, color: C.dim, lineHeight: 1.1 }}>0 of 4</div>
-            <div style={{ font: `500 30px ${body}`, color: C.dim }}>faces · plates · screens · documents</div>
-          </div>
-          <div style={{ padding: 40, borderRadius: 26, background: C.panel, border: `2px solid ${C.amber}`, ...show(veilF) }}>
-            <div style={{ font: `600 30px ${mono}`, color: C.amber }}>Veil · 3 full runs</div>
-            <div style={{ display: "flex", gap: 22, margin: "14px 0" }}>
-              {runs.map(([r, v]) => {
-                const miss = v === "3/4";
-                return (
-                  <div key={r} style={{ flex: 1, padding: "14px 18px", borderRadius: 16, border: `2px solid ${miss && frame >= missF ? C.red : C.line}`, background: "#111419" }}>
-                    <div style={{ font: `500 24px ${mono}`, color: C.dim }}>{r}</div>
-                    <div style={{ font: `700 72px ${display}`, color: miss ? C.text : C.green, lineHeight: 1.05 }}>{v}</div>
-                    {miss && <div style={{ font: `600 22px ${body}`, color: C.red, opacity: interpolate(frame, [missF, missF + 8], [0, 1], clamp) }}>missed a parcel label · the audit didn't flag it</div>}
-                  </div>
-                );
-              })}
-            </div>
-            <div style={{ font: `700 64px ${display}`, color: C.text }}>11 of 12</div>
-          </div>
-        </div>
-        <div style={{ font: `500 22px ${mono}`, color: C.dim, ...show(0) }}>Sources: eval/results/final/heldout_results.md · gate/repeats/r1–r3 · runs-rep/r2/c1/audit.json</div>
-      </div>
-    </AbsoluteFill>
-  );
-};
 
 type GlimmerData = { frames: number; frames_ok: number; median_s: number | null; tok_s: number | null; proposals: { frame: number; concept: string; why: string }[]; result: string | null; quant: string };
 const GlimmerScene: React.FC<{ g: GlimmerData; from: number }> = ({ g, from }) => {
@@ -326,7 +289,7 @@ export const Main: React.FC = () => {
       <Sequence name="Audit: mask check" {...S.mask}>
         <FlowScene flow="desk_mask" trim={2.6} from={S.mask.from} len={S.mask.durationInFrames} frame0={[160, 120, 2240, 1100]}
           zooms={[{ at: wordAt("f3", "threw"), box: [160, 170, 1500, 340] }]} />
-        {H([{ at: S.mask.from, text: <>Wrong mask caught: <span style={{ color: C.red }}>OCR read code, not the name</span></> }], S.mask.from)}
+        {H([{ at: S.mask.from, text: <>SAM grabbed the <span style={{ color: C.dim }}>decoy</span> code panel: <span style={{ color: C.red }}>OCR read code, not the name</span></> }], S.mask.from)}
       </Sequence>
       <Sequence name="Audit: unresolved" {...S.unres}>
         <FlowScene flow="desk_verdict" trim={7.7} from={S.unres.from} len={S.unres.durationInFrames} frame0={FINDINGS_COL}
@@ -339,7 +302,7 @@ export const Main: React.FC = () => {
         {H([{ at: S.nat.from, text: <>Natural mode: <span style={{ color: C.amber }}>fictional text</span> · audit: 0 original words left</> }], S.nat.from)}
       </Sequence>
 
-      <Sequence name="Proof" {...S.proof}><ProofCard from={S.proof.from} /></Sequence>
+      <Sequence name="Proof (HyperFrames)" {...S.proof}><Video src={staticFile("clips/hf-proof.mp4")} muted style={{ width: 1920, height: 1080 }} /></Sequence>
       <Sequence name="Proof: ledger" {...S.ledger}>
         <FlowScene flow="site_ledger" trim={3.1} from={S.ledger.from} len={S.ledger.durationInFrames} frame0={[160, 160, 2240, 840]} />
         {H([{ at: S.ledger.from, text: "Every model call is on the ledger" }], S.ledger.from)}

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Fraunces";
+        src: url("assets/fonts/Fraunces.ttf") format("truetype");
+        font-weight: 100 900;
+      }
+      :root {
+        --ground: #0b0d10;
+        --ink: #f2efe8;
+        --dim: #9a968d;
+        --amber: #e8b04a;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); }
+      #root { width: 100%; height: 100%; position: relative; background: radial-gradient(60% 55% at 50% 45%, rgba(232, 176, 74, 0.08), transparent 70%), var(--ground); }
+      #lockup { position: absolute; left: 0; right: 0; top: 330px; display: flex; flex-direction: column; align-items: center; gap: 34px; }
+      #brand { display: flex; align-items: center; gap: 40px; }
+      #mark { width: 168px; height: 168px; }
+      #word { font-family: "Fraunces", serif; font-weight: 700; font-size: 220px; line-height: 1; color: var(--ink); letter-spacing: -0.03em; display: flex; }
+      #word span { display: inline-block; }
+      #line { font-family: "Inter", sans-serif; font-weight: 700; font-size: 54px; color: var(--ink); display: flex; gap: 16px; }
+      #line span { display: inline-block; color: #1f2227; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="3.5" data-width="1920" data-height="1080">
+      <div id="lockup" class="clip" data-start="0" data-duration="3.5" data-track-index="0" data-track-kind="graphics">
+        <div id="brand">
+          <svg id="mark" viewBox="0 0 32 32" aria-label="Veil mark">
+            <rect id="frame" x="3" y="3" width="26" height="26" rx="7" fill="none" stroke="#E8B04A" stroke-width="2.5" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" />
+            <g id="coverwrap" clip-path="url(#coverclip)">
+              <path id="cover" d="M3 18 L18 3 H22 A7 7 0 0 1 29 10 V22 A7 7 0 0 1 22 29 H10 A7 7 0 0 1 3 22 Z" fill="#F2EFE8" />
+            </g>
+            <defs><clipPath id="coverclip"><rect id="coverrect" x="0" y="0" width="0" height="32" /></clipPath></defs>
+          </svg>
+          <div id="word"><span>V</span><span>e</span><span>i</span><span>l</span></div>
+        </div>
+        <div id="line">
+          <span>finds</span><span>what</span><span>identifies</span><span>you</span><span class="hl">in</span><span class="hl">this</span><span class="hl">specific</span><span class="hl">video</span>
+        </div>
+      </div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // found: the amber evidence frame draws on
+      tl.fromTo("#frame", { attr: { "stroke-dashoffset": 100 } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.6, ease: "expo.out" }, 0.05);
+      // covered: the ink cover sweeps across it
+      tl.fromTo("#coverrect", { attr: { width: 0 } }, { attr: { width: 32 }, duration: 0.35, ease: "power3.out" }, 0.45);
+      // wordmark lands per letter, then holds dead still
+      tl.fromTo("#word span", { opacity: 0.25, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out", stagger: 0.1 }, 0.55);
+      // line: per word from dark grey to ink; the qualifier lands in amber
+      tl.to("#line span:not(.hl)", { color: "#f2efe8", duration: 0.12, ease: "none", stagger: 0.08 }, 1.25);
+      tl.to("#line span.hl", { color: "#e8b04a", duration: 0.12, ease: "none", stagger: 0.08 }, 1.57);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

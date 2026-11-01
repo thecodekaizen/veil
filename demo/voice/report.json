@@ -153,13 +153,26 @@
   {
    "id": "p2",
    "file": "line_p2.wav",
-   "duration_s": 8.32,
-   "peak": 0.416,
-   "wer": 0.167,
-   "heard": "Across three full runs, Veil found 11 of 12. In one run it missed a parcel label, and its audit didn't catch it either.",
+   "duration_s": 7.27,
+   "peak": 0.406,
+   "wer": 0.19,
+   "heard": "Over three full runs, Veil found 11 of 12. One run missed a parcel label, and its audit didn't catch it.",
    "flags": [
-    "WER 17% > 5%",
+    "WER 19% > 5%",
     "missing ['eleven', 'twelve']"
+   ],
+   "status": "check"
+  },
+  {
+   "id": "p2b",
+   "file": "line_p2b.wav",
+   "duration_s": 7.24,
+   "peak": 0.541,
+   "wer": 0.1,
+   "heard": "After one fix to the mask check, three new runs found all 12. Audio timing still fails my own test.",
+   "flags": [
+    "WER 10% > 5%",
+    "missing ['twelve']"
    ],
    "status": "check"
   },
@@ -217,17 +230,18 @@
    "status": "ok"
   }
  ],
- "recorded": 21,
- "of": 21,
+ "recorded": 22,
+ "of": 22,
  "loudness": {
-  "integrated_lufs": -16.31,
+  "integrated_lufs": -16.29,
   "true_peak_dbtp": -1.48,
-  "lra": 2.9
+  "lra": 3.0
  },
- "vo_duration_s": 118.75,
- "vo_wer": 0.0511,
+ "vo_duration_s": 125.29,
+ "vo_wer": 0.055,
  "vo_missing_words": [
   "eleven",
+  "twelve",
   "twelve",
   "hundred",
   "fifty",

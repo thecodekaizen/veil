@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Fraunces";
+        src: url("assets/fonts/Fraunces.ttf") format("truetype");
+        font-weight: 100 900;
+      }
+      :root {
+        --ground: #0b0d10;
+        --panel: #14171c;
+        --line: #262b34;
+        --ink: #f2efe8;
+        --dim: #9a968d;
+        --amber: #e8b04a;
+        --green: #6fcf8f;
+        --red: #e66b5b;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); }
+      #root { width: 100%; height: 100%; position: relative; background: var(--ground); font-family: "Inter", sans-serif; color: var(--ink); }
+      #board { position: absolute; left: 150px; top: 120px; width: 1620px; }
+      #testset { font: 700 30px "JetBrains Mono", monospace; color: var(--dim); margin-bottom: 26px; }
+      .grid { display: grid; grid-template-columns: 430px repeat(4, 190px) 1fr; align-items: center; column-gap: 18px; row-gap: 14px; }
+      .colhead { font: 700 22px "Inter", sans-serif; color: var(--dim); text-align: center; line-height: 1.2; }
+      .rowlabel { font: 700 30px "Inter", sans-serif; color: var(--ink); }
+      .rowlabel small { display: block; font: 400 21px "JetBrains Mono", monospace; color: var(--dim); }
+      .cell { height: 66px; border-radius: 12px; border: 2px solid var(--line); background: #111419; position: relative; }
+      .fill { position: absolute; inset: 0; border-radius: 10px; opacity: 0; }
+      .fill.found { background: var(--amber); }
+      .fill.found2 { background: var(--green); }
+      .x { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font: 700 34px "Inter", sans-serif; color: #4a4e56; opacity: 0; }
+      .count { font: 700 64px "Fraunces", serif; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; text-align: right; }
+      .sep { grid-column: 1 / -1; height: 1px; background: var(--line); margin: 10px 0; }
+      .tag { display: inline-block; font: 700 18px "JetBrains Mono", monospace; color: var(--ground); background: var(--green); padding: 3px 9px; border-radius: 6px; margin-left: 10px; vertical-align: middle; }
+      #missnote { font: 700 24px "Inter", sans-serif; color: var(--red); opacity: 0; }
+      #audio { position: absolute; left: 150px; top: 905px; font: 700 34px "Inter", sans-serif; color: var(--red); opacity: 0; }
+      #source { position: absolute; left: 150px; bottom: 40px; font: 400 21px "JetBrains Mono", monospace; color: var(--dim); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="21.6" data-width="1920" data-height="1080">
+      <div id="board" class="clip" data-start="0" data-duration="21.6" data-track-index="0" data-track-kind="graphics">
+        <div id="testset">Test set: 3 composited street clips · 4 planted private details</div>
+        <div class="grid" id="grid">
+          <div></div>
+          <div class="colhead">parcel<br />label</div>
+          <div class="colhead">society<br />board</div>
+          <div class="colhead">name in a<br />notification</div>
+          <div class="colhead">door<br />plate</div>
+          <div class="colhead" style="text-align:right">found</div>
+
+          <div class="rowlabel" id="stdlabel">Standard detection<small>faces · plates · screens · documents</small></div>
+          <div class="cell std"><div class="x">✕</div></div>
+          <div class="cell std"><div class="x">✕</div></div>
+          <div class="cell std"><div class="x">✕</div></div>
+          <div class="cell std"><div class="x">✕</div></div>
+          <div class="count" id="c-std" style="color: var(--dim)">0 of 4</div>
+
+          <div class="sep"></div>
+
+          <div class="rowlabel v1">Veil · run 1</div>
+          <div class="cell v1"><div class="fill found"></div></div>
+          <div class="cell v1"><div class="fill found"></div></div>
+          <div class="cell v1"><div class="fill found"></div></div>
+          <div class="cell v1"><div class="fill found"></div></div>
+          <div class="count v1" id="c-v1" style="grid-row: span 3; color: var(--amber)">0 of 12</div>
+          <div class="rowlabel v1">Veil · run 2</div>
+          <div class="cell v1" id="misscell"><div class="x" style="color: var(--red)">–</div></div>
+          <div class="cell v1"><div class="fill found"></div></div>
+          <div class="cell v1"><div class="fill found"></div></div>
+          <div class="cell v1"><div class="fill found"></div></div>
+          <div class="rowlabel v1">Veil · run 3</div>
+          <div class="cell v1"><div class="fill found"></div></div>
+          <div class="cell v1"><div class="fill found"></div></div>
+          <div class="cell v1"><div class="fill found"></div></div>
+          <div class="cell v1"><div class="fill found"></div></div>
+
+          <div></div>
+          <div id="missnote" style="grid-column: 2 / -1">missed a parcel label · the audit didn't flag it</div>
+
+          <div class="sep v2"></div>
+
+          <div class="rowlabel v2">After one fix · 3 runs<span class="tag">POST-GATE</span><small>mask check also verifies cited names</small></div>
+          <div class="cell v2"><div class="fill found2"></div></div>
+          <div class="cell v2"><div class="fill found2"></div></div>
+          <div class="cell v2"><div class="fill found2"></div></div>
+          <div class="cell v2"><div class="fill found2"></div></div>
+          <div class="count v2" id="c-v2" style="color: var(--green)">0 of 12</div>
+        </div>
+      </div>
+      <div id="audio" class="clip" data-start="0" data-duration="21.6" data-track-index="1" data-track-kind="graphics">Still failing: the spoken-number mute window, in 3 of 3 new runs</div>
+      <div id="source" class="clip" data-start="0" data-duration="21.6" data-track-index="2" data-track-kind="graphics">Sources: eval/results/final/heldout_results.md · gate/repeats/r1–r3 · gate/repeats-v2/r1–r3</div>
+    </div>
+    <script>
+      // Word times (s, from the narration timing map): four 0.49 · none 5.45 · eleven 8.45 · missed 10.39 · catch 13.03 · fix 14.37 · all 17.23 · audio 18.31
+      const tl = gsap.timeline({ paused: true });
+      const T = { four: 0.49, none: 5.45, eleven: 8.45, missed: 10.39, catch: 13.03, fix: 14.37, all: 17.23, audio: 18.31 };
+      gsap.set(".v1, .v2", { opacity: 0 });
+      gsap.set("#stdlabel, .cell.std, #c-std", { opacity: 0 });
+      tl.fromTo("#testset", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, T.four - 0.2);
+      tl.fromTo(".colhead", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out", stagger: 0.06 }, T.four + 0.2);
+      // standard detection: the row arrives, then four crosses on "none"
+      tl.to("#stdlabel, .cell.std", { opacity: 1, duration: 0.25, ease: "expo.out", stagger: 0.05 }, 3.6);
+      tl.to(".cell.std .x", { opacity: 1, duration: 0.15, ease: "power2.out", stagger: 0.06 }, T.none);
+      tl.to("#c-std", { opacity: 1, duration: 0.2, ease: "power2.out" }, T.none + 0.2);
+      // Veil v1: rows arrive, cells light up one by one, the count runs 0 -> 11 (1.4 s), the missed cell stays empty
+      tl.to(".rowlabel.v1, .cell.v1, #c-v1", { opacity: 1, duration: 0.25, ease: "expo.out", stagger: 0.03 }, T.eleven - 1.0);
+      tl.to(".cell.v1 .fill", { opacity: 1, duration: 0.12, ease: "power2.out", stagger: 0.11 }, T.eleven);
+      const c1 = { v: 0 };
+      tl.to(c1, { v: 11, duration: 1.4, ease: "power1.out", onUpdate: () => { document.querySelector("#c-v1").textContent = Math.round(c1.v) + " of 12"; } }, T.eleven);
+      tl.to("#misscell", { borderColor: "#e66b5b", duration: 0.2, ease: "power2.out" }, T.missed);
+      tl.to("#misscell .x", { opacity: 1, duration: 0.2 }, T.missed);
+      tl.to("#missnote", { opacity: 1, duration: 0.2, ease: "power2.out" }, T.missed + 0.2);
+      // after the fix: the post-gate row, all four columns green in every run, 12 of 12
+      tl.to(".v2", { opacity: 1, duration: 0.3, ease: "expo.out", stagger: 0.04 }, T.fix);
+      tl.to(".cell.v2 .fill", { opacity: 1, duration: 0.15, ease: "power2.out", stagger: 0.12 }, T.all);
+      const c2 = { v: 0 };
+      tl.to(c2, { v: 12, duration: 1.3, ease: "power1.out", onUpdate: () => { document.querySelector("#c-v2").textContent = Math.round(c2.v) + " of 12"; } }, T.all);
+      // the honest caveat
+      tl.fromTo("#audio", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, T.audio);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

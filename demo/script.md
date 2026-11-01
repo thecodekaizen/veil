@@ -1,6 +1,6 @@
 # Script: Veil (2:30 judge cut)
 
-Words: **271** (budget 288 ±10% = 259–316). Est. read time at 150 wpm incl. pauses: **126 s**.
+Words: **288** (budget 312 ±10% = 281–344). Est. read time at 150 wpm incl. pauses: **133 s**.
 
 | Beat | words | est. s |
 |---|---|---|
@@ -11,7 +11,7 @@ Words: **271** (budget 288 ±10% = 259–316). Est. read time at 150 wpm incl. p
 | Find | 22 | 8.8 |
 | Listen | 24 | 9.6 |
 | Audit | 61 | 24.4 |
-| Proof | 53 | 21.2 |
+| Proof | 70 | 28.0 |
 | Open weights | 28 | 11.2 |
 | Close | 15 | 6.0 |
 
@@ -32,7 +32,8 @@ Words: **271** (budget 288 ±10% = 259–316). Est. read time at 150 wpm incl. p
 | r1 | Every finding ends covered, unresolved, or not checked. Never a blanket all clear. | findings, Unresolved filter | unresolved, all clear | 350 ms | `runs-rep/r1/c2 audit.json` |
 | n1 | Prefer no black boxes? Natural mode swaps in fictional names, and runs the audit again. | desk Natural toggle | fictional names | 1300 ms | `runs-rep/r1/c2 natural.json` |
 | p1 | I planted four private details across three test clips. Standard detection found none. | proof card: test set; standard 0 of 4 | four private details, found none | 300 ms | `eval/results/final/heldout_results.md` |
-| p2 | Across three full runs, Veil found eleven of twelve. In one run it missed a parcel label, and its audit didn't catch it either. | proof card: 4/4, 3/4, 4/4 = 11 of 12; miss outlined | eleven of twelve, didn't catch it | 450 ms | `gate/repeats/r1-r3; runs-rep/r2/c1 audit.json` |
+| p2 | Over three full runs, Veil found eleven of twelve. One run missed a parcel label, and its audit didn't catch it. | stat hit: 4/4, 3/4, 4/4 cells; the miss outlined | eleven of twelve, didn't catch it | 350 ms | `gate/repeats/r1-r3; runs-rep/r2/c1 audit.json` |
+| p2b | After one fix to the mask check, three new runs found all twelve. Audio timing still fails my own test. | stat hit: post-gate v2 row 12 of 12; audio caveat | all twelve, still fails | 450 ms | `gate/repeats-v2; eval/repeats-v2/summary.md` |
 | p3 | Every model call is logged: seven hundred and fifty-one calls, about two dollars forty per clip. | live site ledger | logged | 450 ms | `eval/repeats/summary.json` |
 | g1 | Discovery also runs on Muse Glimmer, right on this laptop. The frames never leave it. | Glimmer card | Muse Glimmer, never leave it | 900 ms | `runs-glimmer/c2s; eval/glimmer/summary.md` |
 | g2 | On this clip it found both details, and left the code panel alone. | Glimmer card result line | both details | 500 ms | `gate/glimmer; eval/glimmer/summary.md` |

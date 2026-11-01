@@ -39,3 +39,8 @@ cp voice/vo.wav video/public/vo.wav
 - Every zoom starts on the word that names its target (Whisper word timestamps), 500 ms ease-in-out, holds >= 1.8 s, then a hard cut.
 - Music: original bed synthesized by `demo/compose_bed.py` (no third-party music). Narration: Kokoro `am_michael`, 0.92x.
 - Phase 4 self-review: `review/final_cues.json` (Whisper word time per cue), cue frames at trigger and +1.3 s, first 8 s muted, phone-width legibility; narration-over-music 22.4 dB; no clipping.
+
+## v5 (HyperFrames + Remotion)
+- Title sting (`demo/hf-sting`, 3.5 s) and proof stat hit (`demo/hf-proof`, 21.6 s) are HyperFrames compositions (HTML + GSAP, Fraunces OFL font), rendered to MP4 and placed in the Remotion edit. Proof data: heldout 0/4, v1 repeats 4/4·3/4·4/4 = 11/12 (miss: parcel label, not flagged by the audit), post-gate v2 repeats 12/12, mute window still failing 3/3.
+- Decoy labels: the code panel is labelled "decoy · harmless" (it is a planted safe control for the false-flag test).
+- Sync check on the final render: 16 of 17 cue words within 0.1 s of plan; "audio" 0.42 s early. Duration 2:05, -14.1 LUFS, narration 22.1 dB over music, no clipping, no black frames.
