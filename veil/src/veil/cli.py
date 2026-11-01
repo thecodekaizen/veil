@@ -1,4 +1,5 @@
 """Veil command line. Currently: `veil label`. Pipeline commands arrive with their stages."""
+import json
 from pathlib import Path
 
 import typer
@@ -54,6 +55,15 @@ def export_web(run_id: str, out: Path = typer.Option(None, help='default: veil/w
     """Copy RUN_ID's input/output video and a compact manifest.json for the static demo UI."""
     from veil import export_web as ew
     typer.echo(str(ew.export(runs_dir / run_id, out or Path('veil/web/public/demo') / run_id, provenance)))
+
+
+@app.command()
+def naturalize(run_id: str, runs_dir: Path = typer.Option(Path('runs'))):
+    """Opt-in natural export: re-render verified text surfaces with fictional text (others stay covered), then OCR-audit it."""
+    from veil.stages import natural_text, verify
+    rep = natural_text.run(runs_dir / run_id, verify.macos_ocr_rows(runs_dir / run_id / 'audit_cache'))
+    typer.echo(json.dumps({k: rep[k] for k in ('replacements', 'text_surface_frames', 'fallback_cover_frames', 'cover_regions')}, ensure_ascii=False))
+    typer.echo(f"audit: {rep['audit']['status']} ({rep['audit']['sampled_frames']} frames OCR'd, {len(rep['audit']['residual_original_words'])} residual words)")
 
 
 if __name__ == '__main__':

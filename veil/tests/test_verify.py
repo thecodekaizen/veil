@@ -38,3 +38,18 @@ def test_proper_names_are_claims_and_match_by_word():
     assert verify.found('ROHAN KULKARNI', ['Messages • now', 'Rohan Kulkarni'])
     assert not verify.found('ROHAN KULKARNI', ['def total(items):', 'for i in items:'])  # the code panel is rejected
     assert verify.claimed_tokens('Message notification banner at top') == []  # sentence-initial words are not names
+
+
+def test_natural_text_mapping_and_rewrite_are_fictional():
+    from veil.stages.natural_text import build_mapping, rewrite
+    m = build_mapping(['KULKARNI', 'Rohan', 'Kulkarni'], ['KULKARNI', 'ROHAN KULKARNI'])
+    assert m == {'KULKARNI': 'SHARMA', 'ROHAN': 'Aarav'}
+    assert rewrite('KULKARNI - 12', m) == 'SHARMA - 87'
+    assert rewrite('Rohan Kulkarni', m) == 'Aarav Sharma'
+    assert rewrite('Your parcel is at the gate', m) == 'Your parcel is at the gate'
+
+
+def test_natural_text_given_name_from_rows_and_no_false_given():
+    from veil.stages.natural_text import build_mapping
+    assert build_mapping(['KULKARNI'], ['KULKARNI', 'KULKARNI — 12']) == {'KULKARNI': 'SHARMA'}
+    assert build_mapping(['KULKARNI', 'Rohan', 'Kulkarni'], ['KULKARNI', 'Rohan Kulkarni']) == {'KULKARNI': 'SHARMA', 'ROHAN': 'Aarav'}
