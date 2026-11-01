@@ -60,7 +60,11 @@ def run(clip: Path, run_id: str, stages: list[str], runs_dir: Path = Path('runs'
                                                    duration_s=duration, keyframes=frames))
     if 'discover' in stages:
         kfa = KeyframeArtifact.model_validate_json((root / 'keyframes.json').read_text())
-        ask = discover_stage.make_spark_ask(c, ledger, root)
+        if os.environ.get('VEIL_DISCOVER') == 'glimmer':  # open-weight Muse Glimmer, local llama.cpp server
+            ask = discover_stage.make_glimmer_ask(ledger, root, os.environ.get('GLIMMER_URL', 'http://127.0.0.1:8088'),
+                                                  os.environ.get('GLIMMER_QUANT', 'unsloth UD-Q3_K_XL GGUF'))
+        else:
+            ask = discover_stage.make_spark_ask(c, ledger, root)
         _write(root, 'discover', discover_stage.run(kfa.keyframes, root / 'keyframes', ask))
     if 'track' in stages:
         disc = DiscoverArtifact.model_validate_json((root / 'discover.json').read_text())
@@ -74,7 +78,8 @@ def run(clip: Path, run_id: str, stages: list[str], runs_dir: Path = Path('runs'
             def call_sam(name, prompt):
                 return segment_masks(c, ledger, root, name, prompt, file_id=uploaded.id, frame_count=n_frames)
 
-            _write(root, 'track', track_stage.run(disc, call_sam, n_frames, int(os.environ.get('VEIL_SPARK_CAP', track_stage.MAX_SPARK_CONCEPTS))))
+            _write(root, 'track', track_stage.run(disc, call_sam, n_frames, int(os.environ.get('VEIL_SPARK_CAP', track_stage.MAX_SPARK_CONCEPTS)),
+                                                   int(os.environ.get('VEIL_SAM_RETRIES', '0'))))
         finally:
             if uploaded:
                 try:

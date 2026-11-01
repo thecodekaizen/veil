@@ -129,3 +129,37 @@ def make_spark_ask(client, ledger, root: Path, model: str = 'muse-spark-1.3') ->
             ledger.fail(name, start, exc)
             raise
     return ask
+
+
+GLIMMER_MODEL = 'muse-glimmer-30b'
+
+
+def make_glimmer_ask(ledger, root: Path, base_url: str, quant: str) -> Ask:
+    """Open-weight Muse Glimmer 30B served LOCALLY by llama.cpp (`llama-server`, OpenAI-compatible chat API).
+    Same prompt, same strict JSON schema as hosted Spark; the keyframe never leaves the machine. Logged in the
+    same ledger with endpoint `local:<base_url>` and cost 0 (local compute is not priced)."""
+    import httpx
+    from veil.providers.common import save
+    prompt = PROMPT_PATH.read_text().strip()
+    schema = Items.model_json_schema()
+    model = f'{GLIMMER_MODEL} ({quant}, local llama.cpp)'
+    (root / 'discover_raw').mkdir(parents=True, exist_ok=True)
+
+    def ask(path: Path, repair: str | None):
+        name = f'discover-{path.stem}' + ('-repair' if repair else '')
+        start = ledger.begin(name, model, f'local:{base_url}/v1/chat/completions', f'1 keyframe JPEG ({path.name}), not uploaded')
+        content = [{'type': 'text', 'text': prompt + (' ' + repair if repair else '')},
+                   {'type': 'image_url', 'image_url': {'url': 'data:image/jpeg;base64,' + base64.b64encode(path.read_bytes()).decode()}}]
+        try:
+            r = httpx.post(f'{base_url}/v1/chat/completions', timeout=600, json={
+                'model': GLIMMER_MODEL, 'messages': [{'role': 'user', 'content': content}], 'temperature': 0.2,
+                'max_tokens': 2000, 'response_format': {'type': 'json_schema', 'json_schema': {'name': 'discover_items', 'strict': True, 'schema': schema}}})
+            r.raise_for_status()
+            body = r.json()
+            save(root / 'discover_raw' / f'{name}.json', body)
+            ledger.finish(name, start, usage=body.get('usage'), estimated_usd=0.0)
+            return body['choices'][0]['message']['content'], model
+        except Exception as exc:
+            ledger.fail(name, start, exc)
+            raise
+    return ask

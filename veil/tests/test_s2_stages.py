@@ -153,3 +153,19 @@ def test_voiced_refine_narrows_span_and_keeps_inside_original():
     assert out.precision == 'window_voiced'
     assert 2.0 <= out.t_start < out.t_end <= 4.0
     assert out.t_start > 2.9  # second half of voiced time, not second half of the window
+
+
+def test_track_retries_are_explicit_and_recorded():
+    from veil.schemas import Concept, DiscoverArtifact
+    calls = []
+
+    def flaky(name, prompt):
+        calls.append(name)
+        if len(calls) == 1:
+            raise RuntimeError('stream dropped')
+        return {}
+    disc = DiscoverArtifact.model_construct(concepts=[Concept(concept_id='spark-x', sam_prompt='x', source='spark', first_frame_idx=0,
+                                                              candidate_ids=['a'], max_confidence=0.9)])
+    out = track.run(disc, flaky, 10, retries=1)
+    assert calls == ['track-spark-x', 'track-spark-x-retry1']
+    assert 'succeeded on retry 1' in out.notes and not out.skipped_concepts

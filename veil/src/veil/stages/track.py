@@ -50,20 +50,28 @@ def to_masklets(concept_id: str, tracks: dict) -> list[Masklet]:
     return out
 
 
-def run(discover: DiscoverArtifact, call_sam, frame_count: int, cap: int = MAX_SPARK_CONCEPTS) -> TrackArtifact:
+def run(discover: DiscoverArtifact, call_sam, frame_count: int, cap: int = MAX_SPARK_CONCEPTS, retries: int = 0) -> TrackArtifact:
     """call_sam(name, sam_prompt) -> raw tracks dict. Concepts sharing a normalized prompt run once."""
     to_run, skipped = plan(discover.concepts, cap)
     by_prompt: dict[str, list[Concept]] = {}
     for c in to_run:
         by_prompt.setdefault(normalize(c.sam_prompt), []).append(c)
     errors: list[str] = []
+    retried: list[str] = []
 
     def one(item):
         key, group = item
-        try:
-            return group, call_sam(f'track-{group[0].concept_id}', group[0].sam_prompt), None
-        except Exception as exc:
-            return group, None, f'{type(exc).__name__}: {str(exc)[:200]}'
+        err = None
+        for attempt in range(retries + 1):  # explicit retries, each its own ledger entry (`-retryN`), listed in notes
+            name = f'track-{group[0].concept_id}' + (f'-retry{attempt}' if attempt else '')
+            try:
+                tracks = call_sam(name, group[0].sam_prompt)
+                if attempt:
+                    retried.append(f'{group[0].concept_id}: succeeded on retry {attempt} after {err}')
+                return group, tracks, None
+            except Exception as exc:
+                err = f'{type(exc).__name__}: {str(exc)[:200]}'
+        return group, None, err
 
     with ThreadPoolExecutor(SAM_CONCURRENCY) as pool:
         results = list(pool.map(one, by_prompt.items()))
@@ -79,4 +87,4 @@ def run(discover: DiscoverArtifact, call_sam, frame_count: int, cap: int = MAX_S
     notes = ('SAM 3.1 hosted video input; tracks/ids come from the model (linking="model"); confidence is null in every '
              'observed response so score is None. Concepts with the same normalized prompt share one SAM call.')
     return TrackArtifact(model_id='sam-3.1', linking='model', masklets=masklets, skipped_concepts=skipped,
-                         notes=notes + (' Failures: ' + '; '.join(errors) if errors else ''))
+                         notes=notes + (' Failures: ' + '; '.join(errors) if errors else '') + (' Retried: ' + '; '.join(retried) if retried else ''))
