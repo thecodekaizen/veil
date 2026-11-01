@@ -9,7 +9,7 @@ Deterministic code redacts, **re-checks the exported file**, and tells you exact
 
 **Models propose. Code decides.**
 
-[![tests](https://img.shields.io/badge/tests-119%20passing-6FCF8F)](#run-the-tests)
+[![tests](https://img.shields.io/badge/tests-122%20passing-6FCF8F)](#run-the-tests)
 [![python](https://img.shields.io/badge/python-3.12-blue)](veil/pyproject.toml)
 [![Meta models](https://img.shields.io/badge/Meta-Muse%20Spark%20·%20SAM%203.1%20·%20Muse%20Voice-E8B04A)](#the-meta-models-and-what-each-one-does)
 [![hackathon](https://img.shields.io/badge/Meta%20Global%20AI%20Developer%20Hackathon-2026%20·%20Indie-0B0D10)](SUBMISSION.md)
@@ -127,13 +127,33 @@ SAM 3.1 grounded Spark's "name overlay label" on a **block of code**. The post-g
 
 <div align="center"><img src="docs/media/findings-c2.png" alt="Findings: COVERED, UNRESOLVED and NOT_CHECKED with reasons" width="90%"/></div>
 
+### Or skip the black boxes: natural export
+
+`veil naturalize <run>` re-renders only the text rows the mask check verified, using **fictional values** in the original's colours and font weight. Everything else keeps an opaque cover. The natural file then gets its **own** OCR audit: no original identifying word may be readable anywhere in it.
+
+<div align="center"><img src="docs/media/natural-before-after.jpg" alt="Input, black-box export and natural export of the same frame" width="100%"/></div>
+<sub>Left: input. Middle: default export (covers). Right: natural export, where "Rohan Kulkarni" becomes "Aarav Sharma" and "KULKARNI — 12" becomes "SHARMA - 87". The icon, card and plate border are untouched original pixels. Audit: 0 original words in 53 OCR'd frames, 0 fallback frames. The code panel stays covered because its mask holds no verified text.</sub>
+
 ### Spoken numbers, in Hindi
 
 <div align="center"><img src="docs/media/voice-c3.png" alt="Muse Voice transcript in Devanagari and the muted interval on the timeline" width="90%"/></div>
 
 The number was muted and re-transcription of the output found no digit run. But Voice misheard digits ("987765 · 5432100" for 98765 43210), and the mute window is still wider than our own limit (G4b FAIL).
 
-<!--GLIMMER-->
+### Discovery on open weights: Muse Glimmer, on a laptop
+
+The discovery stage can run on **Muse Glimmer 30B** (Meta's Apache-2.0 open weights) served by `llama.cpp` on the author's Apple M4 Pro, so **keyframes never leave the machine** for that step. Same prompt, same strict JSON schema, same scorer. Experiment declared before results: every 3rd keyframe of gate clip c2 (9 frames).
+
+| Gate clip c2 | Hosted Muse Spark (repeat r1, 25 keyframes) | **Muse Glimmer, local (9 keyframes, 5 answered)** |
+|---|---|---|
+| Planted leaks found (notification, door plate) | 2/2 | **2/2** (mask IoU 0.979, 0.993) |
+| Safe control (code panel) flagged | yes | **no** |
+| Cost / where frames go | ~$0.07 of Spark calls per clip (ledger), Meta API | $0, stays local |
+| Speed | ~3.6 s per keyframe | ~9 min per keyframe; 4 of 9 timed out |
+
+Glimmer's own reasoning, verbatim: *"Shows surname Kulkarni with number 12, suggesting residence or apartment identifier."* **Caveats:** one clip, a third of the keyframes, a 3-bit quantization, and a 24 GB laptop that swaps. This shows the open-weight path works end to end; it is not a quality ranking. Full details: [`eval/glimmer/summary.md`](eval/glimmer/summary.md).
+
+
 
 ## The Meta models, and what each one does
 
@@ -141,6 +161,7 @@ The number was muted and re-transcription of the output found no digit run. But 
 |---|---|---|
 | **Muse Spark 1.3** (`/v1/responses`, strict JSON schema) | Open-vocabulary discovery: per keyframe, proposes identifying things with a reason and a SAM prompt | JSON schema validation; proposals are merged by fuzzy match; only a mask that exists in the video counts |
 | **SAM 3.1** (hosted video input) | Turns each proposal into masks tracked through the whole clip; reversed tracking fixes late track starts | Gap check inside each track; OCR mask-vs-claim check; covers verified pixel by pixel in the decoded output |
+| **Muse Glimmer 30B** (open weights, local `llama.cpp`) | Discovery without uploading keyframes | Same schema validation and gate scorer as Spark |
 | **Muse Voice Transcribe 1.0** (`/v1/asr/transcribe`) | Hears spoken digits in Hindi, English or Hinglish, in 2 s windows | Digit-run validator (≥6 digits from ≥4 digit tokens); output audio silent in muted spans; re-transcription of the output |
 
 Removing any model removes a capability: without Spark, 0/4 leaks are found; without SAM nothing is tracked; without Voice the spoken number goes out unmuted.
@@ -162,7 +183,7 @@ That is about **$2.41 per 25-second clip** (range $1.07–$3.30), estimated from
 ```mermaid
 flowchart LR
     V[video.mp4] --> K[keyframes<br/><sub>scene + interval</sub>]
-    K --> D["discover<br/><b>Muse Spark 1.3</b><br/><sub>or Muse Glimmer, local (experimental)</sub>"]
+    K --> D["discover<br/><b>Muse Spark 1.3</b><br/><sub>or Muse Glimmer, local</sub>"]
     D --> T["track<br/><b>SAM 3.1</b>"]
     T --> E[extend<br/><sub>reversed SAM, ±3 frames</sub>]
     E --> X[verify<br/><sub>OCR: mask contains claim?</sub>]
@@ -185,7 +206,7 @@ flowchart LR
 git clone https://github.com/thecodekaizen/veil.git && cd veil
 uv sync --project veil --extra test            # Python deps
 echo "MODEL_API_KEY=sk-..." > .env             # gitignored; never committed
-make test                                      # 119 tests, no network
+make test                                      # 122 tests, no network
 ```
 
 ### Audit a video
@@ -203,7 +224,7 @@ The command prints the concept table, the spoken digits and every finding with i
 |---|---|
 | `VEIL_SPARK_CAP=50` | Track up to 50 Spark concepts (default 10 is the frozen gate setting) |
 | `VEIL_SAM_RETRIES=2` | Retry a failed SAM call up to twice; each retry is logged |
-| `VEIL_DISCOVER=glimmer` | **Experimental, not yet evaluated:** use open-weight Muse Glimmer on a local `llama-server` instead of hosted Spark |
+| `VEIL_DISCOVER=glimmer` | Use open-weight Muse Glimmer on a local `llama-server` instead of hosted Spark (evaluated on one clip, see Results) |
 
 ### Open the review desk locally
 
@@ -214,7 +235,7 @@ cd veil/web && npm install && npm run build && npx vite preview --port 4173
 ```
 
 <details>
-<summary><b>Experimental: run discovery locally with Muse Glimmer (open weights, not yet evaluated)</b></summary>
+<summary><b>Run discovery locally with Muse Glimmer (open weights)</b></summary>
 
 ```bash
 brew install llama.cpp
@@ -238,14 +259,14 @@ The gate clips are generated by `gate/make_composite_clips.py` from licensed Wik
 
 ## Demo video
 
-`demo/` holds the full, reproducible pipeline for the submission video: a Remotion composition, Playwright captures of the real UI, a word-timed caption map, and loudness QA. See [`demo/out/README.md`](demo/out/README.md) for what is real and what is typeset. The voiceover is a **synthetic clone of the author's own voice** (Chatterbox, watermarked), recorded that way because of construction noise. It is disclosed in the video.
+`demo/` holds the full, reproducible pipeline for the submission video: a Remotion composition, Playwright captures of the real UI, a word-timed caption map, and loudness QA. See [`demo/out/README.md`](demo/out/README.md) for what is real and what is typeset. Narration is an AI voice (Kokoro-82M, Apache-2.0), disclosed on the end card.
 
 ## Repository map
 
 ```
 veil/src/veil/        engine: stages/, validators/, verification/, providers/, schemas.py, runner.py, cli.py
 veil/web/             review desk (React + Vite), reads exported run manifests
-veil/tests/           119 unit tests (recorded fixtures, no network)
+veil/tests/           122 unit tests (recorded fixtures, no network)
 gate/                 pre-registered gate, labels, scorer, frozen + post-gate results
 eval/                 dev vs held-out evaluation
 demo/                 demo-video pipeline (voice, captures, Remotion, QA)
@@ -260,7 +281,7 @@ archive/              superseded THREAD/SHOWME prototypes (not part of the submi
 * **Open vocabulary cuts both ways.** Lifting the 10-concept cap made Spark flag a product logo, so G2 failed again (`gate/postgate2`).
 * **Audio timing is coarse.** Voice returns turn-level timing, so mute windows are wide. A voiced-time refinement once *under*-covered the number; it stays opt-in.
 * **Sampled checks.** OCR at 2 fps and the face detector every 5th frame; anything between samples is not examined. Local OCR is macOS-only.
-* **Cloud processing.** Frames, video and audio are sent to Meta's API (the experimental Glimmer option keeps discovery local). Veil is not a privacy guarantee and never says a video is "safe".
+* **Cloud processing.** Frames, video and audio are sent to Meta's API (the Glimmer option keeps discovery local). Veil is not a privacy guarantee and never says a video is "safe".
 
 ## Built during the hackathon
 
