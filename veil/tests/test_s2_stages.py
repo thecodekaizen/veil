@@ -137,3 +137,19 @@ def test_track_plan_cost_guard():
     assert sum(x.source == 'spark' for x in run) == 10
     reasons = {s.concept_id: s.reason for s in skipped}
     assert len(skipped) == 3 and 'confidence' in reasons['spark-low'] and sum('cap' in r for r in reasons.values()) == 2
+
+
+def test_voiced_refine_narrows_span_and_keeps_inside_original():
+    """POST-GATE heuristic: silence before the spoken number must not count toward word position."""
+    import numpy as np
+    from veil.schemas import SpokenPII, Word
+    rate = 16000
+    pcm = np.zeros(rate * 4, dtype=np.int16)
+    pcm[int(2.5 * rate):int(3.9 * rate)] = 8000  # voiced only from 2.5 s
+    words = [Word(text=t, t_start=2.0, t_end=4.0) for t in ['a', 'b', 'c', 'd']]
+    pii = [SpokenPII(kind='phone', normalized_value='1', t_start=2.0, t_end=4.0, word_indices=[2, 3],
+                     validator='x', precision='window', mobile_pattern=False)]
+    out = listen.voiced_refine(words, pii, pcm, rate)[0]
+    assert out.precision == 'window_voiced'
+    assert 2.0 <= out.t_start < out.t_end <= 4.0
+    assert out.t_start > 2.9  # second half of voiced time, not second half of the window

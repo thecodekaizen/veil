@@ -42,3 +42,4 @@ runs/*
 # exploratory footage (downloaded, licensed CC BY-SA; media kept local, sources in gate/exploratory/SOURCES.md)
 gate/exploratory/*.webm
 gate/exploratory/*.mp4
+runs-postgate/

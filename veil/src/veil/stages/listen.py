@@ -11,7 +11,7 @@ from typing import Callable
 
 import numpy as np
 
-from veil.schemas import ListenArtifact, Word
+from veil.schemas import ListenArtifact, SpokenPII, Word
 from veil.validators.pii import bleep_intervals, phone_hits
 
 WINDOW_S = 2.0
@@ -59,7 +59,45 @@ def stitch(windows: list[tuple[float, float, str]]) -> list[Word]:
     return words
 
 
-def run(wav_path, transcribe: Transcribe, bleep_pad_s: float) -> ListenArtifact:
+def voiced_refine(words: list[Word], pii: list[SpokenPII], pcm, rate: int, window_s: float = WINDOW_S) -> list[SpokenPII]:
+    """POST-GATE heuristic (not part of the frozen gate configuration): narrow each PII span using model-free
+    voiced-time. Words of one window are placed uniformly over that window's voiced (energy above threshold) time,
+    so silence does not count toward a word's position. Only ever narrows the window-precision span; an estimate,
+    so the bleep padding still applies and coverage must be verified by the audit, not assumed."""
+    hop = int(.01 * rate)
+    n = len(pcm) // hop
+    if n == 0:
+        return pii
+    rms = np.sqrt((pcm[:n * hop].astype(float).reshape(n, hop) ** 2).mean(1))
+    voiced = (rms > max(0.1 * np.percentile(rms, 95), 1.0)).astype(float)
+    cum = np.concatenate([[0.0], np.cumsum(voiced)]) * .01
+
+    def v(t):
+        return float(np.interp(t * 100, np.arange(len(cum)), cum))
+
+    def inv(x):
+        return min(int(np.searchsorted(cum, x - 1e-9)), len(cum) - 1) / 100
+
+    def place(idx, end):
+        t_end = words[idx].t_end
+        group = [i for i, w in enumerate(words) if w.t_end == t_end]
+        t0 = max(0.0, t_end - window_s)
+        v0, v1 = v(t0), v(t_end)
+        frac = (group.index(idx) + (1 if end else 0)) / len(group)
+        return inv(v0 + frac * (v1 - v0))
+
+    out = []
+    for p in pii:
+        s, e = place(p.word_indices[0], False), place(p.word_indices[-1], True)
+        s, e = max(s, p.t_start), min(e, p.t_end)
+        edges = np.flatnonzero(voiced[int(s * 100):int(e * 100) + 1])  # snap to actual voiced frames inside the span
+        if len(edges):
+            s, e = s + edges[0] * .01, s + (edges[-1] + 1) * .01
+        out.append(p.model_copy(update={'t_start': s, 't_end': e, 'precision': 'window_voiced'}) if s < e else p)
+    return out
+
+
+def run(wav_path, transcribe: Transcribe, bleep_pad_s: float, refine_voiced: bool = False) -> ListenArtifact:
     with wave.open(str(wav_path)) as w:
         rate = w.getframerate()
         pcm = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16)
@@ -79,6 +117,8 @@ def run(wav_path, transcribe: Transcribe, bleep_pad_s: float) -> ListenArtifact:
         windows = list(pool.map(one, spans))
     words = stitch(windows)
     pii = phone_hits(words, precision='window')
+    if refine_voiced:
+        pii = voiced_refine(words, pii, pcm, rate)
     return ListenArtifact(model_id=MODEL_ID, method='windowed', window_s=WINDOW_S, overlap_s=OVERLAP_S,
                           bleep_pad_s=bleep_pad_s, words=words, transcript_text=' '.join(w.text for w in words),
                           pii=pii, bleep_intervals=bleep_intervals(pii, bleep_pad_s, duration))

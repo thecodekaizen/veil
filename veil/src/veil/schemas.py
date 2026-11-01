@@ -118,7 +118,7 @@ class SpokenPII(Strict):
     t_end: FiniteFloat
     word_indices: list[int]
     validator: str
-    precision: Literal['word', 'window', 'segment']
+    precision: Literal['word', 'window', 'segment', 'window_voiced']
     mobile_pattern: bool
 
 

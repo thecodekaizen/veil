@@ -17,7 +17,7 @@ from veil.stages import discover as discover_stage
 from veil.stages import listen as listen_stage
 from veil.stages import track as track_stage
 
-STAGES = ['keyframes', 'discover', 'track', 'extend', 'listen', 'redact', 'audit', 'report']
+STAGES = ['keyframes', 'discover', 'track', 'extend', 'verify', 'listen', 'redact', 'audit', 'report']
 BLEEP_PAD_S = 0.5  # chosen on the synthetic clip only; rationale in docs/decisions.md
 
 
@@ -37,7 +37,7 @@ def _sha256(path: Path) -> str:
 
 
 def run(clip: Path, run_id: str, stages: list[str], runs_dir: Path = Path('runs'),
-        bleep_pad_s: float = BLEEP_PAD_S) -> Path:
+        bleep_pad_s: float = BLEEP_PAD_S, refine_voiced: bool = False) -> Path:
     root = runs_dir / run_id
     root.mkdir(parents=True, exist_ok=True)
     video = root / 'input.mp4'
@@ -87,11 +87,14 @@ def run(clip: Path, run_id: str, stages: list[str], runs_dir: Path = Path('runs'
         raw_track = TrackArtifact.model_validate_json((root / 'track.json').read_text())
         _write(root, 'track_final', extend_stage.run(disc, raw_track, n_frames,
                                                      extend_stage.make_reverse(c, ledger, root, video)))
+    if 'verify' in stages:  # POST-GATE experiment, opt-in via --stages
+        from veil.stages import verify as verify_stage
+        verify_stage.run(root, verify_stage.macos_ocr_rows(root / 'audit_cache'))
     if 'listen' in stages:
         wav = root / 'audio.wav'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(video), '-vn', '-ac', '1', '-ar', '24000',
                         '-c:a', 'pcm_s16le', str(wav)], check=True)
-        _write(root, 'listen', listen_stage.run(wav, listen_stage.make_transcribe(c.api_key, ledger), bleep_pad_s))
+        _write(root, 'listen', listen_stage.run(wav, listen_stage.make_transcribe(c.api_key, ledger), bleep_pad_s, refine_voiced))
     if 'redact' in stages:
         from veil.stages import redact as redact_stage
         redact_stage.run(root)
