@@ -1,0 +1,70 @@
+{
+ "repeats": [
+  {
+   "repeat": "r1",
+   "G1 discovery": "PASS 4/4",
+   "G2 false flags": "FAIL 2/3",
+   "G3 tracking": "PASS",
+   "G4a digits": "PASS",
+   "G4b mute window": "PASS 1.63 s over",
+   "G5 output re-check": "UNRESOLVED listed",
+   "NOT_CHECKED findings": 0,
+   "verdict": "FAIL"
+  },
+  {
+   "repeat": "r2",
+   "G1 discovery": "PASS 3/4",
+   "G2 false flags": "FAIL 3/3",
+   "G3 tracking": "PASS",
+   "G4a digits": "PASS",
+   "G4b mute window": "FAIL 3.13 s over",
+   "G5 output re-check": "UNRESOLVED listed",
+   "NOT_CHECKED findings": 1,
+   "verdict": "FAIL"
+  },
+  {
+   "repeat": "r3",
+   "G1 discovery": "PASS 4/4",
+   "G2 false flags": "PASS 1/3",
+   "G3 tracking": "PASS",
+   "G4a digits": "PASS",
+   "G4b mute window": "FAIL 3.13 s over",
+   "G5 output re-check": "UNRESOLVED listed",
+   "NOT_CHECKED findings": 1,
+   "verdict": "FAIL"
+  }
+ ],
+ "models": [
+  {
+   "model": "muse-spark-1.3",
+   "calls": 225,
+   "failed": 0,
+   "median_latency_s": 3.57,
+   "p90_latency_s": 5.03,
+   "est_usd": 0.61
+  },
+  {
+   "model": "muse-voice-transcribe-1.0",
+   "calls": 306,
+   "failed": 0,
+   "median_latency_s": 1.92,
+   "p90_latency_s": 2.77,
+   "est_usd": 0.03
+  },
+  {
+   "model": "sam-3.1",
+   "calls": 220,
+   "failed": 13,
+   "median_latency_s": 18.67,
+   "p90_latency_s": 267.03,
+   "est_usd": 21.04
+  }
+ ],
+ "clip_runs": 9,
+ "usd_per_clip_run": {
+  "mean": 2.41,
+  "min": 1.07,
+  "max": 3.3
+ },
+ "total_usd": 21.68
+}
