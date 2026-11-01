@@ -259,7 +259,7 @@
   {
    "id": "r3",
    "beat": "Payoff",
-   "text": "I held myself to that too. I wrote a test gate before running it. It failed. I fixed two narrow failures afterwards, labelled as post-gate. One still fails.",
+   "text": "I held myself to that too. I wrote a test gate before running it. It failed. Every fix since is labelled post-gate, and the gate still fails.",
    "on_screen": "GATE_RESULT.md FAIL table → post-gate table (G2 PASS post-gate, G4b FAIL)",
    "emphasis": [
     "failed",
@@ -267,7 +267,7 @@
     "still fails"
    ],
    "pause_after_ms": 600,
-   "evidence": "gate/GATE_RESULT.md; gate/postgate/GATE_RESULT.md"
+   "evidence": "gate/GATE_RESULT.md; gate/postgate*/GATE_RESULT.md"
   },
   {
    "id": "c0",
@@ -283,7 +283,7 @@
   {
    "id": "c1",
    "beat": "CTA",
-   "text": "Models propose. Code decides. Veil. Built solo, with Muse Spark, SAM 3.1, and Muse Voice.",
+   "text": "Models propose, and code decides. Veil, built solo, with Muse Spark, SAM 3.1, and Muse Voice.",
    "on_screen": "Outro: Veil wordmark, three model chips, repo URL, footage attribution",
    "emphasis": [
     "Models propose",

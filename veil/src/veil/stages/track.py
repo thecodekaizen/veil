@@ -12,7 +12,7 @@ MIN_SPARK_CONFIDENCE = 0.3
 SAM_CONCURRENCY = 3
 
 
-def plan(concepts: list[Concept]) -> tuple[list[Concept], list[SkippedConcept]]:
+def plan(concepts: list[Concept], cap: int = MAX_SPARK_CONCEPTS) -> tuple[list[Concept], list[SkippedConcept]]:
     """Baseline concepts always run. Spark concepts run if confidence >= 0.3, best MAX_SPARK_CONCEPTS only.
     Everything else is returned as skipped with a reason (the audit marks these NOT_CHECKED)."""
     run, skipped = [], []
@@ -22,9 +22,9 @@ def plan(concepts: list[Concept]) -> tuple[list[Concept], list[SkippedConcept]]:
         if c.max_confidence < MIN_SPARK_CONFIDENCE:
             skipped.append(SkippedConcept(concept_id=c.concept_id, sam_prompt=c.sam_prompt, source=c.source,
                                           reason=f'confidence {c.max_confidence:.2f} < {MIN_SPARK_CONFIDENCE}'))
-        elif len(keep) >= MAX_SPARK_CONCEPTS:
+        elif len(keep) >= cap:
             skipped.append(SkippedConcept(concept_id=c.concept_id, sam_prompt=c.sam_prompt, source=c.source,
-                                          reason=f'over cap of {MAX_SPARK_CONCEPTS} spark concepts (cost guard)'))
+                                          reason=f'over cap of {cap} spark concepts (cost guard)'))
         else:
             keep.add(c.concept_id)
     run = [c for c in concepts if c.source == 'baseline' or c.concept_id in keep]
@@ -50,9 +50,9 @@ def to_masklets(concept_id: str, tracks: dict) -> list[Masklet]:
     return out
 
 
-def run(discover: DiscoverArtifact, call_sam, frame_count: int) -> TrackArtifact:
+def run(discover: DiscoverArtifact, call_sam, frame_count: int, cap: int = MAX_SPARK_CONCEPTS) -> TrackArtifact:
     """call_sam(name, sam_prompt) -> raw tracks dict. Concepts sharing a normalized prompt run once."""
-    to_run, skipped = plan(discover.concepts)
+    to_run, skipped = plan(discover.concepts, cap)
     by_prompt: dict[str, list[Concept]] = {}
     for c in to_run:
         by_prompt.setdefault(normalize(c.sam_prompt), []).append(c)

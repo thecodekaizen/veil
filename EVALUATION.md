@@ -30,6 +30,17 @@ Written after seeing the gate failure. Code: `veil/src/veil/stages/verify.py`, `
 
 Caveats: the verify check only applies to concepts that quote text (ALL-CAPS words / quoted strings); OCR can misread, so it may also wrongly reject a true leak (not observed in c1-c3, but 3 clips is not evidence). Voice output varies between runs; two runs are not a distribution. A post-gate "G2 PASS" must be read as: a narrow failure was fixed with a check designed after seeing it.
 
+### 3b. POST-GATE experiment 2: lift the 10-concept Spark cap (`gate/postgate2/`, same clips, same caveat)
+Owner asked to spend more; `VEIL_SPARK_CAP=50`, SAM re-tracked every proposed concept, plus verify and voiced refine. Cost of this run: 174 calls, est. $6.78.
+
+| Criterion | Capped post-gate | Uncapped |
+|---|---|---|
+| G1 | PASS 3/4 | PASS 3/4 (L1 delivery-box label still missed) |
+| G2 | PASS 1/3 | **FAIL 2/3**: new Spark concept "zenith logo sign" matched the product-logo control C1 |
+| G4b | FAIL (coverage 100%, over-cover 2.85 s) | **FAIL (coverage 79.2%, over-cover 0.49 s)**: part of the spoken number was NOT muted |
+
+Findings: more Spark concepts bring more false flags, not more leaks found. The voiced-time refinement can under-cover when Voice mis-times digits (1 of 3 Voice runs); under-coverage is the worse failure for privacy, so `--refine-voiced` stays opt-in and is not recommended. SAM stream errors left 3 c2 concepts NOT_CHECKED (shown, not hidden). The demo uses the capped post-gate runs.
+
 ## 4. Dev set (synthetic fixture, `eval/results/final/dev_results.md`)
 One synthetic clip, used for development and padding choice. Live re-run on 2026-11-01: all 8 visual findings COVERED, spoken number muted and re-transcription check ran, 0 faces in output samples.
 

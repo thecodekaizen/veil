@@ -1,5 +1,6 @@
 """Run S2 stages (keyframes, discover, track, listen) writing validated artifacts to runs/<id>/."""
 import hashlib
+import os
 import json
 import shutil
 import subprocess
@@ -73,7 +74,7 @@ def run(clip: Path, run_id: str, stages: list[str], runs_dir: Path = Path('runs'
             def call_sam(name, prompt):
                 return segment_masks(c, ledger, root, name, prompt, file_id=uploaded.id, frame_count=n_frames)
 
-            _write(root, 'track', track_stage.run(disc, call_sam, n_frames))
+            _write(root, 'track', track_stage.run(disc, call_sam, n_frames, int(os.environ.get('VEIL_SPARK_CAP', track_stage.MAX_SPARK_CONCEPTS))))
         finally:
             if uploaded:
                 try:
