@@ -1,5 +1,7 @@
 # VEIL — Multimodal Video Privacy Engine
 
+> **Status (2026-11-01):** our pre-registered gate **FAILED** (G2 false flags, G4b audio localization; see [EVALUATION.md](EVALUATION.md)). Post-gate fixes are reported separately and do not change that verdict. Veil is not a privacy guarantee. Submission docs: [SUBMISSION.md](SUBMISSION.md), [DEMO_SCRIPT.md](DEMO_SCRIPT.md), [FINAL_CHECKLIST.md](FINAL_CHECKLIST.md).
+
 **Detect. Redact. Verify.**
 
 VEIL is an API-first multimodal video privacy engine built for the Meta Global AI Developer Hackathon 2026. It identifies sensitive visual and spoken information (faces, plates, telephone numbers, and speech), renders time-aligned frame-accurate redactions, inspects exported pixels for residual exposures, and repairs detected misses with cryptographic receipts.
