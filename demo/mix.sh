@@ -6,9 +6,9 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 IN=${1:-out/veil-draft.mp4}
-M=$(ls audio/music.* 2>/dev/null | head -1 || true)
+M=${MUSIC:-$(ls audio/music.* audio/bed_original.wav 2>/dev/null | head -1 || true)}
 if [ -n "$M" ]; then
-  FC="[1:a]aloop=loop=-1:size=2e9,volume=-12dB[m];[0:a]asplit=2[vo][key];[m][key]sidechaincompress=threshold=0.03:ratio=8:attack=200:release=250[duck];[vo][duck]amix=inputs=2:duration=first:normalize=0[a]"
+  FC="[1:a]aresample=48000,aloop=loop=-1:size=2e9,volume=-15dB[m];[0:a]aresample=48000,highpass=f=70,asplit=2[vo][key];[m][key]sidechaincompress=threshold=0.015:ratio=10:attack=120:release=400[duck];[vo][duck]amix=inputs=2:duration=first:normalize=0[a]"
   INPUTS=(-i "$IN" -i "$M")
   echo "music: $M (ducked)"
 else
@@ -16,7 +16,7 @@ else
   INPUTS=(-i "$IN")
   echo "music: none (VO only)"
 fi
-for target in web:-16 social:-14; do
+for target in web:-14 quiet:-16; do
   name=${target%%:*}; lufs=${target##*:}
   ffmpeg -v error -y "${INPUTS[@]}" -filter_complex "$FC;[a]loudnorm=I=$lufs:TP=-1.5:LRA=11[out]" \
     -map 0:v -map "[out]" -c:v copy -c:a aac -b:a 320k -ar 48000 -movflags +faststart "out/veil-demo-$name.mp4"

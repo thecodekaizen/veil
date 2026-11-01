@@ -2,8 +2,8 @@
 
 | File | What |
 |---|---|
-| `veil-demo-web.mp4` | 1920x1080, 30 fps, H.264 CRF 18, AAC 320k, 2:17, -16.0 LUFS / -4.0 dBTP. **Upload this one.** |
-| `veil-demo-social.mp4` | same video, -14.0 LUFS / -2.0 dBTP |
+| `veil-demo-web.mp4` | **v4 (story-first)**: 1920x1080, 30 fps, 1:59, -14.1 LUFS / -1.5 dBTP, narration 22 dB over music. **Upload this one.** |
+| `veil-demo-quiet.mp4` | same video at -16.1 LUFS |
 | `veil-demo.srt`, `veil-demo.vtt` | 56 caption cues from the script, timed to the voiceover |
 | `poster.png` | thumbnail (0:46, input regions vs covered output) |
 | `veil-draft.mp4` | raw Remotion render before the final loudness pass |
@@ -33,3 +33,9 @@ cp voice/vo.wav video/public/vo.wav
 - Impact card: exposure times measured from the r1 c2 track spans (name 23.3 s, flat number 22.3 s of 25 s).
 - Natural export beat: real `veil naturalize` output on r1 c2 (audit COVERED, 0 original words in 53 OCR'd frames).
 - Open-weight beat: real Muse Glimmer proposals from `runs-glimmer/c2s` (5/9 keyframes answered; c2: 2/2 leaks, control not flagged).
+
+## v4 (story-first, demo/STORYBOARD_v4.md)
+- Opening: hook (c2, boxes on "full name"/"flat number") -> the REAL standard-class export of the same run (`output_fixed_classes.mp4`: only a car's plate covered) -> one line + side by side with Veil's export.
+- Every zoom starts on the word that names its target (Whisper word timestamps), 500 ms ease-in-out, holds >= 1.8 s, then a hard cut.
+- Music: original bed synthesized by `demo/compose_bed.py` (no third-party music). Narration: Kokoro `am_michael`, 0.92x.
+- Phase 4 self-review: `review/final_cues.json` (Whisper word time per cue), cue frames at trigger and +1.3 s, first 8 s muted, phone-width legibility; narration-over-music 22.4 dB; no clipping.

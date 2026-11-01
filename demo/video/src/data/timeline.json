@@ -1,79 +1,91 @@
 {
  "fps": 30,
- "vo_s": 135.28,
- "total": 4104,
+ "vo_s": 117.25,
+ "total": 3563,
  "lines": {
   "h1": {
    "s": 4,
-   "e": 132
+   "e": 80
   },
   "h2": {
-   "s": 144,
-   "e": 324
+   "s": 88,
+   "e": 192
   },
-  "i1": {
-   "s": 333,
-   "e": 540
+  "x1": {
+   "s": 204,
+   "e": 393
   },
-  "p1": {
-   "s": 552,
-   "e": 758
+  "o1": {
+   "s": 411,
+   "e": 650
   },
-  "p2": {
-   "s": 767,
-   "e": 922
-  },
-  "a1": {
-   "s": 938,
-   "e": 1101
+  "l1": {
+   "s": 695,
+   "e": 824
   },
   "a2": {
-   "s": 1110,
-   "e": 1419
+   "s": 839,
+   "e": 991
   },
   "a3": {
-   "s": 1427,
-   "e": 1626
-  },
-  "f1": {
-   "s": 1635,
-   "e": 1829
-  },
-  "f2": {
-   "s": 1838,
-   "e": 1975
-  },
-  "f3": {
-   "s": 1981,
-   "e": 2159
-  },
-  "n1": {
-   "s": 2171,
-   "e": 2498
+   "s": 1042,
+   "e": 1149
   },
   "v1": {
-   "s": 2510,
-   "e": 2783
+   "s": 1188,
+   "e": 1343
   },
-  "g1": {
-   "s": 2795,
-   "e": 3182
+  "v2": {
+   "s": 1355,
+   "e": 1450
+  },
+  "au": {
+   "s": 1495,
+   "e": 1554
+  },
+  "au2": {
+   "s": 1562,
+   "e": 1657
+  },
+  "f3": {
+   "s": 1670,
+   "e": 1870
   },
   "r1": {
-   "s": 3194,
-   "e": 3451
+   "s": 1921,
+   "e": 2090
   },
-  "e1": {
-   "s": 3460,
-   "e": 3854
+  "n1": {
+   "s": 2100,
+   "e": 2288
   },
-  "c0": {
-   "s": 3866,
-   "e": 3970
+  "p1": {
+   "s": 2327,
+   "e": 2504
+  },
+  "p2": {
+   "s": 2513,
+   "e": 2763
+  },
+  "p3": {
+   "s": 2776,
+   "e": 2974
+  },
+  "g1": {
+   "s": 2988,
+   "e": 3159
+  },
+  "g2": {
+   "s": 3186,
+   "e": 3316
   },
   "c1": {
-   "s": 3979,
-   "e": 4058
+   "s": 3332,
+   "e": 3426
+  },
+  "c2": {
+   "s": 3465,
+   "e": 3518
   }
  },
  "words": [
@@ -81,2210 +93,1704 @@
    "text": "This",
    "line": "h1",
    "startMs": 150,
-   "endMs": 360
+   "endMs": 440
+  },
+  {
+   "text": "street",
+   "line": "h1",
+   "startMs": 440,
+   "endMs": 720
   },
   {
    "text": "clip",
    "line": "h1",
-   "startMs": 360,
-   "endMs": 620
-  },
-  {
-   "text": "tells",
-   "line": "h1",
-   "startMs": 620,
-   "endMs": 900
-  },
-  {
-   "text": "a",
-   "line": "h1",
-   "startMs": 900,
-   "endMs": 1040
-  },
-  {
-   "text": "stranger",
-   "line": "h1",
-   "startMs": 1040,
-   "endMs": 1380
-  },
-  {
-   "text": "my",
-   "line": "h1",
-   "startMs": 1380,
-   "endMs": 1680
-  },
-  {
-   "text": "name,",
-   "line": "h1",
-   "startMs": 1680,
-   "endMs": 2040
-  },
-  {
-   "text": "my",
-   "line": "h1",
-   "startMs": 2340,
-   "endMs": 2600
-  },
-  {
-   "text": "building,",
-   "line": "h1",
-   "startMs": 2600,
-   "endMs": 3060
-  },
-  {
-   "text": "and",
-   "line": "h1",
-   "startMs": 3080,
-   "endMs": 3400
-  },
-  {
-   "text": "my",
-   "line": "h1",
-   "startMs": 3400,
-   "endMs": 3580
-  },
-  {
-   "text": "phone",
-   "line": "h1",
-   "startMs": 3580,
-   "endMs": 3920
-  },
-  {
-   "text": "number.",
-   "line": "h1",
-   "startMs": 3920,
-   "endMs": 4300
-  },
-  {
-   "text": "All",
-   "line": "h2",
-   "startMs": 4790,
-   "endMs": 5020
-  },
-  {
-   "text": "fictional.",
-   "line": "h2",
-   "startMs": 5020,
-   "endMs": 5460
-  },
-  {
-   "text": "But",
-   "line": "h2",
-   "startMs": 5820,
-   "endMs": 6100
-  },
-  {
-   "text": "creators",
-   "line": "h2",
-   "startMs": 6100,
-   "endMs": 6560
-  },
-  {
-   "text": "post",
-   "line": "h2",
-   "startMs": 6560,
-   "endMs": 7000
-  },
-  {
-   "text": "clips",
-   "line": "h2",
-   "startMs": 7000,
-   "endMs": 7300
-  },
-  {
-   "text": "like",
-   "line": "h2",
-   "startMs": 7300,
-   "endMs": 7600
-  },
-  {
-   "text": "this",
-   "line": "h2",
-   "startMs": 7600,
-   "endMs": 7820
-  },
-  {
-   "text": "every",
-   "line": "h2",
-   "startMs": 7820,
-   "endMs": 8120
-  },
-  {
-   "text": "day,",
-   "line": "h2",
-   "startMs": 8120,
-   "endMs": 8460
-  },
-  {
-   "text": "and",
-   "line": "h2",
-   "startMs": 8640,
-   "endMs": 8980
-  },
-  {
-   "text": "nobody",
-   "line": "h2",
-   "startMs": 8980,
-   "endMs": 9360
-  },
-  {
-   "text": "re-watches",
-   "line": "h2",
-   "startMs": 9360,
-   "endMs": 10000
-  },
-  {
-   "text": "every",
-   "line": "h2",
-   "startMs": 10000,
-   "endMs": 10320
-  },
-  {
-   "text": "frame.",
-   "line": "h2",
-   "startMs": 10320,
-   "endMs": 10740
-  },
-  {
-   "text": "In",
-   "line": "i1",
-   "startMs": 11100,
-   "endMs": 11260
-  },
-  {
-   "text": "these",
-   "line": "i1",
-   "startMs": 11260,
-   "endMs": 11480
-  },
-  {
-   "text": "twenty-five",
-   "line": "i1",
-   "startMs": 11480,
-   "endMs": 11920
-  },
-  {
-   "text": "seconds,",
-   "line": "i1",
-   "startMs": 11920,
-   "endMs": 12460
-  },
-  {
-   "text": "a",
-   "line": "i1",
-   "startMs": 12620,
-   "endMs": 12980
-  },
-  {
-   "text": "full",
-   "line": "i1",
-   "startMs": 12980,
-   "endMs": 13240
-  },
-  {
-   "text": "name",
-   "line": "i1",
-   "startMs": 13240,
-   "endMs": 13520
+   "startMs": 720,
+   "endMs": 1100
   },
   {
    "text": "is",
-   "line": "i1",
-   "startMs": 13520,
-   "endMs": 13740
+   "line": "h1",
+   "startMs": 1100,
+   "endMs": 1520
   },
   {
-   "text": "on",
-   "line": "i1",
-   "startMs": 13740,
-   "endMs": 13920
+   "text": "about",
+   "line": "h1",
+   "startMs": 1520,
+   "endMs": 1780
   },
   {
-   "text": "screen",
-   "line": "i1",
-   "startMs": 13920,
-   "endMs": 14320
+   "text": "to",
+   "line": "h1",
+   "startMs": 1780,
+   "endMs": 1960
   },
   {
-   "text": "for",
-   "line": "i1",
-   "startMs": 14320,
-   "endMs": 14640
+   "text": "be",
+   "line": "h1",
+   "startMs": 1960,
+   "endMs": 2080
   },
   {
-   "text": "twenty-three",
-   "line": "i1",
-   "startMs": 14640,
-   "endMs": 15100
+   "text": "posted.",
+   "line": "h1",
+   "startMs": 2080,
+   "endMs": 2500
   },
   {
-   "text": "seconds.",
-   "line": "i1",
-   "startMs": 15100,
-   "endMs": 15680
+   "text": "It",
+   "line": "h2",
+   "startMs": 2920,
+   "endMs": 3060
   },
   {
-   "text": "A",
-   "line": "i1",
-   "startMs": 16080,
-   "endMs": 16320
-  },
-  {
-   "text": "flat",
-   "line": "i1",
-   "startMs": 16320,
-   "endMs": 16620
-  },
-  {
-   "text": "number,",
-   "line": "i1",
-   "startMs": 16620,
-   "endMs": 17000
-  },
-  {
-   "text": "for",
-   "line": "i1",
-   "startMs": 17000,
-   "endMs": 17300
-  },
-  {
-   "text": "twenty-two.",
-   "line": "i1",
-   "startMs": 17300,
-   "endMs": 17760
-  },
-  {
-   "text": "Face",
-   "line": "p1",
-   "startMs": 18400,
-   "endMs": 18740
-  },
-  {
-   "text": "and",
-   "line": "p1",
-   "startMs": 18740,
-   "endMs": 18900
-  },
-  {
-   "text": "plate",
-   "line": "p1",
-   "startMs": 18900,
-   "endMs": 19140
-  },
-  {
-   "text": "detectors",
-   "line": "p1",
-   "startMs": 19140,
-   "endMs": 19620
-  },
-  {
-   "text": "flag",
-   "line": "p1",
-   "startMs": 19620,
-   "endMs": 20020
-  },
-  {
-   "text": "none",
-   "line": "p1",
-   "startMs": 20020,
-   "endMs": 20260
-  },
-  {
-   "text": "of",
-   "line": "p1",
-   "startMs": 20260,
-   "endMs": 20420
-  },
-  {
-   "text": "it.",
-   "line": "p1",
-   "startMs": 20420,
-   "endMs": 20540
-  },
-  {
-   "text": "On",
-   "line": "p1",
-   "startMs": 20760,
-   "endMs": 21040
-  },
-  {
-   "text": "my",
-   "line": "p1",
-   "startMs": 21040,
-   "endMs": 21200
-  },
-  {
-   "text": "test",
-   "line": "p1",
-   "startMs": 21200,
-   "endMs": 21480
-  },
-  {
-   "text": "clips,",
-   "line": "p1",
-   "startMs": 21480,
-   "endMs": 21840
+   "text": "shows",
+   "line": "h2",
+   "startMs": 3060,
+   "endMs": 3360
   },
   {
    "text": "a",
-   "line": "p1",
-   "startMs": 22100,
-   "endMs": 22320
+   "line": "h2",
+   "startMs": 3360,
+   "endMs": 3560
   },
   {
-   "text": "fixed",
-   "line": "p1",
-   "startMs": 22320,
-   "endMs": 22620
+   "text": "stranger",
+   "line": "h2",
+   "startMs": 3560,
+   "endMs": 3980
   },
   {
-   "text": "list",
-   "line": "p1",
-   "startMs": 22620,
-   "endMs": 22880
-  },
-  {
-   "text": "found",
-   "line": "p1",
-   "startMs": 22880,
-   "endMs": 23220
-  },
-  {
-   "text": "zero",
-   "line": "p1",
-   "startMs": 23220,
-   "endMs": 23640
-  },
-  {
-   "text": "of",
-   "line": "p1",
-   "startMs": 23640,
-   "endMs": 23940
-  },
-  {
-   "text": "four",
-   "line": "p1",
-   "startMs": 23940,
-   "endMs": 24240
-  },
-  {
-   "text": "planted",
-   "line": "p1",
-   "startMs": 24240,
-   "endMs": 24700
-  },
-  {
-   "text": "leaks.",
-   "line": "p1",
-   "startMs": 24700,
-   "endMs": 25140
-  },
-  {
-   "text": "Veil",
-   "line": "p2",
-   "startMs": 25580,
-   "endMs": 25780
-  },
-  {
-   "text": "found",
-   "line": "p2",
-   "startMs": 25780,
-   "endMs": 26120
-  },
-  {
-   "text": "three",
-   "line": "p2",
-   "startMs": 26120,
-   "endMs": 26340
-  },
-  {
-   "text": "of",
-   "line": "p2",
-   "startMs": 26340,
-   "endMs": 26520
-  },
-  {
-   "text": "four",
-   "line": "p2",
-   "startMs": 26520,
-   "endMs": 26780
-  },
-  {
-   "text": "on",
-   "line": "p2",
-   "startMs": 26780,
-   "endMs": 26980
-  },
-  {
-   "text": "its",
-   "line": "p2",
-   "startMs": 26980,
-   "endMs": 27100
-  },
-  {
-   "text": "first",
-   "line": "p2",
-   "startMs": 27100,
-   "endMs": 27400
-  },
-  {
-   "text": "run,",
-   "line": "p2",
-   "startMs": 27400,
-   "endMs": 27740
-  },
-  {
-   "text": "and",
-   "line": "p2",
-   "startMs": 27920,
-   "endMs": 28260
-  },
-  {
-   "text": "all",
-   "line": "p2",
-   "startMs": 28260,
-   "endMs": 28480
-  },
-  {
-   "text": "four",
-   "line": "p2",
-   "startMs": 28480,
-   "endMs": 28800
-  },
-  {
-   "text": "in",
-   "line": "p2",
-   "startMs": 28800,
-   "endMs": 29040
-  },
-  {
-   "text": "two",
-   "line": "p2",
-   "startMs": 29040,
-   "endMs": 29260
-  },
-  {
-   "text": "of",
-   "line": "p2",
-   "startMs": 29260,
-   "endMs": 29480
-  },
-  {
-   "text": "three",
-   "line": "p2",
-   "startMs": 29480,
-   "endMs": 29740
+   "text": "my",
+   "line": "h2",
+   "startMs": 3980,
+   "endMs": 4240
   },
   {
    "text": "full",
-   "line": "p2",
-   "startMs": 29740,
-   "endMs": 30040
+   "line": "h2",
+   "startMs": 4240,
+   "endMs": 4520
   },
   {
-   "text": "re-runs.",
-   "line": "p2",
-   "startMs": 30040,
-   "endMs": 30600
+   "text": "name,",
+   "line": "h2",
+   "startMs": 4520,
+   "endMs": 4900
   },
   {
-   "text": "Here's",
-   "line": "a1",
-   "startMs": 31250,
-   "endMs": 31520
+   "text": "and",
+   "line": "h2",
+   "startMs": 4900,
+   "endMs": 5460
   },
   {
-   "text": "the",
-   "line": "a1",
-   "startMs": 31520,
-   "endMs": 31660
+   "text": "my",
+   "line": "h2",
+   "startMs": 5460,
+   "endMs": 5600
   },
   {
-   "text": "live",
-   "line": "a1",
-   "startMs": 31660,
-   "endMs": 31960
+   "text": "flat",
+   "line": "h2",
+   "startMs": 5600,
+   "endMs": 5920
   },
   {
-   "text": "product.",
-   "line": "a1",
-   "startMs": 31960,
-   "endMs": 32440
+   "text": "number.",
+   "line": "h2",
+   "startMs": 5920,
+   "endMs": 6320
   },
   {
-   "text": "Veil",
-   "line": "a1",
-   "startMs": 32760,
-   "endMs": 33080
+   "text": "A",
+   "line": "x1",
+   "startMs": 6810,
+   "endMs": 6960
   },
   {
-   "text": "asks",
-   "line": "a1",
-   "startMs": 33080,
-   "endMs": 33500
+   "text": "standard",
+   "line": "x1",
+   "startMs": 6960,
+   "endMs": 7420
+  },
+  {
+   "text": "redaction",
+   "line": "x1",
+   "startMs": 7420,
+   "endMs": 7960
+  },
+  {
+   "text": "tool",
+   "line": "x1",
+   "startMs": 7960,
+   "endMs": 8260
+  },
+  {
+   "text": "looks",
+   "line": "x1",
+   "startMs": 8260,
+   "endMs": 8620
+  },
+  {
+   "text": "for",
+   "line": "x1",
+   "startMs": 8620,
+   "endMs": 8800
+  },
+  {
+   "text": "faces",
+   "line": "x1",
+   "startMs": 8800,
+   "endMs": 9220
+  },
+  {
+   "text": "and",
+   "line": "x1",
+   "startMs": 9220,
+   "endMs": 9520
+  },
+  {
+   "text": "plates.",
+   "line": "x1",
+   "startMs": 9520,
+   "endMs": 9940
+  },
+  {
+   "text": "It",
+   "line": "x1",
+   "startMs": 10260,
+   "endMs": 10640
+  },
+  {
+   "text": "covers",
+   "line": "x1",
+   "startMs": 10640,
+   "endMs": 10960
   },
   {
    "text": "one",
-   "line": "a1",
-   "startMs": 33500,
-   "endMs": 33740
+   "line": "x1",
+   "startMs": 10960,
+   "endMs": 11260
   },
   {
-   "text": "question:",
-   "line": "a1",
-   "startMs": 33740,
-   "endMs": 34180
+   "text": "car's",
+   "line": "x1",
+   "startMs": 11260,
+   "endMs": 11760
   },
   {
-   "text": "what,",
-   "line": "a1",
-   "startMs": 34440,
-   "endMs": 34840
+   "text": "plate,",
+   "line": "x1",
+   "startMs": 11760,
+   "endMs": 12100
+  },
+  {
+   "text": "and",
+   "line": "x1",
+   "startMs": 12100,
+   "endMs": 12440
+  },
+  {
+   "text": "misses",
+   "line": "x1",
+   "startMs": 12440,
+   "endMs": 12700
+  },
+  {
+   "text": "both.",
+   "line": "x1",
+   "startMs": 12700,
+   "endMs": 13060
+  },
+  {
+   "text": "Veil",
+   "line": "o1",
+   "startMs": 13740,
+   "endMs": 13960
+  },
+  {
+   "text": "finds",
+   "line": "o1",
+   "startMs": 13960,
+   "endMs": 14400
+  },
+  {
+   "text": "what",
+   "line": "o1",
+   "startMs": 14400,
+   "endMs": 14640
+  },
+  {
+   "text": "identifies",
+   "line": "o1",
+   "startMs": 14640,
+   "endMs": 15180
+  },
+  {
+   "text": "you",
+   "line": "o1",
+   "startMs": 15180,
+   "endMs": 15580
   },
   {
    "text": "in",
-   "line": "a1",
-   "startMs": 34840,
-   "endMs": 35020
+   "line": "o1",
+   "startMs": 15580,
+   "endMs": 15740
   },
   {
    "text": "this",
-   "line": "a1",
-   "startMs": 35020,
-   "endMs": 35200
+   "line": "o1",
+   "startMs": 15740,
+   "endMs": 15900
   },
   {
-   "text": "video,",
-   "line": "a1",
-   "startMs": 35200,
-   "endMs": 35540
+   "text": "specific",
+   "line": "o1",
+   "startMs": 15900,
+   "endMs": 16320
   },
   {
-   "text": "could",
-   "line": "a1",
-   "startMs": 35540,
-   "endMs": 35800
+   "text": "video.",
+   "line": "o1",
+   "startMs": 16320,
+   "endMs": 16840
   },
   {
-   "text": "identify",
-   "line": "a1",
-   "startMs": 35800,
-   "endMs": 36280
+   "text": "Not",
+   "line": "o1",
+   "startMs": 17180,
+   "endMs": 17540
   },
   {
-   "text": "you?",
-   "line": "a1",
-   "startMs": 36280,
-   "endMs": 36660
+   "text": "just",
+   "line": "o1",
+   "startMs": 17540,
+   "endMs": 17780
+  },
+  {
+   "text": "faces",
+   "line": "o1",
+   "startMs": 17780,
+   "endMs": 18280
+  },
+  {
+   "text": "and",
+   "line": "o1",
+   "startMs": 18280,
+   "endMs": 18600
+  },
+  {
+   "text": "plates.",
+   "line": "o1",
+   "startMs": 18600,
+   "endMs": 19060
+  },
+  {
+   "text": "Then",
+   "line": "o1",
+   "startMs": 19300,
+   "endMs": 19760
+  },
+  {
+   "text": "it",
+   "line": "o1",
+   "startMs": 19760,
+   "endMs": 19900
+  },
+  {
+   "text": "covers",
+   "line": "o1",
+   "startMs": 19900,
+   "endMs": 20300
+  },
+  {
+   "text": "it,",
+   "line": "o1",
+   "startMs": 20300,
+   "endMs": 20500
+  },
+  {
+   "text": "before",
+   "line": "o1",
+   "startMs": 20500,
+   "endMs": 20800
+  },
+  {
+   "text": "you",
+   "line": "o1",
+   "startMs": 20800,
+   "endMs": 21080
+  },
+  {
+   "text": "post.",
+   "line": "o1",
+   "startMs": 21080,
+   "endMs": 21580
+  },
+  {
+   "text": "Here's",
+   "line": "l1",
+   "startMs": 23170,
+   "endMs": 23460
+  },
+  {
+   "text": "the",
+   "line": "l1",
+   "startMs": 23460,
+   "endMs": 23580
+  },
+  {
+   "text": "live",
+   "line": "l1",
+   "startMs": 23580,
+   "endMs": 23880
+  },
+  {
+   "text": "product.",
+   "line": "l1",
+   "startMs": 23880,
+   "endMs": 24340
+  },
+  {
+   "text": "Drag",
+   "line": "l1",
+   "startMs": 24840,
+   "endMs": 25000
+  },
+  {
+   "text": "across,",
+   "line": "l1",
+   "startMs": 25000,
+   "endMs": 25540
+  },
+  {
+   "text": "and",
+   "line": "l1",
+   "startMs": 25540,
+   "endMs": 25820
+  },
+  {
+   "text": "see",
+   "line": "l1",
+   "startMs": 25820,
+   "endMs": 26020
+  },
+  {
+   "text": "exactly",
+   "line": "l1",
+   "startMs": 26020,
+   "endMs": 26520
+  },
+  {
+   "text": "what",
+   "line": "l1",
+   "startMs": 26520,
+   "endMs": 26800
+  },
+  {
+   "text": "changed.",
+   "line": "l1",
+   "startMs": 26800,
+   "endMs": 27380
   },
   {
    "text": "Muse",
    "line": "a2",
-   "startMs": 37010,
-   "endMs": 37060
+   "startMs": 28020,
+   "endMs": 28260
   },
   {
    "text": "Spark",
    "line": "a2",
-   "startMs": 37010,
-   "endMs": 37600
+   "startMs": 28260,
+   "endMs": 28620
   },
   {
-   "text": "looks",
+   "text": "reads",
    "line": "a2",
-   "startMs": 37600,
-   "endMs": 37900
+   "startMs": 28620,
+   "endMs": 29100
   },
   {
-   "text": "at",
+   "text": "the",
    "line": "a2",
-   "startMs": 37900,
-   "endMs": 38040
+   "startMs": 29100,
+   "endMs": 29320
   },
   {
-   "text": "keyframes",
+   "text": "clip,",
    "line": "a2",
-   "startMs": 38040,
-   "endMs": 38660
+   "startMs": 29320,
+   "endMs": 29680
   },
   {
    "text": "and",
    "line": "a2",
-   "startMs": 38660,
-   "endMs": 38900
+   "startMs": 29680,
+   "endMs": 30160
   },
   {
    "text": "proposes",
    "line": "a2",
-   "startMs": 38900,
-   "endMs": 39460
+   "startMs": 30160,
+   "endMs": 30740
   },
   {
-   "text": "candidates,",
+   "text": "what",
    "line": "a2",
-   "startMs": 39460,
-   "endMs": 40120
+   "startMs": 30740,
+   "endMs": 31000
   },
   {
-   "text": "each",
+   "text": "could",
    "line": "a2",
-   "startMs": 40440,
-   "endMs": 40840
+   "startMs": 31000,
+   "endMs": 31160
+  },
+  {
+   "text": "identify",
+   "line": "a2",
+   "startMs": 31160,
+   "endMs": 31660
+  },
+  {
+   "text": "you,",
+   "line": "a2",
+   "startMs": 31660,
+   "endMs": 32080
   },
   {
    "text": "with",
    "line": "a2",
-   "startMs": 40840,
-   "endMs": 41020
+   "startMs": 32080,
+   "endMs": 32340
   },
   {
    "text": "a",
    "line": "a2",
-   "startMs": 41020,
-   "endMs": 41140
+   "startMs": 32340,
+   "endMs": 32460
   },
   {
    "text": "reason.",
    "line": "a2",
-   "startMs": 41140,
-   "endMs": 41480
-  },
-  {
-   "text": "The",
-   "line": "a2",
-   "startMs": 41760,
-   "endMs": 42060
-  },
-  {
-   "text": "notification",
-   "line": "a2",
-   "startMs": 42060,
-   "endMs": 42520
-  },
-  {
-   "text": "shows",
-   "line": "a2",
-   "startMs": 42520,
-   "endMs": 43120
-  },
-  {
-   "text": "a",
-   "line": "a2",
-   "startMs": 43120,
-   "endMs": 43320
-  },
-  {
-   "text": "full",
-   "line": "a2",
-   "startMs": 43320,
-   "endMs": 43580
-  },
-  {
-   "text": "name.",
-   "line": "a2",
-   "startMs": 43580,
-   "endMs": 43960
-  },
-  {
-   "text": "The",
-   "line": "a2",
-   "startMs": 44260,
-   "endMs": 44520
-  },
-  {
-   "text": "gold",
-   "line": "a2",
-   "startMs": 44520,
-   "endMs": 44860
-  },
-  {
-   "text": "plate",
-   "line": "a2",
-   "startMs": 44860,
-   "endMs": 45180
-  },
-  {
-   "text": "shows",
-   "line": "a2",
-   "startMs": 45180,
-   "endMs": 45500
-  },
-  {
-   "text": "a",
-   "line": "a2",
-   "startMs": 45500,
-   "endMs": 45720
-  },
-  {
-   "text": "surname",
-   "line": "a2",
-   "startMs": 45720,
-   "endMs": 46140
-  },
-  {
-   "text": "and",
-   "line": "a2",
-   "startMs": 46140,
-   "endMs": 46500
-  },
-  {
-   "text": "a",
-   "line": "a2",
-   "startMs": 46500,
-   "endMs": 46600
-  },
-  {
-   "text": "flat",
-   "line": "a2",
-   "startMs": 46600,
-   "endMs": 46840
-  },
-  {
-   "text": "number.",
-   "line": "a2",
-   "startMs": 46840,
-   "endMs": 47220
+   "startMs": 32460,
+   "endMs": 32900
   },
   {
    "text": "SAM",
    "line": "a3",
-   "startMs": 47640,
-   "endMs": 47940
+   "startMs": 34720,
+   "endMs": 35060
   },
   {
    "text": "3.1",
    "line": "a3",
-   "startMs": 47940,
-   "endMs": 49020
+   "startMs": 35060,
+   "endMs": 35880
   },
   {
    "text": "tracks",
    "line": "a3",
-   "startMs": 49020,
-   "endMs": 49620
+   "startMs": 35880,
+   "endMs": 36240
   },
   {
    "text": "each",
    "line": "a3",
-   "startMs": 49620,
-   "endMs": 49860
+   "startMs": 36240,
+   "endMs": 36500
   },
   {
-   "text": "one",
+   "text": "one,",
    "line": "a3",
-   "startMs": 49860,
-   "endMs": 50080
+   "startMs": 36500,
+   "endMs": 36880
   },
   {
    "text": "through",
    "line": "a3",
-   "startMs": 50080,
-   "endMs": 50280
+   "startMs": 36880,
+   "endMs": 37400
   },
   {
    "text": "every",
    "line": "a3",
-   "startMs": 50280,
-   "endMs": 50640
-  },
-  {
-   "text": "frame,",
-   "line": "a3",
-   "startMs": 50640,
-   "endMs": 51080
-  },
-  {
-   "text": "and",
-   "line": "a3",
-   "startMs": 51080,
-   "endMs": 51600
-  },
-  {
-   "text": "the",
-   "line": "a3",
-   "startMs": 51600,
-   "endMs": 51720
-  },
-  {
-   "text": "export",
-   "line": "a3",
-   "startMs": 51720,
-   "endMs": 52140
-  },
-  {
-   "text": "covers",
-   "line": "a3",
-   "startMs": 52140,
-   "endMs": 52660
-  },
-  {
-   "text": "exactly",
-   "line": "a3",
-   "startMs": 52660,
-   "endMs": 53140
-  },
-  {
-   "text": "those",
-   "line": "a3",
-   "startMs": 53140,
-   "endMs": 53520
-  },
-  {
-   "text": "regions.",
-   "line": "a3",
-   "startMs": 53520,
-   "endMs": 53960
-  },
-  {
-   "text": "Then",
-   "line": "f1",
-   "startMs": 54510,
-   "endMs": 54700
-  },
-  {
-   "text": "code",
-   "line": "f1",
-   "startMs": 54700,
-   "endMs": 55040
-  },
-  {
-   "text": "checks",
-   "line": "f1",
-   "startMs": 55040,
-   "endMs": 55380
-  },
-  {
-   "text": "the",
-   "line": "f1",
-   "startMs": 55380,
-   "endMs": 55560
-  },
-  {
-   "text": "work.",
-   "line": "f1",
-   "startMs": 55560,
-   "endMs": 55880
-  },
-  {
-   "text": "Veil",
-   "line": "f1",
-   "startMs": 56260,
-   "endMs": 56400
-  },
-  {
-   "text": "decodes",
-   "line": "f1",
-   "startMs": 56400,
-   "endMs": 56980
-  },
-  {
-   "text": "its",
-   "line": "f1",
-   "startMs": 56980,
-   "endMs": 57120
-  },
-  {
-   "text": "own",
-   "line": "f1",
-   "startMs": 57120,
-   "endMs": 57480
-  },
-  {
-   "text": "export",
-   "line": "f1",
-   "startMs": 57480,
-   "endMs": 58020
-  },
-  {
-   "text": "and",
-   "line": "f1",
-   "startMs": 58020,
-   "endMs": 58380
-  },
-  {
-   "text": "verifies",
-   "line": "f1",
-   "startMs": 58380,
-   "endMs": 58980
-  },
-  {
-   "text": "the",
-   "line": "f1",
-   "startMs": 58980,
-   "endMs": 59180
-  },
-  {
-   "text": "cover",
-   "line": "f1",
-   "startMs": 59180,
-   "endMs": 59460
-  },
-  {
-   "text": "on",
-   "line": "f1",
-   "startMs": 59460,
-   "endMs": 59720
-  },
-  {
-   "text": "every",
-   "line": "f1",
-   "startMs": 59720,
-   "endMs": 60080
-  },
-  {
-   "text": "masked",
-   "line": "f1",
-   "startMs": 60080,
-   "endMs": 60500
+   "startMs": 37400,
+   "endMs": 37800
   },
   {
    "text": "frame.",
-   "line": "f1",
-   "startMs": 60500,
-   "endMs": 60900
+   "line": "a3",
+   "startMs": 37800,
+   "endMs": 38220
   },
   {
-   "text": "Models",
-   "line": "f2",
-   "startMs": 61280,
-   "endMs": 61720
-  },
-  {
-   "text": "make",
-   "line": "f2",
-   "startMs": 61720,
-   "endMs": 61940
-  },
-  {
-   "text": "mistakes.",
-   "line": "f2",
-   "startMs": 61940,
-   "endMs": 62500
-  },
-  {
-   "text": "Here,",
-   "line": "f2",
-   "startMs": 62900,
-   "endMs": 63280
-  },
-  {
-   "text": "SAM",
-   "line": "f2",
-   "startMs": 63520,
-   "endMs": 63840
-  },
-  {
-   "text": "put",
-   "line": "f2",
-   "startMs": 63840,
-   "endMs": 64040
-  },
-  {
-   "text": "the",
-   "line": "f2",
-   "startMs": 64040,
-   "endMs": 64140
-  },
-  {
-   "text": "name",
-   "line": "f2",
-   "startMs": 64140,
-   "endMs": 64400
-  },
-  {
-   "text": "mask",
-   "line": "f2",
-   "startMs": 64400,
-   "endMs": 64780
-  },
-  {
-   "text": "on",
-   "line": "f2",
-   "startMs": 64780,
-   "endMs": 64940
-  },
-  {
-   "text": "a",
-   "line": "f2",
-   "startMs": 64940,
-   "endMs": 65020
-  },
-  {
-   "text": "block",
-   "line": "f2",
-   "startMs": 65020,
-   "endMs": 65240
-  },
-  {
-   "text": "of",
-   "line": "f2",
-   "startMs": 65240,
-   "endMs": 65400
-  },
-  {
-   "text": "code.",
-   "line": "f2",
-   "startMs": 65400,
-   "endMs": 65780
-  },
-  {
-   "text": "Local",
-   "line": "f3",
-   "startMs": 66040,
-   "endMs": 66400
-  },
-  {
-   "text": "OCR",
-   "line": "f3",
-   "startMs": 66400,
-   "endMs": 67060
-  },
-  {
-   "text": "read",
-   "line": "f3",
-   "startMs": 67060,
-   "endMs": 67480
-  },
-  {
-   "text": "the",
-   "line": "f3",
-   "startMs": 67480,
-   "endMs": 67600
-  },
-  {
-   "text": "mask,",
-   "line": "f3",
-   "startMs": 67600,
-   "endMs": 68020
-  },
-  {
-   "text": "found",
-   "line": "f3",
-   "startMs": 68460,
-   "endMs": 68720
-  },
-  {
-   "text": "code",
-   "line": "f3",
-   "startMs": 68720,
-   "endMs": 69120
-  },
-  {
-   "text": "instead",
-   "line": "f3",
-   "startMs": 69120,
-   "endMs": 69380
-  },
-  {
-   "text": "of",
-   "line": "f3",
-   "startMs": 69380,
-   "endMs": 69540
-  },
-  {
-   "text": "the",
-   "line": "f3",
-   "startMs": 69540,
-   "endMs": 69620
-  },
-  {
-   "text": "name",
-   "line": "f3",
-   "startMs": 69620,
-   "endMs": 69880
-  },
-  {
-   "text": "Spark",
-   "line": "f3",
-   "startMs": 69880,
-   "endMs": 70260
-  },
-  {
-   "text": "claimed,",
-   "line": "f3",
-   "startMs": 70260,
-   "endMs": 70800
-  },
-  {
-   "text": "and",
-   "line": "f3",
-   "startMs": 71060,
-   "endMs": 71360
-  },
-  {
-   "text": "threw",
-   "line": "f3",
-   "startMs": 71360,
-   "endMs": 71580
-  },
-  {
-   "text": "it",
-   "line": "f3",
-   "startMs": 71580,
-   "endMs": 71760
-  },
-  {
-   "text": "out.",
-   "line": "f3",
-   "startMs": 71760,
-   "endMs": 71960
-  },
-  {
-   "text": "And",
-   "line": "n1",
-   "startMs": 72360,
-   "endMs": 72480
-  },
-  {
-   "text": "if",
-   "line": "n1",
-   "startMs": 72480,
-   "endMs": 72620
-  },
-  {
-   "text": "black",
-   "line": "n1",
-   "startMs": 72620,
-   "endMs": 72920
-  },
-  {
-   "text": "boxes",
-   "line": "n1",
-   "startMs": 72920,
-   "endMs": 73480
-  },
-  {
-   "text": "ruin",
-   "line": "n1",
-   "startMs": 73480,
-   "endMs": 73800
-  },
-  {
-   "text": "the",
-   "line": "n1",
-   "startMs": 73800,
-   "endMs": 73940
-  },
-  {
-   "text": "shot,",
-   "line": "n1",
-   "startMs": 73940,
-   "endMs": 74280
-  },
-  {
-   "text": "switch",
-   "line": "n1",
-   "startMs": 74740,
-   "endMs": 74940
-  },
-  {
-   "text": "to",
-   "line": "n1",
-   "startMs": 74940,
-   "endMs": 75160
-  },
-  {
-   "text": "natural.",
-   "line": "n1",
-   "startMs": 75160,
-   "endMs": 75620
-  },
-  {
-   "text": "Veil",
-   "line": "n1",
-   "startMs": 76000,
-   "endMs": 76340
-  },
-  {
-   "text": "re-renders",
-   "line": "n1",
-   "startMs": 76340,
-   "endMs": 76980
-  },
-  {
-   "text": "the",
-   "line": "n1",
-   "startMs": 76980,
-   "endMs": 77140
-  },
-  {
-   "text": "text",
-   "line": "n1",
-   "startMs": 77140,
-   "endMs": 77460
-  },
-  {
-   "text": "with",
-   "line": "n1",
-   "startMs": 77460,
-   "endMs": 77680
-  },
-  {
-   "text": "fictional",
-   "line": "n1",
-   "startMs": 77680,
-   "endMs": 78060
-  },
-  {
-   "text": "names,",
-   "line": "n1",
-   "startMs": 78060,
-   "endMs": 78580
-  },
-  {
-   "text": "then",
-   "line": "n1",
-   "startMs": 78760,
-   "endMs": 79260
-  },
-  {
-   "text": "runs",
-   "line": "n1",
-   "startMs": 79260,
-   "endMs": 79660
-  },
-  {
-   "text": "the",
-   "line": "n1",
-   "startMs": 79660,
-   "endMs": 79840
-  },
-  {
-   "text": "same",
-   "line": "n1",
-   "startMs": 79840,
-   "endMs": 80200
-  },
-  {
-   "text": "OCR",
-   "line": "n1",
-   "startMs": 80200,
-   "endMs": 81080
-  },
-  {
-   "text": "audit",
-   "line": "n1",
-   "startMs": 81080,
-   "endMs": 81580
-  },
-  {
-   "text": "to",
-   "line": "n1",
-   "startMs": 81580,
-   "endMs": 81780
-  },
-  {
-   "text": "check",
-   "line": "n1",
-   "startMs": 81780,
-   "endMs": 82020
-  },
-  {
-   "text": "the",
-   "line": "n1",
-   "startMs": 82020,
-   "endMs": 82180
-  },
-  {
-   "text": "real",
-   "line": "n1",
-   "startMs": 82180,
-   "endMs": 82440
-  },
-  {
-   "text": "ones",
-   "line": "n1",
-   "startMs": 82440,
-   "endMs": 82720
-  },
-  {
-   "text": "are",
-   "line": "n1",
-   "startMs": 82720,
-   "endMs": 82880
-  },
-  {
-   "text": "gone.",
-   "line": "n1",
-   "startMs": 82880,
-   "endMs": 83180
-  },
-  {
-   "text": "Spoken",
+   "text": "It",
    "line": "v1",
-   "startMs": 83650,
-   "endMs": 84160
+   "startMs": 39600,
+   "endMs": 39760
   },
   {
-   "text": "numbers",
+   "text": "listens,",
    "line": "v1",
-   "startMs": 84160,
-   "endMs": 84560
+   "startMs": 39760,
+   "endMs": 40160
   },
   {
    "text": "too.",
    "line": "v1",
-   "startMs": 84560,
-   "endMs": 84940
+   "startMs": 40160,
+   "endMs": 40500
   },
   {
    "text": "Muse",
    "line": "v1",
-   "startMs": 85400,
-   "endMs": 85580
+   "startMs": 41000,
+   "endMs": 41200
   },
   {
    "text": "Voice",
    "line": "v1",
-   "startMs": 85580,
-   "endMs": 85880
-  },
-  {
-   "text": "Transcribe",
-   "line": "v1",
-   "startMs": 85880,
-   "endMs": 86520
+   "startMs": 41200,
+   "endMs": 41560
   },
   {
    "text": "hears",
    "line": "v1",
-   "startMs": 86520,
-   "endMs": 86800
+   "startMs": 41560,
+   "endMs": 41820
   },
   {
    "text": "a",
    "line": "v1",
-   "startMs": 86800,
-   "endMs": 87000
+   "startMs": 41820,
+   "endMs": 42000
   },
   {
    "text": "phone",
    "line": "v1",
-   "startMs": 87000,
-   "endMs": 87320
+   "startMs": 42000,
+   "endMs": 42380
   },
   {
    "text": "number",
    "line": "v1",
-   "startMs": 87320,
-   "endMs": 87640
+   "startMs": 42380,
+   "endMs": 42680
   },
   {
    "text": "said",
    "line": "v1",
-   "startMs": 87640,
-   "endMs": 87940
+   "startMs": 42680,
+   "endMs": 42980
   },
   {
    "text": "in",
    "line": "v1",
-   "startMs": 87940,
-   "endMs": 88120
+   "startMs": 42980,
+   "endMs": 43160
   },
   {
-   "text": "Hindi.",
+   "text": "Hindi,",
    "line": "v1",
-   "startMs": 88120,
-   "endMs": 88480
+   "startMs": 43160,
+   "endMs": 43500
+  },
+  {
+   "text": "and",
+   "line": "v1",
+   "startMs": 43500,
+   "endMs": 43960
   },
   {
    "text": "Veil",
    "line": "v1",
-   "startMs": 88980,
-   "endMs": 89180
+   "startMs": 43960,
+   "endMs": 44180
   },
   {
    "text": "mutes",
    "line": "v1",
-   "startMs": 89180,
-   "endMs": 89540
+   "startMs": 44180,
+   "endMs": 44580
   },
   {
-   "text": "it,",
+   "text": "it.",
    "line": "v1",
-   "startMs": 89540,
-   "endMs": 89740
+   "startMs": 44580,
+   "endMs": 44780
   },
   {
-   "text": "then",
-   "line": "v1",
-   "startMs": 89960,
-   "endMs": 90240
-  },
-  {
-   "text": "transcribes",
-   "line": "v1",
-   "startMs": 90240,
-   "endMs": 91040
-  },
-  {
-   "text": "the",
-   "line": "v1",
-   "startMs": 91040,
-   "endMs": 91200
-  },
-  {
-   "text": "export",
-   "line": "v1",
-   "startMs": 91200,
-   "endMs": 91620
-  },
-  {
-   "text": "again",
-   "line": "v1",
-   "startMs": 91620,
-   "endMs": 91940
-  },
-  {
-   "text": "to",
-   "line": "v1",
-   "startMs": 91940,
-   "endMs": 92160
-  },
-  {
-   "text": "confirm.",
-   "line": "v1",
-   "startMs": 92160,
-   "endMs": 92640
-  },
-  {
-   "text": "Discovery",
-   "line": "g1",
-   "startMs": 93200,
-   "endMs": 93660
-  },
-  {
-   "text": "can",
-   "line": "g1",
-   "startMs": 93660,
-   "endMs": 93920
-  },
-  {
-   "text": "also",
-   "line": "g1",
-   "startMs": 93920,
-   "endMs": 94280
-  },
-  {
-   "text": "run",
-   "line": "g1",
-   "startMs": 94280,
-   "endMs": 94600
-  },
-  {
-   "text": "on",
-   "line": "g1",
-   "startMs": 94600,
-   "endMs": 94840
-  },
-  {
-   "text": "open",
-   "line": "g1",
-   "startMs": 94840,
-   "endMs": 95260
-  },
-  {
-   "text": "weights.",
-   "line": "g1",
-   "startMs": 95260,
-   "endMs": 95640
-  },
-  {
-   "text": "Muse",
-   "line": "g1",
-   "startMs": 96220,
-   "endMs": 96440
-  },
-  {
-   "text": "Glimmer",
-   "line": "g1",
-   "startMs": 96440,
-   "endMs": 96860
-  },
-  {
-   "text": "runs",
-   "line": "g1",
-   "startMs": 96860,
-   "endMs": 97240
-  },
-  {
-   "text": "right",
-   "line": "g1",
-   "startMs": 97240,
-   "endMs": 97560
-  },
-  {
-   "text": "on",
-   "line": "g1",
-   "startMs": 97560,
-   "endMs": 97780
-  },
-  {
-   "text": "this",
-   "line": "g1",
-   "startMs": 97780,
-   "endMs": 97940
-  },
-  {
-   "text": "laptop,",
-   "line": "g1",
-   "startMs": 97940,
-   "endMs": 98380
-  },
-  {
-   "text": "so",
-   "line": "g1",
-   "startMs": 98400,
-   "endMs": 99020
-  },
-  {
-   "text": "for",
-   "line": "g1",
-   "startMs": 99020,
-   "endMs": 99200
-  },
-  {
-   "text": "this",
-   "line": "g1",
-   "startMs": 99200,
-   "endMs": 99380
-  },
-  {
-   "text": "step",
-   "line": "g1",
-   "startMs": 99380,
-   "endMs": 99640
-  },
-  {
-   "text": "the",
-   "line": "g1",
-   "startMs": 99640,
-   "endMs": 99800
-  },
-  {
-   "text": "frames",
-   "line": "g1",
-   "startMs": 99800,
-   "endMs": 100240
-  },
-  {
-   "text": "never",
-   "line": "g1",
-   "startMs": 100240,
-   "endMs": 100600
-  },
-  {
-   "text": "leave",
-   "line": "g1",
-   "startMs": 100600,
-   "endMs": 100980
-  },
-  {
-   "text": "the",
-   "line": "g1",
-   "startMs": 100980,
-   "endMs": 101140
-  },
-  {
-   "text": "device.",
-   "line": "g1",
-   "startMs": 101140,
-   "endMs": 101560
-  },
-  {
-   "text": "On",
-   "line": "g1",
-   "startMs": 101840,
-   "endMs": 102300
-  },
-  {
-   "text": "this",
-   "line": "g1",
-   "startMs": 102300,
-   "endMs": 102520
-  },
-  {
-   "text": "clip",
-   "line": "g1",
-   "startMs": 102520,
-   "endMs": 102820
+   "text": "Then",
+   "line": "v2",
+   "startMs": 45180,
+   "endMs": 45380
   },
   {
    "text": "it",
-   "line": "g1",
-   "startMs": 102820,
-   "endMs": 102960
+   "line": "v2",
+   "startMs": 45380,
+   "endMs": 45500
   },
   {
-   "text": "found",
-   "line": "g1",
-   "startMs": 102960,
-   "endMs": 103260
-  },
-  {
-   "text": "both",
-   "line": "g1",
-   "startMs": 103260,
-   "endMs": 103560
-  },
-  {
-   "text": "leaks,",
-   "line": "g1",
-   "startMs": 103560,
-   "endMs": 103980
-  },
-  {
-   "text": "and",
-   "line": "g1",
-   "startMs": 103980,
-   "endMs": 104440
-  },
-  {
-   "text": "left",
-   "line": "g1",
-   "startMs": 104440,
-   "endMs": 104660
+   "text": "transcribes",
+   "line": "v2",
+   "startMs": 45500,
+   "endMs": 46200
   },
   {
    "text": "the",
-   "line": "g1",
-   "startMs": 104660,
-   "endMs": 104860
+   "line": "v2",
+   "startMs": 46200,
+   "endMs": 46360
+  },
+  {
+   "text": "export",
+   "line": "v2",
+   "startMs": 46360,
+   "endMs": 46780
+  },
+  {
+   "text": "again,",
+   "line": "v2",
+   "startMs": 46780,
+   "endMs": 47180
+  },
+  {
+   "text": "to",
+   "line": "v2",
+   "startMs": 47180,
+   "endMs": 47620
+  },
+  {
+   "text": "confirm.",
+   "line": "v2",
+   "startMs": 47620,
+   "endMs": 48140
+  },
+  {
+   "text": "Then",
+   "line": "au",
+   "startMs": 49820,
+   "endMs": 50020
+  },
+  {
+   "text": "Veil",
+   "line": "au",
+   "startMs": 50020,
+   "endMs": 50300
+  },
+  {
+   "text": "audits",
+   "line": "au",
+   "startMs": 50300,
+   "endMs": 50760
+  },
+  {
+   "text": "its",
+   "line": "au",
+   "startMs": 50760,
+   "endMs": 50920
+  },
+  {
+   "text": "own",
+   "line": "au",
+   "startMs": 50920,
+   "endMs": 51220
+  },
+  {
+   "text": "export.",
+   "line": "au",
+   "startMs": 51220,
+   "endMs": 51740
+  },
+  {
+   "text": "Five",
+   "line": "au2",
+   "startMs": 52140,
+   "endMs": 52360
+  },
+  {
+   "text": "items",
+   "line": "au2",
+   "startMs": 52360,
+   "endMs": 52820
+  },
+  {
+   "text": "covered.",
+   "line": "au2",
+   "startMs": 52820,
+   "endMs": 53220
+  },
+  {
+   "text": "Two",
+   "line": "au2",
+   "startMs": 53500,
+   "endMs": 53820
+  },
+  {
+   "text": "left",
+   "line": "au2",
+   "startMs": 53820,
+   "endMs": 54180
+  },
+  {
+   "text": "for",
+   "line": "au2",
+   "startMs": 54180,
+   "endMs": 54360
+  },
+  {
+   "text": "you",
+   "line": "au2",
+   "startMs": 54360,
+   "endMs": 54480
+  },
+  {
+   "text": "to",
+   "line": "au2",
+   "startMs": 54480,
+   "endMs": 54620
+  },
+  {
+   "text": "review.",
+   "line": "au2",
+   "startMs": 54620,
+   "endMs": 54960
+  },
+  {
+   "text": "It",
+   "line": "f3",
+   "startMs": 55680,
+   "endMs": 55800
+  },
+  {
+   "text": "reads",
+   "line": "f3",
+   "startMs": 55800,
+   "endMs": 56060
+  },
+  {
+   "text": "every",
+   "line": "f3",
+   "startMs": 56060,
+   "endMs": 56400
+  },
+  {
+   "text": "mask",
+   "line": "f3",
+   "startMs": 56400,
+   "endMs": 56780
+  },
+  {
+   "text": "with",
+   "line": "f3",
+   "startMs": 56780,
+   "endMs": 56980
+  },
+  {
+   "text": "OCR.",
+   "line": "f3",
+   "startMs": 56980,
+   "endMs": 57660
+  },
+  {
+   "text": "Here,",
+   "line": "f3",
+   "startMs": 57660,
+   "endMs": 58080
+  },
+  {
+   "text": "SAM",
+   "line": "f3",
+   "startMs": 58500,
+   "endMs": 58820
+  },
+  {
+   "text": "grabbed",
+   "line": "f3",
+   "startMs": 58820,
+   "endMs": 59200
+  },
+  {
+   "text": "a",
+   "line": "f3",
+   "startMs": 59200,
+   "endMs": 59420
   },
   {
    "text": "code",
-   "line": "g1",
-   "startMs": 104860,
-   "endMs": 105160
+   "line": "f3",
+   "startMs": 59420,
+   "endMs": 59700
   },
   {
-   "text": "panel",
-   "line": "g1",
-   "startMs": 105160,
-   "endMs": 105600
+   "text": "panel,",
+   "line": "f3",
+   "startMs": 59700,
+   "endMs": 60160
   },
   {
-   "text": "alone.",
-   "line": "g1",
-   "startMs": 105600,
-   "endMs": 106000
+   "text": "so",
+   "line": "f3",
+   "startMs": 60460,
+   "endMs": 60760
+  },
+  {
+   "text": "Veil",
+   "line": "f3",
+   "startMs": 60760,
+   "endMs": 61020
+  },
+  {
+   "text": "threw",
+   "line": "f3",
+   "startMs": 61020,
+   "endMs": 61300
+  },
+  {
+   "text": "that",
+   "line": "f3",
+   "startMs": 61300,
+   "endMs": 61640
+  },
+  {
+   "text": "mask",
+   "line": "f3",
+   "startMs": 61640,
+   "endMs": 62060
+  },
+  {
+   "text": "out.",
+   "line": "f3",
+   "startMs": 62060,
+   "endMs": 62300
   },
   {
    "text": "Every",
    "line": "r1",
-   "startMs": 106480,
-   "endMs": 106800
+   "startMs": 64040,
+   "endMs": 64340
   },
   {
    "text": "finding",
    "line": "r1",
-   "startMs": 106800,
-   "endMs": 107180
+   "startMs": 64340,
+   "endMs": 64800
   },
   {
    "text": "ends",
    "line": "r1",
-   "startMs": 107180,
-   "endMs": 107680
-  },
-  {
-   "text": "as",
-   "line": "r1",
-   "startMs": 107680,
-   "endMs": 107920
+   "startMs": 64800,
+   "endMs": 65220
   },
   {
    "text": "covered,",
    "line": "r1",
-   "startMs": 107920,
-   "endMs": 108420
+   "startMs": 65220,
+   "endMs": 65620
   },
   {
    "text": "unresolved,",
    "line": "r1",
-   "startMs": 108620,
-   "endMs": 109420
+   "startMs": 65820,
+   "endMs": 66640
   },
   {
    "text": "or",
    "line": "r1",
-   "startMs": 109580,
-   "endMs": 109640
+   "startMs": 66780,
+   "endMs": 66860
   },
   {
    "text": "not",
    "line": "r1",
-   "startMs": 109640,
-   "endMs": 109860
+   "startMs": 66860,
+   "endMs": 67060
   },
   {
    "text": "checked.",
    "line": "r1",
-   "startMs": 109860,
-   "endMs": 110320
+   "startMs": 67060,
+   "endMs": 67520
   },
   {
-   "text": "Veil",
+   "text": "Never",
    "line": "r1",
-   "startMs": 110520,
-   "endMs": 110960
-  },
-  {
-   "text": "never",
-   "line": "r1",
-   "startMs": 110960,
-   "endMs": 111200
-  },
-  {
-   "text": "gives",
-   "line": "r1",
-   "startMs": 111200,
-   "endMs": 111480
+   "startMs": 68020,
+   "endMs": 68280
   },
   {
    "text": "a",
    "line": "r1",
-   "startMs": 111480,
-   "endMs": 111620
+   "startMs": 68280,
+   "endMs": 68440
   },
   {
-   "text": "clean",
+   "text": "blanket",
    "line": "r1",
-   "startMs": 111620,
-   "endMs": 111980
+   "startMs": 68440,
+   "endMs": 68840
   },
   {
-   "text": "bill",
+   "text": "all",
    "line": "r1",
-   "startMs": 111980,
-   "endMs": 112240
+   "startMs": 68840,
+   "endMs": 69120
   },
   {
-   "text": "of",
+   "text": "clear.",
    "line": "r1",
-   "startMs": 112240,
-   "endMs": 112420
+   "startMs": 69120,
+   "endMs": 69540
   },
   {
-   "text": "health.",
-   "line": "r1",
-   "startMs": 112420,
-   "endMs": 112740
+   "text": "Prefer",
+   "line": "n1",
+   "startMs": 70010,
+   "endMs": 70320
   },
   {
-   "text": "It",
-   "line": "r1",
-   "startMs": 112900,
-   "endMs": 113320
+   "text": "no",
+   "line": "n1",
+   "startMs": 70320,
+   "endMs": 70620
   },
   {
-   "text": "shows",
-   "line": "r1",
-   "startMs": 113320,
-   "endMs": 113600
+   "text": "black",
+   "line": "n1",
+   "startMs": 70620,
+   "endMs": 70920
   },
   {
-   "text": "you",
-   "line": "r1",
-   "startMs": 113600,
-   "endMs": 113840
+   "text": "boxes?",
+   "line": "n1",
+   "startMs": 70920,
+   "endMs": 71500
   },
   {
-   "text": "what's",
-   "line": "r1",
-   "startMs": 113840,
-   "endMs": 114140
+   "text": "Natural",
+   "line": "n1",
+   "startMs": 72200,
+   "endMs": 72600
   },
   {
-   "text": "left",
-   "line": "r1",
-   "startMs": 114140,
-   "endMs": 114340
+   "text": "mode",
+   "line": "n1",
+   "startMs": 72600,
+   "endMs": 72940
   },
   {
-   "text": "to",
-   "line": "r1",
-   "startMs": 114340,
-   "endMs": 114520
-  },
-  {
-   "text": "review.",
-   "line": "r1",
-   "startMs": 114520,
-   "endMs": 114940
-  },
-  {
-   "text": "And",
-   "line": "e1",
-   "startMs": 115340,
-   "endMs": 115480
-  },
-  {
-   "text": "I",
-   "line": "e1",
-   "startMs": 115480,
-   "endMs": 115600
-  },
-  {
-   "text": "measured",
-   "line": "e1",
-   "startMs": 115600,
-   "endMs": 116020
-  },
-  {
-   "text": "it:",
-   "line": "e1",
-   "startMs": 116020,
-   "endMs": 116220
-  },
-  {
-   "text": "three",
-   "line": "e1",
-   "startMs": 116400,
-   "endMs": 116800
-  },
-  {
-   "text": "full",
-   "line": "e1",
-   "startMs": 116800,
-   "endMs": 117100
-  },
-  {
-   "text": "re-runs",
-   "line": "e1",
-   "startMs": 117100,
-   "endMs": 117680
-  },
-  {
-   "text": "with",
-   "line": "e1",
-   "startMs": 117680,
-   "endMs": 117860
-  },
-  {
-   "text": "every",
-   "line": "e1",
-   "startMs": 117860,
-   "endMs": 118200
-  },
-  {
-   "text": "check",
-   "line": "e1",
-   "startMs": 118200,
-   "endMs": 118480
-  },
-  {
-   "text": "on,",
-   "line": "e1",
-   "startMs": 118480,
-   "endMs": 118820
-  },
-  {
-   "text": "seven",
-   "line": "e1",
-   "startMs": 120020,
-   "endMs": 120620
-  },
-  {
-   "text": "hundred",
-   "line": "e1",
-   "startMs": 120620,
-   "endMs": 120670
-  },
-  {
-   "text": "and",
-   "line": "e1",
-   "startMs": 120670,
-   "endMs": 120720
-  },
-  {
-   "text": "fifty-one",
-   "line": "e1",
-   "startMs": 120020,
-   "endMs": 120620
-  },
-  {
-   "text": "logged",
-   "line": "e1",
-   "startMs": 120620,
-   "endMs": 121060
-  },
-  {
-   "text": "model",
-   "line": "e1",
-   "startMs": 121060,
-   "endMs": 121460
-  },
-  {
-   "text": "calls,",
-   "line": "e1",
-   "startMs": 121460,
-   "endMs": 122000
-  },
-  {
-   "text": "about",
-   "line": "e1",
-   "startMs": 122260,
-   "endMs": 122600
-  },
-  {
-   "text": "two",
-   "line": "e1",
-   "startMs": 122600,
-   "endMs": 123040
-  },
-  {
-   "text": "dollars",
-   "line": "e1",
-   "startMs": 123040,
-   "endMs": 123660
-  },
-  {
-   "text": "forty",
-   "line": "e1",
-   "startMs": 123040,
-   "endMs": 123660
-  },
-  {
-   "text": "per",
-   "line": "e1",
-   "startMs": 123660,
-   "endMs": 123880
-  },
-  {
-   "text": "clip.",
-   "line": "e1",
-   "startMs": 123880,
-   "endMs": 124180
-  },
-  {
-   "text": "The",
-   "line": "e1",
-   "startMs": 124420,
-   "endMs": 124700
-  },
-  {
-   "text": "full",
-   "line": "e1",
-   "startMs": 124700,
-   "endMs": 124920
-  },
-  {
-   "text": "results,",
-   "line": "e1",
-   "startMs": 124920,
-   "endMs": 125500
-  },
-  {
-   "text": "including",
-   "line": "e1",
-   "startMs": 125660,
-   "endMs": 126160
-  },
-  {
-   "text": "what",
-   "line": "e1",
-   "startMs": 126160,
-   "endMs": 126480
-  },
-  {
-   "text": "still",
-   "line": "e1",
-   "startMs": 126480,
-   "endMs": 126800
-  },
-  {
-   "text": "fails,",
-   "line": "e1",
-   "startMs": 126800,
-   "endMs": 127380
-  },
-  {
-   "text": "are",
-   "line": "e1",
-   "startMs": 127560,
-   "endMs": 127700
+   "text": "swaps",
+   "line": "n1",
+   "startMs": 72940,
+   "endMs": 73540
   },
   {
    "text": "in",
-   "line": "e1",
-   "startMs": 127700,
-   "endMs": 127860
+   "line": "n1",
+   "startMs": 73540,
+   "endMs": 73760
   },
   {
-   "text": "the",
-   "line": "e1",
-   "startMs": 127860,
-   "endMs": 127960
+   "text": "fictional",
+   "line": "n1",
+   "startMs": 73760,
+   "endMs": 74080
   },
   {
-   "text": "repo.",
-   "line": "e1",
-   "startMs": 127960,
-   "endMs": 128340
-  },
-  {
-   "text": "Try",
-   "line": "c0",
-   "startMs": 128880,
-   "endMs": 129140
-  },
-  {
-   "text": "it",
-   "line": "c0",
-   "startMs": 129140,
-   "endMs": 129280
-  },
-  {
-   "text": "live,",
-   "line": "c0",
-   "startMs": 129280,
-   "endMs": 129640
-  },
-  {
-   "text": "read",
-   "line": "c0",
-   "startMs": 129860,
-   "endMs": 130000
-  },
-  {
-   "text": "the",
-   "line": "c0",
-   "startMs": 130000,
-   "endMs": 130140
-  },
-  {
-   "text": "receipt,",
-   "line": "c0",
-   "startMs": 130140,
-   "endMs": 130520
+   "text": "names,",
+   "line": "n1",
+   "startMs": 74080,
+   "endMs": 74580
   },
   {
    "text": "and",
-   "line": "c0",
-   "startMs": 130600,
-   "endMs": 130800
+   "line": "n1",
+   "startMs": 74580,
+   "endMs": 74960
   },
   {
-   "text": "decide",
-   "line": "c0",
-   "startMs": 130800,
-   "endMs": 131200
+   "text": "runs",
+   "line": "n1",
+   "startMs": 74960,
+   "endMs": 75280
   },
   {
-   "text": "before",
-   "line": "c0",
-   "startMs": 131200,
-   "endMs": 131560
+   "text": "the",
+   "line": "n1",
+   "startMs": 75280,
+   "endMs": 75480
   },
   {
-   "text": "you",
-   "line": "c0",
-   "startMs": 131560,
-   "endMs": 131800
+   "text": "audit",
+   "line": "n1",
+   "startMs": 75480,
+   "endMs": 75780
   },
   {
-   "text": "post.",
-   "line": "c0",
-   "startMs": 131800,
-   "endMs": 132240
+   "text": "again.",
+   "line": "n1",
+   "startMs": 75780,
+   "endMs": 76140
+  },
+  {
+   "text": "I",
+   "line": "p1",
+   "startMs": 77560,
+   "endMs": 77700
+  },
+  {
+   "text": "planted",
+   "line": "p1",
+   "startMs": 77700,
+   "endMs": 78060
+  },
+  {
+   "text": "four",
+   "line": "p1",
+   "startMs": 78060,
+   "endMs": 78440
+  },
+  {
+   "text": "private",
+   "line": "p1",
+   "startMs": 78440,
+   "endMs": 78840
+  },
+  {
+   "text": "details",
+   "line": "p1",
+   "startMs": 78840,
+   "endMs": 79440
+  },
+  {
+   "text": "across",
+   "line": "p1",
+   "startMs": 79440,
+   "endMs": 79780
+  },
+  {
+   "text": "three",
+   "line": "p1",
+   "startMs": 79780,
+   "endMs": 80260
+  },
+  {
+   "text": "test",
+   "line": "p1",
+   "startMs": 80260,
+   "endMs": 80600
+  },
+  {
+   "text": "clips.",
+   "line": "p1",
+   "startMs": 80600,
+   "endMs": 80980
+  },
+  {
+   "text": "Standard",
+   "line": "p1",
+   "startMs": 81380,
+   "endMs": 81980
+  },
+  {
+   "text": "detection",
+   "line": "p1",
+   "startMs": 81980,
+   "endMs": 82520
+  },
+  {
+   "text": "found",
+   "line": "p1",
+   "startMs": 82520,
+   "endMs": 83020
+  },
+  {
+   "text": "none.",
+   "line": "p1",
+   "startMs": 83020,
+   "endMs": 83400
+  },
+  {
+   "text": "Across",
+   "line": "p2",
+   "startMs": 83820,
+   "endMs": 84160
+  },
+  {
+   "text": "three",
+   "line": "p2",
+   "startMs": 84160,
+   "endMs": 84520
+  },
+  {
+   "text": "full",
+   "line": "p2",
+   "startMs": 84520,
+   "endMs": 84860
+  },
+  {
+   "text": "runs,",
+   "line": "p2",
+   "startMs": 84860,
+   "endMs": 85340
+  },
+  {
+   "text": "Veil",
+   "line": "p2",
+   "startMs": 85760,
+   "endMs": 85940
+  },
+  {
+   "text": "found",
+   "line": "p2",
+   "startMs": 85940,
+   "endMs": 86360
+  },
+  {
+   "text": "eleven",
+   "line": "p2",
+   "startMs": 86360,
+   "endMs": 86680
+  },
+  {
+   "text": "of",
+   "line": "p2",
+   "startMs": 86680,
+   "endMs": 86860
+  },
+  {
+   "text": "twelve.",
+   "line": "p2",
+   "startMs": 86860,
+   "endMs": 87240
+  },
+  {
+   "text": "In",
+   "line": "p2",
+   "startMs": 87580,
+   "endMs": 87860
+  },
+  {
+   "text": "one",
+   "line": "p2",
+   "startMs": 87860,
+   "endMs": 88120
+  },
+  {
+   "text": "run",
+   "line": "p2",
+   "startMs": 88120,
+   "endMs": 88380
+  },
+  {
+   "text": "it",
+   "line": "p2",
+   "startMs": 88380,
+   "endMs": 88560
+  },
+  {
+   "text": "missed",
+   "line": "p2",
+   "startMs": 88560,
+   "endMs": 88840
+  },
+  {
+   "text": "a",
+   "line": "p2",
+   "startMs": 88840,
+   "endMs": 89020
+  },
+  {
+   "text": "parcel",
+   "line": "p2",
+   "startMs": 89020,
+   "endMs": 89460
+  },
+  {
+   "text": "label,",
+   "line": "p2",
+   "startMs": 89460,
+   "endMs": 89960
+  },
+  {
+   "text": "and",
+   "line": "p2",
+   "startMs": 89960,
+   "endMs": 90500
+  },
+  {
+   "text": "its",
+   "line": "p2",
+   "startMs": 90500,
+   "endMs": 90660
+  },
+  {
+   "text": "audit",
+   "line": "p2",
+   "startMs": 90660,
+   "endMs": 91020
+  },
+  {
+   "text": "didn't",
+   "line": "p2",
+   "startMs": 91020,
+   "endMs": 91340
+  },
+  {
+   "text": "catch",
+   "line": "p2",
+   "startMs": 91340,
+   "endMs": 91620
+  },
+  {
+   "text": "it",
+   "line": "p2",
+   "startMs": 91620,
+   "endMs": 91760
+  },
+  {
+   "text": "either.",
+   "line": "p2",
+   "startMs": 91760,
+   "endMs": 92000
+  },
+  {
+   "text": "Every",
+   "line": "p3",
+   "startMs": 92550,
+   "endMs": 92860
+  },
+  {
+   "text": "model",
+   "line": "p3",
+   "startMs": 92860,
+   "endMs": 93180
+  },
+  {
+   "text": "call",
+   "line": "p3",
+   "startMs": 93180,
+   "endMs": 93560
+  },
+  {
+   "text": "is",
+   "line": "p3",
+   "startMs": 93560,
+   "endMs": 93800
+  },
+  {
+   "text": "logged:",
+   "line": "p3",
+   "startMs": 93800,
+   "endMs": 94300
+  },
+  {
+   "text": "seven",
+   "line": "p3",
+   "startMs": 95420,
+   "endMs": 96140
+  },
+  {
+   "text": "hundred",
+   "line": "p3",
+   "startMs": 96140,
+   "endMs": 96190
+  },
+  {
+   "text": "and",
+   "line": "p3",
+   "startMs": 96190,
+   "endMs": 96240
+  },
+  {
+   "text": "fifty-one",
+   "line": "p3",
+   "startMs": 95420,
+   "endMs": 96140
+  },
+  {
+   "text": "calls,",
+   "line": "p3",
+   "startMs": 96140,
+   "endMs": 96740
+  },
+  {
+   "text": "about",
+   "line": "p3",
+   "startMs": 97000,
+   "endMs": 97400
+  },
+  {
+   "text": "two",
+   "line": "p3",
+   "startMs": 97400,
+   "endMs": 97840
+  },
+  {
+   "text": "dollars",
+   "line": "p3",
+   "startMs": 97840,
+   "endMs": 98520
+  },
+  {
+   "text": "forty",
+   "line": "p3",
+   "startMs": 97840,
+   "endMs": 98520
+  },
+  {
+   "text": "per",
+   "line": "p3",
+   "startMs": 98520,
+   "endMs": 98780
+  },
+  {
+   "text": "clip.",
+   "line": "p3",
+   "startMs": 98780,
+   "endMs": 99100
+  },
+  {
+   "text": "Discovery",
+   "line": "g1",
+   "startMs": 99640,
+   "endMs": 100120
+  },
+  {
+   "text": "also",
+   "line": "g1",
+   "startMs": 100120,
+   "endMs": 100600
+  },
+  {
+   "text": "runs",
+   "line": "g1",
+   "startMs": 100600,
+   "endMs": 101060
+  },
+  {
+   "text": "on",
+   "line": "g1",
+   "startMs": 101060,
+   "endMs": 101280
+  },
+  {
+   "text": "Muse",
+   "line": "g1",
+   "startMs": 101280,
+   "endMs": 101500
+  },
+  {
+   "text": "Glimmer,",
+   "line": "g1",
+   "startMs": 101500,
+   "endMs": 102000
+  },
+  {
+   "text": "right",
+   "line": "g1",
+   "startMs": 102260,
+   "endMs": 102580
+  },
+  {
+   "text": "on",
+   "line": "g1",
+   "startMs": 102580,
+   "endMs": 102740
+  },
+  {
+   "text": "this",
+   "line": "g1",
+   "startMs": 102740,
+   "endMs": 102920
+  },
+  {
+   "text": "laptop.",
+   "line": "g1",
+   "startMs": 102920,
+   "endMs": 103360
+  },
+  {
+   "text": "The",
+   "line": "g1",
+   "startMs": 103720,
+   "endMs": 104000
+  },
+  {
+   "text": "frames",
+   "line": "g1",
+   "startMs": 104000,
+   "endMs": 104440
+  },
+  {
+   "text": "never",
+   "line": "g1",
+   "startMs": 104440,
+   "endMs": 104800
+  },
+  {
+   "text": "leave",
+   "line": "g1",
+   "startMs": 104800,
+   "endMs": 105100
+  },
+  {
+   "text": "it.",
+   "line": "g1",
+   "startMs": 105100,
+   "endMs": 105300
+  },
+  {
+   "text": "On",
+   "line": "g2",
+   "startMs": 106200,
+   "endMs": 106400
+  },
+  {
+   "text": "this",
+   "line": "g2",
+   "startMs": 106400,
+   "endMs": 106580
+  },
+  {
+   "text": "clip",
+   "line": "g2",
+   "startMs": 106580,
+   "endMs": 106820
+  },
+  {
+   "text": "it",
+   "line": "g2",
+   "startMs": 106820,
+   "endMs": 106980
+  },
+  {
+   "text": "found",
+   "line": "g2",
+   "startMs": 106980,
+   "endMs": 107260
+  },
+  {
+   "text": "both",
+   "line": "g2",
+   "startMs": 107260,
+   "endMs": 107600
+  },
+  {
+   "text": "details,",
+   "line": "g2",
+   "startMs": 107600,
+   "endMs": 108240
+  },
+  {
+   "text": "and",
+   "line": "g2",
+   "startMs": 108240,
+   "endMs": 108900
+  },
+  {
+   "text": "left",
+   "line": "g2",
+   "startMs": 108900,
+   "endMs": 109120
+  },
+  {
+   "text": "the",
+   "line": "g2",
+   "startMs": 109120,
+   "endMs": 109300
+  },
+  {
+   "text": "code",
+   "line": "g2",
+   "startMs": 109300,
+   "endMs": 109640
+  },
+  {
+   "text": "panel",
+   "line": "g2",
+   "startMs": 109640,
+   "endMs": 110040
+  },
+  {
+   "text": "alone.",
+   "line": "g2",
+   "startMs": 110040,
+   "endMs": 110520
   },
   {
    "text": "Veil.",
    "line": "c1",
-   "startMs": 132620,
-   "endMs": 132960
+   "startMs": 111180,
+   "endMs": 111500
   },
   {
-   "text": "Models",
+   "text": "Find",
    "line": "c1",
-   "startMs": 132960,
-   "endMs": 133260
+   "startMs": 111600,
+   "endMs": 111900
   },
   {
-   "text": "propose.",
+   "text": "what",
    "line": "c1",
-   "startMs": 133260,
-   "endMs": 133800
+   "startMs": 111900,
+   "endMs": 112100
   },
   {
-   "text": "Code",
+   "text": "identifies",
    "line": "c1",
-   "startMs": 134140,
-   "endMs": 134520
+   "startMs": 112100,
+   "endMs": 112580
   },
   {
-   "text": "decides.",
+   "text": "you,",
    "line": "c1",
-   "startMs": 134520,
-   "endMs": 134940
+   "startMs": 112580,
+   "endMs": 113020
+  },
+  {
+   "text": "before",
+   "line": "c1",
+   "startMs": 113020,
+   "endMs": 113340
+  },
+  {
+   "text": "you",
+   "line": "c1",
+   "startMs": 113340,
+   "endMs": 113620
+  },
+  {
+   "text": "post.",
+   "line": "c1",
+   "startMs": 113620,
+   "endMs": 114100
+  },
+  {
+   "text": "Try",
+   "line": "c2",
+   "startMs": 115490,
+   "endMs": 115780
+  },
+  {
+   "text": "it",
+   "line": "c2",
+   "startMs": 115780,
+   "endMs": 115940
+  },
+  {
+   "text": "live,",
+   "line": "c2",
+   "startMs": 115940,
+   "endMs": 116180
+  },
+  {
+   "text": "at",
+   "line": "c2",
+   "startMs": 116180,
+   "endMs": 116420
+  },
+  {
+   "text": "the",
+   "line": "c2",
+   "startMs": 116420,
+   "endMs": 116520
+  },
+  {
+   "text": "link",
+   "line": "c2",
+   "startMs": 116520,
+   "endMs": 116740
+  },
+  {
+   "text": "below.",
+   "line": "c2",
+   "startMs": 116740,
+   "endMs": 117060
   }
  ],
  "emph": {
   "h1": {
-   "name": 50,
-   "building": 78,
-   "phone number": 107
+   "about to be posted": 46
   },
   "h2": {
-   "every frame": 235
+   "full name": 127,
+   "flat number": 168
   },
-  "i1": {
-   "twenty-three": 344,
-   "twenty-two": 344
+  "x1": {
+   "faces and plates": 264,
+   "one car's plate": 329,
+   "misses both": 373
   },
-  "p1": {
-   "none of it": 601,
-   "zero of four": 697
+  "o1": {
+   "this specific video": 472,
+   "covers it": 597
   },
-  "p2": {
-   "all four": 848
-  },
-  "a1": {
-   "identify you": 1074
+  "l1": {
+   "live product": 707
   },
   "a2": {
-   "Muse Spark": 1110,
-   "reason": 1234
+   "Muse Spark": 841,
+   "with a reason": 962
   },
   "a3": {
-   "SAM 3.1": 1429,
-   "every frame": 1508
-  },
-  "f1": {
-   "checks the work": 1651
-  },
-  "f2": {
-   "mistakes": 1858
-  },
-  "f3": {
-   "threw it out": 2141
-  },
-  "n1": {
-   "natural": 2255,
-   "fictional names": 2330
+   "SAM 3.1": 1042,
+   "every frame": 1122
   },
   "v1": {
-   "Hindi": 2644,
-   "mutes it": 2675
+   "Hindi": 1295,
+   "mutes it": 1325
   },
-  "g1": {
-   "open weights": 2845,
-   "never leave": 3007,
-   "both leaks": 3098
+  "v2": {
+   "confirm": 1429
+  },
+  "au": {
+   "audits": 1509
+  },
+  "au2": {
+   "Five items covered": 1564,
+   "Two left": 1605
+  },
+  "f3": {
+   "threw that mask out": 1831
   },
   "r1": {
-   "what's left to review": 3415
+   "unresolved": 1975,
+   "all clear": 2065
   },
-  "e1": {
-   "measured it": 3468,
-   "what still fails": 3785
+  "n1": {
+   "fictional names": 2213
   },
-  "c0": {
-   "decide": 3924
+  "p1": {
+   "four private details": 2342,
+   "found none": 2476
+  },
+  "p2": {
+   "eleven of twelve": 2591,
+   "didn't catch it": 2731
+  },
+  "p3": {
+   "logged": 2814
+  },
+  "g1": {
+   "Muse Glimmer": 3038,
+   "never leave it": 3133
+  },
+  "g2": {
+   "both details": 3218
   },
   "c1": {
-   "Code decides": 4024
+   "before you post": 3391
+  },
+  "c2": {
+   "Try it live": 3465
   }
  }
 }

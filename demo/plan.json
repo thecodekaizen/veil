@@ -4,7 +4,7 @@
  "formats": [
   "16:9"
  ],
- "target_length_s": 135,
+ "target_length_s": 115,
  "phases": {
   "0": "done",
   "1": "done",
@@ -29,211 +29,245 @@
   {
    "id": "h1",
    "beat": "Hook",
-   "text": "This clip tells a stranger my name, my building, and my phone number.",
-   "on_screen": "c2 input full-bleed; kinetic NAME / BUILDING / NUMBER",
+   "text": "This street clip is about to be posted.",
+   "on_screen": "c2 playing; About to be posted.",
    "emphasis": [
-    "name",
-    "building",
-    "phone number"
+    "about to be posted"
    ],
-   "pause_after_ms": 400,
-   "evidence": "runs-rep/r1/c2 input; c3 audio"
+   "pause_after_ms": 250,
+   "evidence": "runs-rep/r1/c2 input"
   },
   {
    "id": "h2",
    "beat": "Hook",
-   "text": "All fictional. But creators post clips like this every day, and nobody re-watches every frame.",
-   "on_screen": "Chip: fictional data, composited clip",
+   "text": "It shows a stranger my full name, and my flat number.",
+   "on_screen": "amber boxes on the notification and door plate",
    "emphasis": [
-    "every frame"
-   ],
-   "pause_after_ms": 300,
-   "evidence": "gate/GATE.md (composited clips)"
-  },
-  {
-   "id": "i1",
-   "beat": "Impact",
-   "text": "In these twenty-five seconds, a full name is on screen for twenty-three seconds. A flat number, for twenty-two.",
-   "on_screen": "Two exposure bars over the clip: name 23.3 s, flat number 22.3 s",
-   "emphasis": [
-    "twenty-three",
-    "twenty-two"
+    "full name",
+    "flat number"
    ],
    "pause_after_ms": 400,
-   "evidence": "runs-rep/r1/c2 manifest: frames 22-603 and 47-603 at 25 fps"
+   "evidence": "runs-rep/r1/c2 redact.json boxes"
+  },
+  {
+   "id": "x1",
+   "beat": "Contrast",
+   "text": "A standard redaction tool looks for faces and plates. It covers one car's plate, and misses both.",
+   "on_screen": "real standard-class export of the same run",
+   "emphasis": [
+    "faces and plates",
+    "one car's plate",
+    "misses both"
+   ],
+   "pause_after_ms": 600,
+   "evidence": "runs-rep/r1/c2/output_fixed_classes.mp4"
+  },
+  {
+   "id": "o1",
+   "beat": "One line",
+   "text": "Veil finds what identifies you in this specific video. Not just faces and plates. Then it covers it, before you post.",
+   "on_screen": "Veil wordmark; side by side standard vs Veil",
+   "emphasis": [
+    "this specific video",
+    "covers it"
+   ],
+   "pause_after_ms": 1500,
+   "evidence": "runs-rep/r1/c2 output.mp4"
+  },
+  {
+   "id": "l1",
+   "beat": "Live",
+   "text": "Here's the live product. Drag across, and see exactly what changed.",
+   "on_screen": "live site hero: divider dragged across input vs export",
+   "emphasis": [
+    "live product"
+   ],
+   "pause_after_ms": 500,
+   "evidence": "thecodekaizen.github.io/veil"
+  },
+  {
+   "id": "a2",
+   "beat": "Find",
+   "text": "Muse Spark reads the clip, and proposes what could identify you, with a reason.",
+   "on_screen": "desk: Spark boxes + verbatim reason",
+   "emphasis": [
+    "Muse Spark",
+    "with a reason"
+   ],
+   "pause_after_ms": 1700,
+   "evidence": "runs-rep/r1/c2 discover.json"
+  },
+  {
+   "id": "a3",
+   "beat": "Find",
+   "text": "SAM 3.1 tracks each one, through every frame.",
+   "on_screen": "desk tracks panel",
+   "emphasis": [
+    "SAM 3.1",
+    "every frame"
+   ],
+   "pause_after_ms": 1300,
+   "evidence": "runs-rep/r1/c2 track_final.json"
+  },
+  {
+   "id": "v1",
+   "beat": "Listen",
+   "text": "It listens, too. Muse Voice hears a phone number said in Hindi, and Veil mutes it.",
+   "on_screen": "desk c3: transcript, mute bar",
+   "emphasis": [
+    "Hindi",
+    "mutes it"
+   ],
+   "pause_after_ms": 400,
+   "evidence": "runs-rep/r1/c3 listen.json, redact.json"
+  },
+  {
+   "id": "v2",
+   "beat": "Listen",
+   "text": "Then it transcribes the export again, to confirm.",
+   "on_screen": "findings: COVERED spoken phone-like number (re-transcription found no digit run)",
+   "emphasis": [
+    "confirm"
+   ],
+   "pause_after_ms": 1500,
+   "evidence": "runs-rep/r1/c3 audit.json"
+  },
+  {
+   "id": "au",
+   "beat": "Audit",
+   "text": "Then Veil audits its own export.",
+   "on_screen": "desk verdict banner",
+   "emphasis": [
+    "audits"
+   ],
+   "pause_after_ms": 250,
+   "evidence": "runs-rep/r1/c2 audit.json"
+  },
+  {
+   "id": "au2",
+   "beat": "Audit",
+   "text": "Five items covered. Two left for you to review.",
+   "on_screen": "verdict: 5 COVERED, 2 UNRESOLVED, 0 NOT CHECKED",
+   "emphasis": [
+    "Five items covered",
+    "Two left"
+   ],
+   "pause_after_ms": 450,
+   "evidence": "runs-rep/r1/c2 audit.json"
+  },
+  {
+   "id": "f3",
+   "beat": "Audit",
+   "text": "It reads every mask with OCR. Here, SAM grabbed a code panel, so Veil threw that mask out.",
+   "on_screen": "mask check: REJECTED row",
+   "emphasis": [
+    "threw that mask out"
+   ],
+   "pause_after_ms": 1700,
+   "evidence": "runs-rep/r1/c2 verify.json"
+  },
+  {
+   "id": "r1",
+   "beat": "Audit",
+   "text": "Every finding ends covered, unresolved, or not checked. Never a blanket all clear.",
+   "on_screen": "findings, Unresolved filter",
+   "emphasis": [
+    "unresolved",
+    "all clear"
+   ],
+   "pause_after_ms": 350,
+   "evidence": "runs-rep/r1/c2 audit.json"
+  },
+  {
+   "id": "n1",
+   "beat": "Audit",
+   "text": "Prefer no black boxes? Natural mode swaps in fictional names, and runs the audit again.",
+   "on_screen": "desk Natural toggle",
+   "emphasis": [
+    "fictional names"
+   ],
+   "pause_after_ms": 1300,
+   "evidence": "runs-rep/r1/c2 natural.json"
   },
   {
    "id": "p1",
-   "beat": "Problem",
-   "text": "Face and plate detectors flag none of it. On my test clips, a fixed list found zero of four planted leaks.",
-   "on_screen": "Card: Face and plate detectors 0 / 4",
+   "beat": "Proof",
+   "text": "I planted four private details across three test clips. Standard detection found none.",
+   "on_screen": "proof card: test set; standard 0 of 4",
    "emphasis": [
-    "none of it",
-    "zero of four"
+    "four private details",
+    "found none"
    ],
    "pause_after_ms": 300,
    "evidence": "eval/results/final/heldout_results.md"
   },
   {
    "id": "p2",
-   "beat": "Problem",
-   "text": "Veil found three of four on its first run, and all four in two of three full re-runs.",
-   "on_screen": "Card: Veil 3 / 4 then 4 / 4 in 2 of 3 re-runs",
+   "beat": "Proof",
+   "text": "Across three full runs, Veil found eleven of twelve. In one run it missed a parcel label, and its audit didn't catch it either.",
+   "on_screen": "proof card: 4/4, 3/4, 4/4 = 11 of 12; miss outlined",
    "emphasis": [
-    "all four"
+    "eleven of twelve",
+    "didn't catch it"
    ],
-   "pause_after_ms": 500,
-   "evidence": "gate/GATE_RESULT.md; gate/repeats/r1-r3"
+   "pause_after_ms": 450,
+   "evidence": "gate/repeats/r1-r3; runs-rep/r2/c1 audit.json"
   },
   {
-   "id": "a1",
-   "beat": "Aha",
-   "text": "Here's the live product. Veil asks one question: what, in this video, could identify you?",
-   "on_screen": "Live site hero, drag the before/after divider",
+   "id": "p3",
+   "beat": "Proof",
+   "text": "Every model call is logged: seven hundred and fifty-one calls, about two dollars forty per clip.",
+   "on_screen": "live site ledger",
    "emphasis": [
-    "identify you"
+    "logged"
    ],
-   "pause_after_ms": 300,
-   "evidence": "thecodekaizen.github.io/veil"
-  },
-  {
-   "id": "a2",
-   "beat": "Aha",
-   "text": "Muse Spark looks at keyframes and proposes candidates, each with a reason. The notification shows a full name. The gold plate shows a surname and a flat number.",
-   "on_screen": "Desk: Spark evidence frames + callouts quoting the model's why text",
-   "emphasis": [
-    "Muse Spark",
-    "reason"
-   ],
-   "pause_after_ms": 250,
-   "evidence": "runs-rep/r1/c2 discover.json why_identifying"
-  },
-  {
-   "id": "a3",
-   "beat": "Aha",
-   "text": "SAM 3.1 tracks each one through every frame, and the export covers exactly those regions.",
-   "on_screen": "Desk: click a track, covers follow in the export",
-   "emphasis": [
-    "SAM 3.1",
-    "every frame"
-   ],
-   "pause_after_ms": 300,
-   "evidence": "track_final.json; redact.json"
-  },
-  {
-   "id": "f1",
-   "beat": "Verify",
-   "text": "Then code checks the work. Veil decodes its own export and verifies the cover on every masked frame.",
-   "on_screen": "Desk findings: cover verified in decoded output on all 557 masked frames",
-   "emphasis": [
-    "checks the work"
-   ],
-   "pause_after_ms": 300,
-   "evidence": "runs-rep/r1/c2 audit.json"
-  },
-  {
-   "id": "f2",
-   "beat": "Verify",
-   "text": "Models make mistakes. Here, SAM put the name mask on a block of code.",
-   "on_screen": "Mask check: REJECTED rows",
-   "emphasis": [
-    "mistakes"
-   ],
-   "pause_after_ms": 200,
-   "evidence": "runs-rep/r1/c2 verify.json"
-  },
-  {
-   "id": "f3",
-   "beat": "Verify",
-   "text": "Local OCR read the mask, found code instead of the name Spark claimed, and threw it out.",
-   "on_screen": "OCR text 'def total(items)' vs claimed 'KULKARNI'",
-   "emphasis": [
-    "threw it out"
-   ],
-   "pause_after_ms": 400,
-   "evidence": "runs-rep/r1/c2 verify.json rejected x3"
-  },
-  {
-   "id": "n1",
-   "beat": "Natural",
-   "text": "And if black boxes ruin the shot, switch to natural. Veil re-renders the text with fictional names, then runs the same OCR audit to check the real ones are gone.",
-   "on_screen": "Desk: Covers to Natural toggle; divider across the notification: Rohan Kulkarni becomes Aarav Sharma, KULKARNI 12 becomes SHARMA 87",
-   "emphasis": [
-    "natural",
-    "fictional names"
-   ],
-   "pause_after_ms": 400,
-   "evidence": "runs-rep/r1/c2 natural.json (audit COVERED, 0 residual words)"
-  },
-  {
-   "id": "v1",
-   "beat": "Voice",
-   "text": "Spoken numbers too. Muse Voice Transcribe hears a phone number said in Hindi. Veil mutes it, then transcribes the export again to confirm.",
-   "on_screen": "Desk c3: Devanagari transcript, mute bar, COVERED spoken number",
-   "emphasis": [
-    "Hindi",
-    "mutes it"
-   ],
-   "pause_after_ms": 400,
-   "evidence": "runs-rep/r1/c3 listen.json, audit.json"
+   "pause_after_ms": 450,
+   "evidence": "eval/repeats/summary.json"
   },
   {
    "id": "g1",
    "beat": "Open weights",
-   "text": "Discovery can also run on open weights. Muse Glimmer runs right on this laptop, so for this step the frames never leave the device. On this clip it found both leaks, and left the code panel alone.",
-   "on_screen": "Glimmer: llama-server on the laptop, its proposals on c2 keyframes",
+   "text": "Discovery also runs on Muse Glimmer, right on this laptop. The frames never leave it.",
+   "on_screen": "Glimmer card",
    "emphasis": [
-    "open weights",
-    "never leave",
-    "both leaks"
+    "Muse Glimmer",
+    "never leave it"
    ],
-   "pause_after_ms": 400,
-   "evidence": "runs-glimmer/c2s; gate/glimmer; eval/glimmer/summary.md"
+   "pause_after_ms": 900,
+   "evidence": "runs-glimmer/c2s; eval/glimmer/summary.md"
   },
   {
-   "id": "r1",
-   "beat": "Payoff",
-   "text": "Every finding ends as covered, unresolved, or not checked. Veil never gives a clean bill of health. It shows you what's left to review.",
-   "on_screen": "Desk verdict banner and Unresolved filter",
+   "id": "g2",
+   "beat": "Open weights",
+   "text": "On this clip it found both details, and left the code panel alone.",
+   "on_screen": "Glimmer card result line",
    "emphasis": [
-    "what's left to review"
+    "both details"
    ],
-   "pause_after_ms": 300,
-   "evidence": "runs-rep/r1/c2 audit.json"
-  },
-  {
-   "id": "e1",
-   "beat": "Evidence",
-   "text": "And I measured it: three full re-runs with every check on, seven hundred and fifty-one logged model calls, about two dollars forty per clip. The full results, including what still fails, are in the repo.",
-   "on_screen": "Live site: ledger, then results table",
-   "emphasis": [
-    "measured it",
-    "what still fails"
-   ],
-   "pause_after_ms": 400,
-   "evidence": "eval/repeats/summary.json; gate/"
-  },
-  {
-   "id": "c0",
-   "beat": "CTA",
-   "text": "Try it live, read the receipt, and decide before you post.",
-   "on_screen": "Live site final CTA, URL chip",
-   "emphasis": [
-    "decide"
-   ],
-   "pause_after_ms": 300,
-   "evidence": "thecodekaizen.github.io/veil"
+   "pause_after_ms": 500,
+   "evidence": "gate/glimmer; eval/glimmer/summary.md"
   },
   {
    "id": "c1",
-   "beat": "CTA",
-   "text": "Veil. Models propose. Code decides.",
-   "on_screen": "Outro: wordmark, model chips, URLs, credits",
+   "beat": "Close",
+   "text": "Veil. Find what identifies you, before you post.",
+   "on_screen": "end on the after frame, wordmark, URLs",
    "emphasis": [
-    "Code decides"
+    "before you post"
    ],
-   "pause_after_ms": 1200,
+   "pause_after_ms": 1300,
    "evidence": "README"
+  },
+  {
+   "id": "c2",
+   "beat": "Close",
+   "text": "Try it live, at the link below.",
+   "on_screen": "URLs on the after frame",
+   "emphasis": [
+    "Try it live"
+   ],
+   "pause_after_ms": 1500,
+   "evidence": "thecodekaizen.github.io/veil"
   }
  ],
  "timeline": null,

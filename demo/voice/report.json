@@ -3,303 +3,236 @@
   {
    "id": "h1",
    "file": "line_h1.wav",
-   "duration_s": 4.19,
-   "peak": 0.243,
-   "wer": 0.077,
-   "heard": "This clip tells us a stranger my name, my building and my phone number.",
-   "flags": [
-    "WER 8% > 5%"
-   ],
-   "status": "check"
-  },
-  {
-   "id": "h2",
-   "file": "line_h2.wav",
-   "duration_s": 3.54,
-   "peak": 0.213,
-   "wer": 0.2,
-   "heard": "All fictional. But creators post clips like this everyday.",
-   "flags": [
-    "WER 20% > 5%",
-    "missing ['every', 'day']"
-   ],
-   "status": "check"
-  },
-  {
-   "id": "h3",
-   "file": "line_h3.wav",
-   "duration_s": 5.15,
-   "peak": 0.332,
+   "duration_s": 2.52,
+   "peak": 0.385,
    "wer": 0.0,
-   "heard": "A name on a parcel. A society board behind you. A number you say out loud.",
+   "heard": "This street clip is about to be posted.",
    "flags": [],
    "status": "ok"
   },
   {
-   "id": "p1",
-   "file": "line_p1.wav",
-   "duration_s": 5.84,
-   "peak": 0.192,
-   "wer": 0.231,
-   "heard": "Most reduction tools look for a fixed list. Spaces. License plates. Cleans. Documents.",
-   "flags": [
-    "WER 23% > 5%",
-    "missing ['redaction', 'faces', 'screens']"
-   ],
-   "status": "check"
-  },
-  {
-   "id": "p2",
-   "file": "line_p2.wav",
-   "duration_s": 4.58,
-   "peak": 0.214,
-   "wer": 0.077,
-   "heard": "On my held out clips, that list found 0 of 4 planted leads.",
-   "flags": [
-    "WER 8% > 5%",
-    "missing ['leaks']"
-   ],
-   "status": "check"
-  },
-  {
-   "id": "a1",
-   "file": "line_a1.wav",
-   "duration_s": 4.34,
-   "peak": 0.228,
+   "id": "h2",
+   "file": "line_h2.wav",
+   "duration_s": 3.49,
+   "peak": 0.399,
    "wer": 0.0,
-   "heard": "So Veil asks a different question. What in this video could identify you?",
+   "heard": "It shows a stranger my full name and my flat number.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "x1",
+   "file": "line_x1.wav",
+   "duration_s": 6.29,
+   "peak": 0.572,
+   "wer": 0.0,
+   "heard": "A standard redaction tool looks for faces and plates. It covers one car's plate and misses both.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "o1",
+   "file": "line_o1.wav",
+   "duration_s": 7.97,
+   "peak": 0.611,
+   "wer": 0.0,
+   "heard": "Veil finds what identifies you in this specific video. Not just faces and plates. Then it covers it before you post.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "l1",
+   "file": "line_l1.wav",
+   "duration_s": 4.31,
+   "peak": 0.403,
+   "wer": 0.0,
+   "heard": "Here's the live product. Drag across and see exactly what changed.",
    "flags": [],
    "status": "ok"
   },
   {
    "id": "a2",
    "file": "line_a2.wav",
-   "duration_s": 9.14,
-   "peak": 0.274,
+   "duration_s": 5.04,
+   "peak": 0.493,
    "wer": 0.0,
-   "heard": "Muse Spark looks at keyframes and proposes candidates, each with a reason. The notification shows a full name, the gold plate shows a surname and a flat number.",
-   "flags": [],
-   "status": "ok"
-  },
-  {
-   "id": "a2b",
-   "file": "line_a2b.wav",
-   "duration_s": 5.05,
-   "peak": 0.204,
-   "wer": 0.0,
-   "heard": "None of these is a face or a license plate. The model has to understand the scene.",
+   "heard": "Muse Spark. Reads the clip and proposes what could identify you with a reason.",
    "flags": [],
    "status": "ok"
   },
   {
    "id": "a3",
    "file": "line_a3.wav",
-   "duration_s": 5.82,
-   "peak": 0.287,
+   "duration_s": 3.58,
+   "peak": 0.354,
    "wer": 0.0,
-   "heard": "SAM 3.1 tracks each one through every frame and the output covers exactly those regions.",
-   "flags": [],
-   "status": "ok"
-  },
-  {
-   "id": "a4",
-   "file": "line_a4.wav",
-   "duration_s": 7.18,
-   "peak": 0.256,
-   "wer": 0.0,
-   "heard": "With Spark in the loop, three out of four were found. Then I re-ran the whole pipeline three times. Discovery passed every run.",
-   "flags": [],
-   "status": "ok"
-  },
-  {
-   "id": "f1",
-   "file": "line_f1.wav",
-   "duration_s": 4.73,
-   "peak": 0.241,
-   "wer": 0.0,
-   "heard": "Then code checks the work. Veil decodes its own output and confirms the covers are really there.",
-   "flags": [],
-   "status": "ok"
-  },
-  {
-   "id": "f1b",
-   "file": "line_f1b.wav",
-   "duration_s": 5.31,
-   "peak": 0.201,
-   "wer": 0.0,
-   "heard": "It re-reads the output with local OCR and runs a face detector on sampled frames.",
-   "flags": [],
-   "status": "ok"
-  },
-  {
-   "id": "f2",
-   "file": "line_f2.wav",
-   "duration_s": 4.22,
-   "peak": 0.164,
-   "wer": 0.067,
-   "heard": "Models make mistakes. Here Sam put the name mask on a block of code.",
-   "flags": [
-    "WER 7% > 5%",
-    "missing ['and']"
-   ],
-   "status": "check"
-  },
-  {
-   "id": "f3",
-   "file": "line_f3.wav",
-   "duration_s": 5.42,
-   "peak": 0.317,
-   "wer": 0.0,
-   "heard": "Local OCR read the mask, found code instead of the name Spark claimed and threw it out.",
+   "heard": "SAM 3.1 tracks each one through every frame.",
    "flags": [],
    "status": "ok"
   },
   {
    "id": "v1",
    "file": "line_v1.wav",
-   "duration_s": 6.53,
-   "peak": 0.286,
-   "wer": 0.056,
-   "heard": "Spoken numbers too. Muse. Voice Transcribe. Here's a phone number read out in Hindi. And Veil mutes it.",
-   "flags": [
-    "WER 6% > 5%",
-    "missing ['hears']"
-   ],
-   "status": "check"
-  },
-  {
-   "id": "v2",
-   "file": "line_v2.wav",
-   "duration_s": 3.64,
-   "peak": 0.147,
+   "duration_s": 5.18,
+   "peak": 0.44,
    "wer": 0.0,
-   "heard": "Then it transcribes the output again. No digit run left.",
+   "heard": "It listens, too. Muse Voice hears a phone number said in Hindi and Veil mutes it.",
    "flags": [],
    "status": "ok"
   },
   {
-   "id": "v3",
-   "file": "line_v3.wav",
-   "duration_s": 5.52,
-   "peak": 0.254,
+   "id": "v2",
+   "file": "line_v2.wav",
+   "duration_s": 3.14,
+   "peak": 0.352,
    "wer": 0.0,
-   "heard": "But voice still gets digits wrong and the mute window met my limit in only one of three runs.",
+   "heard": "Then it transcribes the export again to confirm.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "au",
+   "file": "line_au.wav",
+   "duration_s": 1.99,
+   "peak": 0.486,
+   "wer": 0.0,
+   "heard": "Then Veil audits its own export.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "au2",
+   "file": "line_au2.wav",
+   "duration_s": 3.17,
+   "peak": 0.543,
+   "wer": 0.0,
+   "heard": "Five items covered. Two left for you to review.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "f3",
+   "file": "line_f3.wav",
+   "duration_s": 6.66,
+   "peak": 0.345,
+   "wer": 0.0,
+   "heard": "It reads every mask with OCR here. Sam grabbed a code panel. So Veil threw that mask out.",
    "flags": [],
    "status": "ok"
   },
   {
    "id": "r1",
    "file": "line_r1.wav",
-   "duration_s": 3.08,
-   "peak": 0.319,
-   "wer": 0.2,
-   "heard": "That's the point. Veil lever says a video is saved.",
-   "flags": [
-    "WER 20% > 5%",
-    "missing ['never', 'safe']"
-   ],
-   "status": "check"
-  },
-  {
-   "id": "r2",
-   "file": "line_r2.wav",
-   "duration_s": 4.19,
-   "peak": 0.179,
+   "duration_s": 5.62,
+   "peak": 0.423,
    "wer": 0.0,
-   "heard": "Every item is covered, unresolved or not checked. And it tells you why.",
+   "heard": "Every finding ends covered, unresolved, or not checked. Never a blanket all clear.",
    "flags": [],
    "status": "ok"
   },
   {
-   "id": "r2b",
-   "file": "line_r2b.wav",
-   "duration_s": 6.53,
-   "peak": 0.23,
-   "wer": 0.048,
-   "heard": "In this run, two items are unresolved, a plate rack with gaps and a face-like region. Nothing was left unchecked.",
+   "id": "n1",
+   "file": "line_n1.wav",
+   "duration_s": 6.25,
+   "peak": 0.4,
+   "wer": 0.0,
+   "heard": "Prefer no black boxes. Natural mode swaps in fictional names and runs the audit again.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "p1",
+   "file": "line_p1.wav",
+   "duration_s": 5.92,
+   "peak": 0.495,
+   "wer": 0.0,
+   "heard": "I planted four private details across three test clips. Standard detection found none.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "p2",
+   "file": "line_p2.wav",
+   "duration_s": 8.32,
+   "peak": 0.416,
+   "wer": 0.167,
+   "heard": "Across three full runs, Veil found 11 of 12. In one run it missed a parcel label, and its audit didn't catch it either.",
    "flags": [
-    "missing ['track']"
+    "WER 17% > 5%",
+    "missing ['eleven', 'twelve']"
    ],
    "status": "check"
   },
   {
-   "id": "r3",
-   "file": "line_r3.wav",
-   "duration_s": 8.97,
-   "peak": 0.329,
-   "wer": 0.129,
-   "heard": "I held myself to that too. I wrote a test gate before running it. It failed. And false flag still failed two of three reruns. It's all in the repo.",
+   "id": "p3",
+   "file": "line_p3.wav",
+   "duration_s": 6.6,
+   "peak": 0.477,
+   "wer": 0.353,
+   "heard": "Every model call is logged. 751 calls, about $2.40 per clip.",
    "flags": [
-    "WER 13% > 5%",
-    "missing ['flags', 'fail', 're', 'runs']"
-   ],
-   "status": "check"
-  },
-  {
-   "id": "u1",
-   "file": "line_u1.wav",
-   "duration_s": 4.81,
-   "peak": 0.195,
-   "wer": 0.316,
-   "heard": "Every model call is on a ledger. 751 calls about $2.40 per clip.",
-   "flags": [
-    "WER 32% > 5%",
+    "WER 35% > 5%",
     "missing ['hundred', 'and', 'fifty', 'dollars', 'forty']"
    ],
    "status": "check"
   },
   {
-   "id": "c0",
-   "file": "line_c0.wav",
-   "duration_s": 3.39,
-   "peak": 0.219,
+   "id": "g1",
+   "file": "line_g1.wav",
+   "duration_s": 5.7,
+   "peak": 0.576,
    "wer": 0.0,
-   "heard": "Try it live. Read the receipt and decide before you post.",
+   "heard": "Discovery also runs on Muse Glimmer, right on this laptop. The frames never leave it.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "g2",
+   "file": "line_g2.wav",
+   "duration_s": 4.35,
+   "peak": 0.455,
+   "wer": 0.0,
+   "heard": "On this clip it found both details and left the code panel alone.",
    "flags": [],
    "status": "ok"
   },
   {
    "id": "c1",
    "file": "line_c1.wav",
-   "duration_s": 6.99,
-   "peak": 0.371,
-   "wer": 0.056,
-   "heard": "Models propose and code decides. Veil built solo with Muse Spark. SAM 3.1. Muse Voice.",
-   "flags": [
-    "WER 6% > 5%"
-   ],
-   "status": "check"
+   "duration_s": 3.14,
+   "peak": 0.565,
+   "wer": 0.0,
+   "heard": "Veil. Find what identifies you before you post.",
+   "flags": [],
+   "status": "ok"
+  },
+  {
+   "id": "c2",
+   "file": "line_c2.wav",
+   "duration_s": 1.76,
+   "peak": 0.462,
+   "wer": 0.0,
+   "heard": "Try it live at the link below.",
+   "flags": [],
+   "status": "ok"
   }
  ],
- "recorded": 24,
- "of": 24,
+ "recorded": 21,
+ "of": 21,
  "loudness": {
-  "integrated_lufs": -16.06,
-  "true_peak_dbtp": -1.5,
-  "lra": 3.5
+  "integrated_lufs": -16.31,
+  "true_peak_dbtp": -1.48,
+  "lra": 2.9
  },
- "vo_duration_s": 137.91,
- "vo_wer": 0.0603,
+ "vo_duration_s": 118.75,
+ "vo_wer": 0.0511,
  "vo_missing_words": [
-  "faces",
-  "screens",
-  "veil",
-  "re",
-  "ran",
-  "veil",
-  "decodes",
-  "frames",
-  "veil",
-  "veil",
-  "never",
-  "track",
-  "fail",
-  "re",
+  "eleven",
+  "twelve",
   "hundred",
   "fifty",
   "dollars",
-  "forty",
-  "veil"
+  "forty"
  ],
  "pass": false
 }

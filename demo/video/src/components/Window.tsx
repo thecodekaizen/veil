@@ -1,5 +1,5 @@
 import { Video } from "@remotion/media";
-import { AbsoluteFill, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Easing, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { C, EASE, clamp } from "../theme";
 
 const SRC_W = 2560;
@@ -47,12 +47,12 @@ export const Window: React.FC<{
   let since = keys[0].at;
   for (let i = 0; i < keys.length; i++) {
     if (frame >= keys[i].at) {
-      prev = i === 0 ? full : viewFor(keys[i - 1]);
+      prev = i === 0 ? viewFor(keys[0]) : viewFor(keys[i - 1]); // first framing is static: no unmotivated zoom-in at a cut
       cur = viewFor(keys[i]);
       since = keys[i].at;
     }
   }
-  const t = interpolate(frame, [since, since + 22], [0, 1], { ...clamp, easing: EASE });
+  const t = interpolate(frame, [since, since + 15], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) }); // 500 ms ease-in-out
   const v = { cx: prev.cx + (cur.cx - prev.cx) * t, cy: prev.cy + (cur.cy - prev.cy) * t, s: prev.s * Math.pow(cur.s / prev.s, t) };
   const scale = base * v.s;
   const tx = width / 2 - v.cx * scale;

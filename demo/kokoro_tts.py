@@ -18,16 +18,17 @@ def speakable(text):
     return text
 
 
-ap = argparse.ArgumentParser()
-ap.add_argument('--voice', default='af_heart'); ap.add_argument('--only', default=''); ap.add_argument('--out', default='voice/kokoro')
-ap.add_argument('--speed', type=float, default=1.0)
-a = ap.parse_args()
-pipe = KPipeline(lang_code='a')
-out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
-only = set(filter(None, a.only.split(',')))
-for line in json.loads(Path('plan.json').read_text())['script']:
-    if only and line['id'] not in only:
-        continue
-    audio = np.concatenate([r.audio.numpy() for r in pipe(speakable(line['text']), voice=a.voice, speed=a.speed)])
-    sf.write(out / f"line_{line['id']}_{a.voice}.wav", audio, 24000)
-    print(line['id'], 'done', flush=True)
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--voice', default='af_heart'); ap.add_argument('--only', default=''); ap.add_argument('--out', default='voice/kokoro')
+    ap.add_argument('--speed', type=float, default=0.92)
+    a = ap.parse_args()
+    pipe = KPipeline(lang_code='a')
+    out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
+    only = set(filter(None, a.only.split(',')))
+    for line in json.loads(Path('plan.json').read_text())['script']:
+        if only and line['id'] not in only:
+            continue
+        audio = np.concatenate([r.audio.numpy() for r in pipe(speakable(line['text']), voice=a.voice, speed=a.speed)])
+        sf.write(out / f"line_{line['id']}_{a.voice}.wav", audio, 24000)
+        print(line['id'], 'done', flush=True)

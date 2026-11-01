@@ -9,4 +9,4 @@ The MIT license covers the code only. These media are not MIT-licensed:
 
 Changes: excerpted, scaled to 960x540, composited with fictional graphics (names, labels, notifications, code panel, book cover), and processed by Veil (covers, mutes, overlays). Derived screenshots and the demo video are shared under **CC BY-SA 3.0**. The raw footage itself is not redistributed in this repository (`gate/exploratory/` media are gitignored).
 
-All names, phone numbers and addresses are fictional. The demo voiceover is a synthetic clone of the author's own voice (Chatterbox TTS, MIT; Perth-watermarked).
+All names, phone numbers and addresses are fictional. Demo narration: Kokoro-82M TTS (Apache-2.0). Demo music: original, synthesized in code by `demo/compose_bed.py`.
