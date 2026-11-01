@@ -8,8 +8,8 @@
  "phases": {
   "0": "done",
   "1": "done",
-  "2": "done",
-  "3": "done (clone of own voice, user request)",
+  "2": "v2 script (repeats, ledger, live site)",
+  "3": "regenerate changed lines",
   "4": "done",
   "5": "done",
   "6": "done",
@@ -132,7 +132,7 @@
   {
    "id": "a4",
    "beat": "Aha",
-   "text": "With Spark in the loop, three of four planted leaks were found. The delivery-box label was still missed.",
+   "text": "With Spark in the loop, three out of four were found. Then I re-ran the whole pipeline three times: discovery passed every run.",
    "on_screen": "Stat card: 0/4 → 3/4, small line 'missed: delivery-box label'",
    "emphasis": [
     "three of four",
@@ -212,7 +212,7 @@
   {
    "id": "v3",
    "beat": "Proof: voice",
-   "text": "But the transcript gets digits wrong, and the mute window is still wider than my own limit.",
+   "text": "But Voice still gets digits wrong, and the mute window met my limit in only one of three runs.",
    "on_screen": "Callout on garbled digits; small card 'over-cover 2.85 s · limit 2.5 s'",
    "emphasis": [
     "wider than my own limit"
@@ -247,7 +247,7 @@
   {
    "id": "r2b",
    "beat": "Payoff",
-   "text": "In this clip, two items are unresolved. Eight weren't checked, because a model call failed or they hit my cost cap.",
+   "text": "In this run, two items are unresolved: a plate track with gaps, and a face-like region. Nothing was left unchecked.",
    "on_screen": "Zoom: UNRESOLVED rows (red) and NOT_CHECKED rows (amber) with reasons",
    "emphasis": [
     "two",
@@ -259,7 +259,7 @@
   {
    "id": "r3",
    "beat": "Payoff",
-   "text": "I held myself to that too. I wrote a test gate before running it. It failed. Every fix since is labelled post-gate, and the gate still fails.",
+   "text": "I held myself to that too. I wrote a test gate before running it. It failed. And false flags still fail two of three re-runs. It's all in the repo.",
    "on_screen": "GATE_RESULT.md FAIL table → post-gate table (G2 PASS post-gate, G4b FAIL)",
    "emphasis": [
     "failed",
@@ -267,12 +267,23 @@
     "still fails"
    ],
    "pause_after_ms": 600,
-   "evidence": "gate/GATE_RESULT.md; gate/postgate*/GATE_RESULT.md"
+   "evidence": "gate/GATE_RESULT.md; gate/postgate/GATE_RESULT.md"
+  },
+  {
+   "id": "u1",
+   "beat": "Payoff",
+   "text": "Every model call is on a ledger. Seven hundred and fifty-one calls, about two dollars forty per clip.",
+   "on_screen": "Ledger section of the live site: per-model calls, latency, cost",
+   "emphasis": [
+    "ledger"
+   ],
+   "pause_after_ms": 400,
+   "evidence": "eval/repeats/summary.json"
   },
   {
    "id": "c0",
    "beat": "CTA",
-   "text": "Run it on a clip, read the receipt, and decide before you post.",
+   "text": "Try it live, read the receipt, and decide before you post.",
    "on_screen": "Terminal: 'veil run clip.mp4 --run-id demo' then receipt",
    "emphasis": [
     "decide"
@@ -294,7 +305,7 @@
   }
  ],
  "timeline": null,
- "voice_mode": "clone (own voice)",
+ "voice_mode": "record_myself",
  "music": "user-provided demo/audio/music.*",
  "hook": "A"
 }

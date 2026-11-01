@@ -1,0 +1,332 @@
+{
+ "desk_checks": {
+  "duration_s": 9.43,
+  "events": [
+   {
+    "t": 0.91,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 1.71,
+    "type": "focus",
+    "box": [
+     1585,
+     770,
+     815,
+     2060
+    ]
+   },
+   {
+    "t": 5.23,
+    "type": "focus",
+    "box": [
+     210,
+     36,
+     1042,
+     74
+    ]
+   },
+   {
+    "t": 9.74,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "desk_mask": {
+  "duration_s": 9.63,
+  "events": [
+   {
+    "t": 0.86,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 2.46,
+    "type": "focus",
+    "box": [
+     210,
+     0,
+     345,
+     74
+    ]
+   },
+   {
+    "t": 3.39,
+    "type": "hover",
+    "box": [
+     162,
+     175,
+     2236,
+     151
+    ]
+   },
+   {
+    "t": 9.9,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "desk_play": {
+  "duration_s": 12.0,
+  "events": [
+   {
+    "t": 1.08,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 1.89,
+    "type": "focus",
+    "box": [
+     160,
+     770,
+     1385,
+     779
+    ]
+   },
+   {
+    "t": 1.94,
+    "type": "click",
+    "box": [
+     160,
+     680,
+     80,
+     80
+    ]
+   },
+   {
+    "t": 11.44,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "desk_tracks": {
+  "duration_s": 9.4,
+  "events": [
+   {
+    "t": 0.78,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 1.48,
+    "type": "focus",
+    "box": [
+     160,
+     770,
+     1385,
+     1379
+    ]
+   },
+   {
+    "t": 2.46,
+    "type": "click",
+    "box": [
+     186,
+     694,
+     1333,
+     52
+    ]
+   },
+   {
+    "t": 8.59,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "desk_verdict": {
+  "duration_s": 11.87,
+  "events": [
+   {
+    "t": 2.8,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 3.6,
+    "type": "focus",
+    "box": [
+     160,
+     503,
+     2240,
+     227
+    ]
+   },
+   {
+    "t": 7.57,
+    "type": "click",
+    "box": [
+     1905,
+     867,
+     222,
+     64
+    ]
+   },
+   {
+    "t": 13.07,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "desk_voice": {
+  "duration_s": 12.87,
+  "events": [
+   {
+    "t": 0.86,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 2.57,
+    "type": "focus",
+    "box": [
+     160,
+     0,
+     1385,
+     224
+    ]
+   },
+   {
+    "t": 7.12,
+    "type": "focus",
+    "box": [
+     160,
+     1048,
+     1385,
+     289
+    ]
+   },
+   {
+    "t": 12.13,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "hero": {
+  "duration_s": 13.73,
+  "events": [
+   {
+    "t": 1.05,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 2.25,
+    "type": "focus",
+    "box": [
+     1195,
+     592,
+     1205,
+     834
+    ]
+   },
+   {
+    "t": 5.96,
+    "type": "drag",
+    "box": [
+     1195,
+     592,
+     1205,
+     678
+    ]
+   },
+   {
+    "t": 12.95,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "site_cta": {
+  "duration_s": 6.63,
+  "events": [
+   {
+    "t": 0.95,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 1.96,
+    "type": "focus",
+    "box": [
+     80,
+     1046,
+     2400,
+     456
+    ]
+   },
+   {
+    "t": 2.97,
+    "type": "hover",
+    "box": [
+     862,
+     697,
+     399,
+     92
+    ]
+   },
+   {
+    "t": 6.97,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "site_ledger": {
+  "duration_s": 8.17,
+  "events": [
+   {
+    "t": 2.11,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 3.12,
+    "type": "focus",
+    "box": [
+     1360,
+     911,
+     1040,
+     748
+    ]
+   },
+   {
+    "t": 9.63,
+    "type": "end",
+    "box": null
+   }
+  ]
+ },
+ "site_results": {
+  "duration_s": 9.2,
+  "events": [
+   {
+    "t": 1.2,
+    "type": "ready",
+    "box": null
+   },
+   {
+    "t": 2.2,
+    "type": "focus",
+    "box": [
+     162,
+     120,
+     2236,
+     970
+    ]
+   },
+   {
+    "t": 9.72,
+    "type": "end",
+    "box": null
+   }
+  ]
+ }
+}

@@ -2,9 +2,9 @@ import { Audio, Video } from "@remotion/media";
 import { AbsoluteFill, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { Background } from "./components/Background";
 import { Captions } from "./components/Captions";
-import { Callout, Chip, GateCard, KineticTitle, StatCard, Terminal } from "./components/Cards";
+import { Callout, Chip, KineticTitle, StatCard } from "./components/Cards";
 import { Window, type CursorKey, type ZoomKey } from "./components/Window";
-import flows from "./data/flows.json";
+import flows from "./data/flows2.json";
 import wave from "../public/c3_wave.json";
 import { C, EASE, FPS, T, at, body, clamp, display, emph, mono } from "./theme";
 
@@ -32,7 +32,7 @@ const FlowScene: React.FC<{
   const c: CursorKey[] = cursor.map((k) => ({ at: Math.max(0, local(k.t)), x: k.x, y: k.y, click: k.click }));
   return (
     <AbsoluteFill>
-      <Window src={`flows/flow_${flow}.mp4`} trimBeforeSec={trim} rate={rate} zoom={z} cursor={c} />
+      <Window src={`flows2/flow_${flow}.mp4`} trimBeforeSec={trim} rate={rate} zoom={z} cursor={c} />
       {children}
     </AbsoluteFill>
   );
@@ -126,20 +126,21 @@ const FixedList: React.FC = () => {
   );
 };
 
-const VIDEOS: Box = [240, 457, 2080, 623];
-const INPUT_PANE: Box = [240, 457, 1028, 623];
+// Zoom rectangles are in capture pixels (2560x1440), read off frames of each Playwright capture of the live site.
+const STAGE_TRACKS: Box = [160, 120, 1390, 1100];
+const FINDINGS_COL: Box = [1585, 770, 815, 670];
 
 export const Main: React.FC = () => {
-  const frame = useCurrentFrame(); // absolute frame (Main is the root)
   const sc = (a: string, b: string | null) => ({ from: Math.max(0, at(a)), durationInFrames: (b ? at(b) : T.total) - Math.max(0, at(a)) });
   const S = {
-    hook: sc("h1", "h3"), trip: sc("h3", "p1"), list: sc("p1", "a1"), aha: sc("a1", "a3"), scrub: sc("a3", "a4"), stat: sc("a4", "f1"),
-    find: sc("f1", "f1b"), checks: sc("f1b", "f2"), mask: sc("f2", "v1"), voice: sc("v1", "r1"), pay: sc("r1", "r2b"), pay2: sc("r2b", "r3"),
-    gate: sc("r3", "c0"), term: sc("c0", "c1"), outro: sc("c1", null),
+    hook: sc("h1", "h3"), trip: sc("h3", "p1"), list: sc("p1", "a1"), hero: sc("a1", "a2"), aha: sc("a2", "a3"), tracks: sc("a3", "a4"),
+    stat: sc("a4", "f1"), find: sc("f1", "f1b"), checks: sc("f1b", "f2"), mask: sc("f2", "v1"), voice: sc("v1", "r1"),
+    pay: sc("r1", "r2b"), pay2: sc("r2b", "r3"), gate: sc("r3", "u1"), ledger: sc("u1", "c0"), cta: sc("c0", "c1"), outro: sc("c1", null),
   };
   const allEmph = (T as unknown as { emph: Record<string, Record<string, number>> }).emph;
   const emphasis = Object.values(allEmph).flatMap((o) => Object.keys(o));
   const rel = (f: number, s: { from: number }) => f - s.from;
+  const sec = (id: string, s: { from: number }) => (at(id) - s.from) / FPS; // scene-local seconds where a line starts
 
   return (
     <AbsoluteFill style={{ backgroundColor: C.bg }}>
@@ -148,91 +149,86 @@ export const Main: React.FC = () => {
       <Sequence name="Triptych" {...S.trip}><Triptych /></Sequence>
       <Sequence name="Fixed list" {...S.list}><FixedList /></Sequence>
 
+      <Sequence name="Site hero" {...S.hero}>
+        <FlowScene flow="hero" trim={1.0} len={S.hero.durationInFrames}
+          zoom={[{ t: 1.0, box: null }, { t: 2.3, box: [1150, 560, 1300, 900] }]}
+          cursor={[{ t: 1.0, x: 2300, y: 1300 }, { t: 2.4, x: 1990, y: 1009, click: true }, { t: 5.96, x: 1556, y: 1009 }, { t: 9.2, x: 2159, y: 1009 }]}>
+          <Chip text="thecodekaizen.github.io/veil · real pipeline output" at={0} x={150} y={14} color={C.amber} />
+        </FlowScene>
+      </Sequence>
+
       <Sequence name="Aha: discovery" {...S.aha}>
-        <FlowScene flow="overview" trim={1.0} len={S.aha.durationInFrames}
-          zoom={[{ t: 1.0, box: null }, { t: 2.4, box: VIDEOS }, { t: 2.4 + (at("a2") - at("a1")) / FPS, box: INPUT_PANE }]}
-          cursor={[{ t: 1.0, x: 1500, y: 1300 }, { t: 2.41, x: 347, y: 1134, click: true }, { t: 3.4, x: 2300, y: 1350 }]}>
+        <FlowScene flow="desk_play" trim={1.1} len={S.aha.durationInFrames} zoom={[{ t: 1.1, box: STAGE_TRACKS }]}>
           <Sequence from={rel(wordAt("a2", "notification"), S.aha)}>
-            <Callout x={1210} y={110} at={0} text="Spark: notification banner" sub="“Displays full personal name Rohan Kulkarni in a Messages notification, identifying the person.”" />
+            <Callout x={1210} y={150} at={0} text="Spark: message notification banner" sub="“Shows full personal name of associated contact, identifying who filmed or their associate”" />
           </Sequence>
           <Sequence from={rel(wordAt("a2", "gold"), S.aha)}>
-            <Callout x={1210} y={560} at={0} text="Spark: name overlay label" sub="“Displays surname Kulkarni identifying creator”" />
+            <Callout x={1210} y={520} at={0} text="Spark: black gold nameplate" sub="“Contains surname Kulkarni with number, potentially vehicle plate or personal identifier”" />
           </Sequence>
           <Sequence from={rel(at("a2b"), S.aha)}>
             <Chip text="fixed classes: face · plate · screen · document" at={0} x={150} y={14} />
           </Sequence>
         </FlowScene>
       </Sequence>
-      <Sequence name="Aha: tracking" {...S.scrub}>
-        <FlowScene flow="scrub" trim={1.0} len={S.scrub.durationInFrames} zoom={[{ t: 1.0, box: [240, 457, 2080, 700] }]}
-          cursor={[{ t: 1.0, x: 932, y: 1134 }, { t: 1.46, x: 932, y: 1134, click: true }, { t: 5.68, x: 1393, y: 1134 }]}>
+      <Sequence name="Aha: tracking" {...S.tracks}>
+        <FlowScene flow="desk_tracks" trim={1.4} len={S.tracks.durationInFrames} zoom={[{ t: 1.4, box: [160, 100, 1400, 960] }]}
+          cursor={[{ t: 1.4, x: 1300, y: 1100 }, { t: 2.46, x: 852, y: 720, click: true }]}>
           <Chip text="SAM 3.1 masks → covers in the exported file" at={6} x={150} y={14} color={C.amber} />
         </FlowScene>
       </Sequence>
       <Sequence name="Stat 0/4 -> 3/4" {...S.stat}>
-        <StatCard value="0 / 4" label="fixed list" next={{ value: "3 / 4", label: "with Muse Spark", at: emph("a4", "three of four") - at("a4") }}
-          note={{ text: "missed: the delivery-box label · eval/results/final/heldout_results.md", at: emph("a4", "missed") - at("a4") }} />
+        <StatCard value="0 / 4" label="fixed list" next={{ value: "3 / 4", label: "with Muse Spark", at: emph("a4", "three out of four") - at("a4") }}
+          note={{ text: "discovery passed in 3 of 3 full re-runs (4/4 twice) · gate/repeats/", at: wordAt("a4", "then") - at("a4") }} />
       </Sequence>
 
       <Sequence name="Verify: covers" {...S.find}>
-        <FlowScene flow="findings" trim={1.8} len={S.find.durationInFrames} zoom={[{ t: 1.8, box: [240, 200, 2080, 330], pad: 1.05 }]} />
+        <FlowScene flow="desk_checks" trim={1.0} len={S.find.durationInFrames} zoom={[{ t: 1.0, box: FINDINGS_COL }]} />
       </Sequence>
       <Sequence name="Verify: checks" {...S.checks}>
-        <FlowScene flow="checks" trim={1.6} len={S.checks.durationInFrames} zoom={[{ t: 1.6, box: [240, 83, 2080, 478] }]} />
+        <FlowScene flow="desk_checks" trim={5.0} len={S.checks.durationInFrames} zoom={[{ t: 5.0, box: [160, 100, 2240, 720] }]} />
       </Sequence>
       <Sequence name="Mask check" {...S.mask}>
-        <FlowScene flow="maskcheck" trim={1.6} len={S.mask.durationInFrames}
-          zoom={[{ t: 1.6, box: [240, 120, 2080, 420] }, { t: 1.6 + (at("f3") - at("f2")) / FPS * 0.9, box: [240, 203, 2080, 107], pad: 1.5 }]}
-          cursor={[{ t: 1.6, x: 1900, y: 900 }, { t: 2.9, x: 1280, y: 256 }]}>
+        <FlowScene flow="desk_mask" trim={2.6} len={S.mask.durationInFrames}
+          zoom={[{ t: 2.6, box: [160, 120, 2240, 1100] }, { t: 2.6 + sec("f3", S.mask) * 0.9, box: [160, 180, 2240, 450], pad: 1.15 }]}
+          cursor={[{ t: 2.6, x: 1900, y: 1200 }, { t: 3.39, x: 1280, y: 250 }]}>
           <Sequence from={rel(wordAt("f3", "found"), S.mask)}>
-            <Callout x={1180} y={640} at={0} color={C.red} text="Rejected: mask held code" sub="OCR read “def total(items):” — Spark claimed “KULKARNI”. Removed before redaction." />
+            <Callout x={1150} y={640} at={0} color={C.red} text="Rejected: 3 masks held code" sub="OCR read “def total(items):”. Spark claimed “KULKARNI”. Removed before redaction." />
           </Sequence>
         </FlowScene>
       </Sequence>
 
       <Sequence name="Voice" {...S.voice}>
-        <FlowScene flow="voice" trim={1.2} len={S.voice.durationInFrames}
-          zoom={[{ t: 1.2, box: [240, 65, 2080, 650] }, { t: 1.2 + (at("v2") - at("v1")) / FPS * 0.6, box: [240, 65, 2080, 441] }]}>
+        <FlowScene flow="desk_voice" trim={2.6} len={S.voice.durationInFrames}
+          zoom={[{ t: 2.6, box: [160, 860, 1400, 580] }, { t: 2.6 + sec("v2", S.voice) * 0.6, box: [1585, 960, 815, 380] }, { t: 2.6 + sec("v3", S.voice) * 0.6, box: [160, 1120, 1400, 320] }]}>
           <Sequence from={rel(at("v3"), S.voice)}>
-            <Callout x={1100} y={150} at={0} color={C.red} text="Gate G4b: still FAIL" sub="Mute window over-covers by 2.85 s (limit 2.5 s). Digits heard: 987765 · 5432100 — spoken: 98765 43210." />
+            <Callout x={1100} y={150} at={0} color={C.red} text="Gate G4b: passes in 1 of 3 runs" sub="Heard 9877651543210 for 98765 43210. Mute window: 1.63 s over in this run, 3.13 s in the other two (limit 2.5 s)." />
           </Sequence>
         </FlowScene>
       </Sequence>
 
-      <Sequence name="Payoff: statuses" {...S.pay}>
-        <FlowScene flow="findings" trim={1.8} len={S.pay.durationInFrames} zoom={[{ t: 1.8, box: [240, 65, 2080, 1360] }]}>
+      <Sequence name="Payoff: verdict" {...S.pay}>
+        <FlowScene flow="desk_verdict" trim={3.6} len={S.pay.durationInFrames}
+          zoom={[{ t: 3.6, box: [160, 480, 2240, 280], pad: 1.1 }, { t: 3.6 + sec("r2", S.pay) * 0.5, box: null }]}>
           <Sequence from={rel(wordAt("r1", "never"), S.pay)}>
-            <Chip text="never “safe” — COVERED · UNRESOLVED · NOT_CHECKED" at={0} x={150} y={14} color={C.amber} />
+            <Chip text="never “safe” · COVERED · UNRESOLVED · NOT_CHECKED" at={0} x={150} y={14} color={C.amber} />
           </Sequence>
         </FlowScene>
       </Sequence>
       <Sequence name="Payoff: unresolved" {...S.pay2}>
-        <FlowScene flow="findings" trim={6.2} len={S.pay2.durationInFrames}
-          zoom={[{ t: 6.2, box: [240, 800, 2080, 240] }, { t: 6.2 + (wordAt("r2b", "eight") - at("r2b")) / FPS * 0.5, box: [240, 150, 2080, 620] }]} />
+        <FlowScene flow="desk_verdict" trim={7.7} len={S.pay2.durationInFrames} zoom={[{ t: 7.7, box: FINDINGS_COL }]} />
       </Sequence>
 
-      <Sequence name="Gate" {...S.gate}>
-        <GateCard at={0} postAt={wordAt("r3", "every") - at("r3")}
-          rows={[
-            { g: "G1  discovery", frozen: "PASS  3/4", post: "PASS  3/4" },
-            { g: "G2  false flags", frozen: "FAIL  2/3", post: "PASS  1/3 *" },
-            { g: "G3  tracking", frozen: "PASS", post: "PASS" },
-            { g: "G4a spoken digits", frozen: "PASS", post: "PASS" },
-            { g: "G4b mute window", frozen: "FAIL  3.13 s", post: "FAIL  2.85 s" },
-          ]} />
-        <div style={{ position: "absolute", left: 210, top: 905, fontFamily: mono, fontSize: 26, color: C.dim, opacity: interpolate(frame, [wordAt("r3", "every") + 20, wordAt("r3", "every") + 32], [0, 1], clamp) }}>
-          * lifting the 10-concept cap made G2 fail again (gate/postgate2). Sources: gate/GATE_RESULT.md, gate/postgate/GATE_RESULT.md
-        </div>
+      <Sequence name="Gate (live site)" {...S.gate}>
+        <FlowScene flow="site_results" trim={2.2} len={S.gate.durationInFrames} zoom={[{ t: 2.2, box: [162, 120, 2236, 1000], pad: 1.04 }]} />
       </Sequence>
-      <Sequence name="Terminal" {...S.term}>
-        <Terminal at={0} cmd="veil run smoke-001/input.mp4 --run-id live-smoke1"
-          lines={[
-            { text: "spoken PII: digits=2025550146 4.50-9.50s precision=window" },
-            { text: "COVERED   visual  man's face       cover verified in decoded output on all 180 masked frames", color: C.green },
-            { text: "COVERED   visual  license plate    cover verified in decoded output on all 180 masked frames", color: C.green },
-            { text: "COVERED   audio   spoken number    muted; re-transcription found no digit run", color: C.green },
-            { text: "check RAN face_output: face detector fired on 36 input and 0 output sampled frames" },
-          ]} />
+      <Sequence name="Ledger (live site)" {...S.ledger}>
+        <FlowScene flow="site_ledger" trim={3.1} len={S.ledger.durationInFrames} zoom={[{ t: 3.1, box: [160, 160, 2240, 840], pad: 1.05 }]} />
+      </Sequence>
+      <Sequence name="CTA (live site)" {...S.cta}>
+        <FlowScene flow="site_cta" trim={1.9} len={S.cta.durationInFrames} zoom={[{ t: 1.9, box: null }]}
+          cursor={[{ t: 1.9, x: 1800, y: 1200 }, { t: 2.97, x: 1061, y: 743 }]}>
+          <Chip text="thecodekaizen.github.io/veil" at={0} x={150} y={14} color={C.amber} />
+        </FlowScene>
       </Sequence>
       <Sequence name="Outro" {...S.outro}><Outro /></Sequence>
 
@@ -255,7 +251,8 @@ const Outro: React.FC = () => {
           <div key={m} style={{ fontFamily: mono, fontSize: 32, color: C.amber, border: `1px solid ${C.amber}`, borderRadius: 999, padding: "8px 22px" }}>{m}</div>
         ))}
       </div>
-      <div style={{ fontFamily: body, fontSize: 44, fontWeight: 600, color: C.text, marginTop: 16, ...p(wordAt("c1", "muse") - o + 10) }}>github.com/thecodekaizen/veil</div>
+      <div style={{ fontFamily: body, fontSize: 44, fontWeight: 600, color: C.text, marginTop: 16, ...p(wordAt("c1", "muse") - o + 10) }}>thecodekaizen.github.io/veil</div>
+      <div style={{ fontFamily: mono, fontSize: 30, color: C.dim, ...p(wordAt("c1", "muse") - o + 16) }}>github.com/thecodekaizen/veil</div>
       <div style={{ position: "absolute", bottom: 150, width: 1500, textAlign: "center", fontFamily: body, fontSize: 22, lineHeight: 1.4, color: C.dim, ...p(10) }}>
         Street footage: Subhashish Panigrahi (Cuttack) and Fowler&amp;fowler (Delhi), Wikimedia Commons, CC BY-SA 3.0, composited with fictional graphics.
         Voiceover: synthetic clone of the author's own voice (Chatterbox, watermarked). All results from committed run artifacts.
