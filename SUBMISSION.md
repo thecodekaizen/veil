@@ -35,7 +35,7 @@ Every number below is from a committed file in this repo. Fields marked **(your 
 
 **7. Public GitHub Repository URL:** https://github.com/thecodekaizen/veil
 
-**8. 3-Minute Demo Video URL:** https://thecodekaizen.github.io/veil/video/veil-demo.mp4 (2:05). Optionally also upload it to YouTube (unlisted) and use that link, since some judges prefer a streaming player; keep the same file.
+**8. 3-Minute Demo Video URL:** https://thecodekaizen.github.io/veil/video/veil-demo.mp4 (2:17). Optionally also upload it to YouTube (unlisted) and use that link, since some judges prefer a streaming player; keep the same file.
 
 **9. Describe your use of Meta products to build the submitted project**
 
