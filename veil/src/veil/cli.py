@@ -58,10 +58,12 @@ def export_web(run_id: str, out: Path = typer.Option(None, help='default: veil/w
 
 
 @app.command()
-def naturalize(run_id: str, runs_dir: Path = typer.Option(Path('runs'))):
+def naturalize(run_id: str, runs_dir: Path = typer.Option(Path('runs')),
+               replace: list[str] = typer.Option([], '--replace', help='Choose a replacement word, e.g. --replace Rohan=Priya --replace Kulkarni=Verma')):
     """Opt-in natural export: re-render verified text surfaces with fictional text (others stay covered), then OCR-audit it."""
     from veil.stages import natural_text, verify
-    rep = natural_text.run(runs_dir / run_id, verify.macos_ocr_rows(runs_dir / run_id / 'audit_cache'))
+    rep = natural_text.run(runs_dir / run_id, verify.macos_ocr_rows(runs_dir / run_id / 'audit_cache'),
+                           overrides=natural_text.parse_overrides(replace))
     typer.echo(json.dumps({k: rep[k] for k in ('replacements', 'text_surface_frames', 'fallback_cover_frames', 'cover_regions')}, ensure_ascii=False))
     typer.echo(f"audit: {rep['audit']['status']} ({rep['audit']['sampled_frames']} frames OCR'd, {len(rep['audit']['residual_original_words'])} residual words)")
 

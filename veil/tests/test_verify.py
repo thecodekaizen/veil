@@ -53,3 +53,22 @@ def test_natural_text_given_name_from_rows_and_no_false_given():
     from veil.stages.natural_text import build_mapping
     assert build_mapping(['KULKARNI'], ['KULKARNI', 'KULKARNI — 12']) == {'KULKARNI': 'SHARMA'}
     assert build_mapping(['KULKARNI', 'Rohan', 'Kulkarni'], ['KULKARNI', 'Rohan Kulkarni']) == {'KULKARNI': 'SHARMA', 'ROHAN': 'Aarav'}
+
+
+def test_natural_text_overrides_replace_auto_pool():
+    from veil.stages.natural_text import build_mapping, rewrite
+    m = build_mapping(['KULKARNI', 'Rohan', 'Kulkarni'], ['KULKARNI', 'Rohan Kulkarni'], overrides={'rohan': 'Priya', 'KULKARNI': 'Verma'})
+    assert rewrite('Rohan Kulkarni', m) == 'Priya Verma'
+    assert rewrite('KULKARNI - 12', m) == 'VERMA - 87'
+    # words without an override keep the deterministic pool
+    m2 = build_mapping(['KULKARNI', 'Rohan', 'Kulkarni'], ['KULKARNI', 'Rohan Kulkarni'], overrides={'rohan': 'Priya'})
+    assert rewrite('Rohan Kulkarni', m2) == 'Priya Sharma'
+
+
+def test_parse_overrides_cli_syntax():
+    from veil.stages.natural_text import parse_overrides
+    assert parse_overrides(['Rohan=Priya', ' kulkarni = Verma ']) == {'ROHAN': 'Priya', 'KULKARNI': 'Verma'}
+    import pytest
+    with pytest.raises(ValueError):
+        parse_overrides(['nonsense'])
+

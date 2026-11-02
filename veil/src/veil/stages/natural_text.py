@@ -47,9 +47,21 @@ def _iou(a, b) -> float:
     return inter / u if u > 0 else 0.0
 
 
-def build_mapping(words: list[str], claims: list[str]) -> dict[str, str]:
+def parse_overrides(pairs: list[str]) -> dict[str, str]:
+    """['Rohan=Priya', 'Kulkarni=Verma'] -> {'ROHAN': 'Priya', 'KULKARNI': 'Verma'} (user-chosen replacements)."""
+    out = {}
+    for p in pairs:
+        old, sep, new = p.partition('=')
+        if not sep or not old.strip() or not new.strip():
+            raise ValueError(f'replacement must look like OLD=NEW, got {p!r}')
+        out[old.strip().upper()] = new.strip()
+    return out
+
+
+def build_mapping(words: list[str], claims: list[str], overrides: dict[str, str] | None = None) -> dict[str, str]:
     """Identifying word -> fictional word. The first word of a two-word claimed name ("Rohan" in "Rohan Kulkarni")
-    maps to a fictional given name; every other identifying word maps to a fictional surname. Deterministic."""
+    maps to a fictional given name; every other identifying word maps to a fictional surname. Deterministic.
+    `overrides` (UPPERCASE word -> replacement) win over the built-in pools for the words they name."""
     given = set()
     for c in claims:
         ws = re.findall(r'[A-Za-z]+', c)
@@ -64,6 +76,9 @@ def build_mapping(words: list[str], claims: list[str]) -> dict[str, str]:
             mapping[key] = FICTIONAL_GIVEN[g % len(FICTIONAL_GIVEN)]; g += 1
         else:
             mapping[key] = FICTIONAL_SURNAMES[s % len(FICTIONAL_SURNAMES)]; s += 1
+    for key, rep in (overrides or {}).items():
+        if key.upper() in mapping:
+            mapping[key.upper()] = rep
     return mapping
 
 
@@ -79,7 +94,7 @@ def rewrite(line: str, mapping: dict[str, str]) -> str:
     return re.sub(r'\d+', lambda m: str((int(m.group(0)) * 7 + 3) % (10 ** len(m.group(0)))).zfill(len(m.group(0))), line)
 
 
-def surfaces_from_run(root: Path) -> tuple[list[dict], list[dict], dict[str, str]]:
+def surfaces_from_run(root: Path, overrides: dict[str, str] | None = None) -> tuple[list[dict], list[dict], dict[str, str]]:
     """Split redact regions into text surfaces (with OCR template rows) and covers."""
     red = json.loads((root / 'redact.json').read_text())
     ver = json.loads((root / 'verify.json').read_text()) if (root / 'verify.json').exists() else {'results': []}
@@ -109,7 +124,7 @@ def surfaces_from_run(root: Path) -> tuple[list[dict], list[dict], dict[str, str
                         words.append(ws[k - 1])
                         all_claims.append(f'{ws[k - 1]} {w}')
                     words.append(w)
-    return texts, covers, build_mapping(words, all_claims)
+    return texts, covers, build_mapping(words, all_claims, overrides)
 
 
 def _ink(crop: np.ndarray) -> tuple[tuple[int, int, int], tuple[int, int, int]]:
@@ -169,8 +184,8 @@ def render_rows(frame: np.ndarray, inner, layout: list[tuple[str, list[float]]],
     return n
 
 
-def run(root: Path, ocr_rows: OcrRows, audit_fps: float = 2.0) -> dict:
-    texts, covers, mapping = surfaces_from_run(root)
+def run(root: Path, ocr_rows: OcrRows, audit_fps: float = 2.0, overrides: dict[str, str] | None = None) -> dict:
+    texts, covers, mapping = surfaces_from_run(root, overrides)
     pad = int(json.loads((root / 'redact.json').read_text()).get('pad_px', 0))
     cap = cv2.VideoCapture(str(root / 'input.mp4'))
     fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
@@ -225,10 +240,10 @@ def run(root: Path, ocr_rows: OcrRows, audit_fps: float = 2.0) -> dict:
         out = []
         for fi, img in enumerate(frames):
             f = img.copy()
+            holes = []  # boxes to blank with an opaque cover
             for si, s in enumerate(surfaces_at(fi)):
                 if (fi, si) in fallback:
-                    x1, y1, x2, y2 = [int(v) for v in s['box']]
-                    f[max(0, y1):y2, max(0, x1):x2] = 0
+                    holes.append(s['box'])
                 else:
                     x1, y1, x2, y2 = [int(v) for v in s['box']]
                     inner = (x1 + pad + 2, y1 + pad + 2, x2 - pad - 2, y2 - pad - 2)
@@ -242,7 +257,8 @@ def run(root: Path, ocr_rows: OcrRows, audit_fps: float = 2.0) -> dict:
                 # a cover on the same physical surface as a re-rendered text surface is superseded by it (audit still checks)
                 if any(_iou(cb, b) >= MERGE_IOU for b in here):
                     continue
-                x1, y1, x2, y2 = cb
+                holes.append(cb)
+            for x1, y1, x2, y2 in holes:
                 f[max(0, int(y1)):int(y2), max(0, int(x1)):int(x2)] = 0
             out.append(f)
         return out
@@ -287,13 +303,13 @@ def run(root: Path, ocr_rows: OcrRows, audit_fps: float = 2.0) -> dict:
     replacements = sorted({(r, rewrite(r, mapping)) for t in texts for r in t['rows'] if rewrite(r, mapping) != r})
     surface_frames = sum(len(surfaces_at(fi)) for fi in range(len(frames)))
     report = {
-        'stage': 'natural_text', 'output': out.name, 'mapping': mapping,
+        'stage': 'natural_text', 'output': out.name, 'mapping': mapping, 'user_overrides': sorted((overrides or {}).items()),
         'replacements': [{'original': a, 'fictional': b} for a, b in replacements],
         'text_surface_frames': surface_frames, 'fallback_cover_frames': len(fallback), 'cover_regions': len(covers),
         'audit': {'sampled_frames': len(samples), 'ocr_rows': len(rows), 'residual_original_words': resid, 'passes': passes,
                   'status': 'COVERED' if not resid else 'UNRESOLVED',
                   'check': 'local OCR on sampled natural-export frames must not read any original identifying word (fuzzy >= 0.8)'},
-        'note': 'Replacement text is fictional (fixed allowlist). Faces, plates and masks without verified text keep opaque covers.',
+        'note': 'Replacement text is fictional (built-in pool or user-chosen). Faces, plates and masks without verified text keep opaque covers.',
     }
     (root / 'natural.json').write_text(json.dumps(report, indent=1, ensure_ascii=False))
     return report

@@ -153,6 +153,8 @@ SAM 3.1 grounded Spark's "name overlay label" on a **block of code**. The post-g
 
 `veil naturalize <run>` re-renders only the text rows the mask check verified, using **fictional values** in the original's colours and font weight. Everything else keeps an opaque cover. The natural file then gets its **own** OCR audit: no original identifying word may be readable anywhere in it.
 
+Pick your own replacements with `--replace`: `veil naturalize <run> --replace Rohan=Priya --replace Kulkarni=Verma`. Words you don't name keep the built-in defaults, and the audit still runs on your values.
+
 <div align="center"><img src="docs/media/natural-before-after.jpg" alt="Input, black-box export and natural export of the same frame" width="100%"/></div>
 <sub>Left: input. Middle: default export (covers). Right: natural export, where "Rohan Kulkarni" becomes "Aarav Sharma" and "KULKARNI — 12" becomes "SHARMA - 87". The icon, card and plate border are untouched original pixels. Audit: 0 original words in 53 OCR'd frames, 0 fallback frames. The code panel stays covered because its mask holds no verified text.</sub>
 
