@@ -1,0 +1,45 @@
+{
+ "stage": "erase_image",
+ "status": "COVERED",
+ "reasons": [],
+ "prompt": "Remove these overlays or objects: the message notification banner at the top-center; the code editor panel at the bottom-left; the gold-bordered text label box at the bottom-right. Fill each area with the natural scene that would be behind it so it looks untouched. Keep everything else exactly unchanged.",
+ "regions": [
+  {
+   "label": "message notification banner",
+   "box": [
+    280,
+    28,
+    680,
+    122
+   ],
+   "mean_change": 100.9
+  },
+  {
+   "label": "code editor panel",
+   "box": [
+    40,
+    330,
+    370,
+    500
+   ],
+   "mean_change": 113.3
+  },
+  {
+   "label": "gold-bordered text label box",
+   "box": [
+    680,
+    392,
+    930,
+    457
+   ],
+   "mean_change": 55.1
+  }
+ ],
+ "residual_words": [],
+ "identifiers_checked": [
+  "KULKARNI",
+  "ROHAN"
+ ],
+ "check": "each box must change; local OCR on the output must not read any listed identifying word (fuzzy >= 0.8)",
+ "note": "Muse Image regenerates the whole frame; only the pixels inside the boxes (+8 px feather) are used. The fill is generated, not recovered: it is not evidence of what was behind the object."
+}

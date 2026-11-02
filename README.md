@@ -5,7 +5,7 @@
 ### Find what in *your* video could identify you, before you post it.
 
 Muse Spark proposes what identifies **this** creator. SAM 3.1 tracks it. Muse Voice hears the spoken phone number.<br/>
-Then Veil fixes it **naturally**: no black boxes. Verified text is re-rendered with fictional values, so the shot still looks real.<br/>
+Then Veil fixes it **naturally**: no black boxes. Verified text is re-rendered with fictional values, so the shot still looks real. On a still, Muse Image can erase it and rebuild what was behind.<br/>
 Deterministic code **re-audits the exported file** and tells you exactly what it could not clear.
 
 **Models propose. Code decides.**
@@ -158,6 +158,25 @@ Pick your own replacements with `--replace`: `veil naturalize <run> --replace Ro
 <div align="center"><img src="docs/media/natural-before-after.jpg" alt="Input, black-box export and natural export of the same frame" width="100%"/></div>
 <sub>Left: input. Middle: default export (covers). Right: natural export, where "Rohan Kulkarni" becomes "Aarav Sharma" and "KULKARNI — 12" becomes "SHARMA - 87". The icon, card and plate border are untouched original pixels. Audit: 0 original words in 53 OCR'd frames, 0 fallback frames. The code panel stays covered because its mask holds no verified text.</sub>
 
+### Or make it disappear: erase (stills)
+
+`veil erase-image` removes what Veil found from a **still image**, the way a photo editor's eraser does, and the area behind it is rebuilt. It uses **Muse Image** (`muse-image-1.0`, `/v1/images/edits`). Muse Image edits by instruction and has no mask parameter, so each target is named and located, and Veil pastes the model's result back **only inside the boxes**. Nothing else in the frame comes from the model.
+
+```bash
+veil erase-image frame.png \
+  --target "message notification banner=280,28,680,122" \
+  --target "code editor panel=40,330,370,500" \
+  --target "gold-bordered text label box=680,392,930,457" \
+  --identify Kulkarni --identify Rohan --out erased/
+```
+
+<div align="center"><img src="docs/media/erase-before-after.jpg" alt="Input frame (left) and the erased frame (right): the notification, code panel and plate label are removed and the road and car are rebuilt" width="100%"/></div>
+<sub>Left: input. Right: after <code>erase-image</code> (fictional data on licensed street footage). The notification, the code panel and the plate label are gone, and the car body, wheel and zebra crossing are generated to fit. One Muse Image call, 13 s, about $0.01 ([call record](docs/media/erase/calls.json), [report](docs/media/erase/erase.json)).</sub>
+
+Deterministic code then checks the output, not the model: every box must have changed, and local OCR must not read any `--identify` word. On this frame OCR reads "Rohan Kulkarni" and "KULKARNI - 12" in the input and nothing in the output, so the status is `COVERED`. If a box did not change, or a word is still readable, the status is `UNRESOLVED`.
+
+What this is **not**: the fill is generated, so it is not evidence of what was behind the object. It sends the image to Meta (cloud). It is for stills: on video, a frame-by-frame test (10 frames) changed the filled area about 2.0x as much per frame as the real background moves, so it would flicker, and Veil does not offer it for video. The video path stays covers or natural text.
+
 ### Spoken numbers, in Hindi
 
 <div align="center"><img src="docs/media/voice-c3.png" alt="Muse Voice transcript in Devanagari and the muted interval on the timeline" width="90%"/></div>
@@ -205,6 +224,7 @@ Reproduce with the commands under **Quickstart → Run discovery locally**. Evid
 | **Muse Spark 1.3** (`/v1/responses`, strict JSON schema) | Open-vocabulary discovery: per keyframe, proposes identifying things with a reason and a SAM prompt | JSON schema validation; proposals are merged by fuzzy match; only a mask that exists in the video counts |
 | **SAM 3.1** (hosted video input) | Turns each proposal into masks tracked through the whole clip; reversed tracking fixes late track starts | Gap check inside each track; OCR mask-vs-claim check; covers verified pixel by pixel in the decoded output |
 | **Muse Glimmer 30B** (open weights, local `llama.cpp`) | Discovery without uploading keyframes | Same schema validation and gate scorer as Spark |
+| **Muse Image 1.0** (`/v1/images/edits`) | `erase-image`: removes found regions from a still and rebuilds what is behind them (instruction edit, no mask parameter) | Only pixels inside the boxes are taken; every box must change; OCR of the output must not read the identifying words |
 | **Muse Voice Transcribe 1.0** (`/v1/asr/transcribe`) | Hears spoken digits in Hindi, English or Hinglish, in 2 s windows | Digit-run validator (≥6 digits from ≥4 digit tokens); output audio silent in muted spans; re-transcription of the output |
 
 Removing any model removes a capability: without Spark, 0/4 leaks are found; without SAM nothing is tracked; without Voice the spoken number goes out unmuted.

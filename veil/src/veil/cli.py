@@ -68,5 +68,32 @@ def naturalize(run_id: str, runs_dir: Path = typer.Option(Path('runs')),
     typer.echo(f"audit: {rep['audit']['status']} ({rep['audit']['sampled_frames']} frames OCR'd, {len(rep['audit']['residual_original_words'])} residual words)")
 
 
+@app.command('erase-image')
+def erase_image(image: Path,
+                target: list[str] = typer.Option(..., '--target', help='What to remove and where, LABEL=x1,y1,x2,y2 (repeatable), e.g. "message notification banner=280,28,680,122"'),
+                identify: list[str] = typer.Option([], '--identify', help='Identifying word that must not be readable in the output (repeatable); enables the OCR check'),
+                out: Path = typer.Option(Path('erased'), help='Output folder: erased.png, erase.json, calls.json'),
+                env_file: Path = typer.Option(Path('.env')), max_calls: int = typer.Option(3, help='Hard cap on cloud calls')):
+    """Remove regions from a still image with Muse Image (cloud; sends the image to Meta), paste the result back inside the boxes only, re-check with OCR."""
+    import cv2
+    from veil.providers.common import Calls, client
+    from veil.stages import erase_image as ei, verify
+    targets = []
+    for t in target:
+        label, sep, box = t.rpartition('=')
+        if not sep or not label.strip():
+            raise typer.BadParameter(f'--target must look like LABEL=x1,y1,x2,y2, got {t!r}')
+        targets.append(ei.Target(box=tuple(int(v) for v in box.split(',')), label=label.strip()))
+    img = cv2.imread(str(image))
+    if img is None:
+        raise typer.BadParameter(f'cannot read image {image}')
+    ledger = Calls(out, max_calls=max_calls)
+    res, rep = ei.erase(img, targets, ei.make_muse_edit(client(env_file), ledger), verify.macos_ocr_rows(out / 'ocr_cache'), identify, out)
+    cv2.imwrite(str(out / 'erased.png'), res)
+    (out / 'erase.json').write_text(json.dumps(rep, indent=1, ensure_ascii=False))
+    typer.echo(f"{rep['status']}: {', '.join(rep['reasons']) or 'every box changed' + ('; no identifying word readable' if rep['identifiers_checked'] else '; OCR not run (no --identify)')}")
+    typer.echo(f'wrote {out / "erased.png"}')
+
+
 if __name__ == '__main__':
     app()

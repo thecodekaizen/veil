@@ -1,0 +1,12 @@
+[
+  {
+    "name": "erase-image-0",
+    "model": "muse-image-1.0",
+    "endpoint": "/v1/images/edits",
+    "status": "completed",
+    "cloud_transfer": "1 image (PNG) sent to Meta",
+    "started_unix_s": 1793590068.507801,
+    "latency_s": 13.25165474996902,
+    "estimated_usd": 0.01
+  }
+]
