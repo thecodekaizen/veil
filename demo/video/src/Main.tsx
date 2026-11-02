@@ -1,7 +1,7 @@
 // Veil demo v4: story-first (demo/STORYBOARD_v4.md). Every zoom, highlight and headline is keyed to a word of the narration
 // (Whisper word timestamps in data/timeline.json). Zooms: ease-in-out 500 ms, hold until a hard cut, never zoom back out.
 import { Audio, Video } from "@remotion/media";
-import { AbsoluteFill, Easing, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Easing, Img, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { Background } from "./components/Background";
 import { Captions } from "./components/Captions";
 import { Callout } from "./components/Cards";
@@ -108,7 +108,6 @@ const Hook: React.FC<{ from: number }> = ({ from }) => {
       <FullClip src="clips/c2_input.mp4" startSec={5} overlays={[
         { box: NOTIF, at: nameF, color: C.amber, label: "full name" },
         { box: DOOR, at: flatF, color: C.amber, label: "flat number" },
-        { box: [40, 330, 370, 500], at: 0, color: "#7d7a73", label: "decoy · harmless" },
       ]} />
       <Headline bottom items={[
         { at: 0, text: "About to be posted." },
@@ -119,13 +118,14 @@ const Hook: React.FC<{ from: number }> = ({ from }) => {
   );
 };
 
-const FIXED_START = 4.8; // clip seconds at the start of the contrast scene: the covered car plate is on screen at "one car's plate"
+const FIXED_AT_ONE = 0.3; // clip seconds shown on "one": the standard tool's car-plate cover is on screen (track frames 0-41 of runs/c2demo)
 const Contrast: React.FC<{ from: number }> = ({ from }) => {
   const oneF = wordAt("x1", "one") - from;
-  const clipFrame = Math.round((FIXED_START + oneF / FPS) * 25);
+  const clipFrame = Math.round(FIXED_AT_ONE * 25 + 8);
   return (
     <AbsoluteFill>
-      <FullClip src="clips/c2_fixed.mp4" startSec={FIXED_START} zoom={{ at: oneF, box: toXYWH(plateAt(clipFrame)) }} />
+      <Sequence durationInFrames={oneF} layout="none"><FullClip src="clips/c2_fixed.mp4" startSec={24.9 - oneF / FPS} /></Sequence>
+      <Sequence from={oneF} layout="none"><FullClip src="clips/c2_fixed.mp4" startSec={FIXED_AT_ONE} zoom={{ at: 0, box: toXYWH(plateAt(clipFrame)) }} /></Sequence>
       <Headline bottom items={[{ at: 0, text: "Standard detection: faces · plates · screens · documents" }, { at: oneF, text: "Standard detection covered: one car's plate" }]} />
     </AbsoluteFill>
   );
@@ -135,7 +135,6 @@ const ContrastMiss: React.FC<{ clipAt: number }> = ({ clipAt }) => (
     <FullClip src="clips/c2_fixed.mp4" startSec={clipAt} overlays={[
       { box: NOTIF, at: 0, color: C.red, label: "still exposed" },
       { box: DOOR, at: 0, color: C.red, label: "still exposed" },
-      { box: [40, 330, 370, 500], at: 0, color: "#7d7a73", label: "decoy · harmless" },
     ]} />
     <Headline bottom items={[{ at: 0, text: <>Standard detection: <span style={{ color: C.red }}>both still exposed</span> <span style={{ color: C.dim, fontSize: 28 }}>· 0 of 4 across 3 test clips</span></> }]} />
   </AbsoluteFill>
@@ -172,6 +171,76 @@ const OneLiner: React.FC<{ from: number }> = ({ from }) => {
   );
 };
 
+
+/** Natural mode: the same shot, input -> natural export, revealed by a wipe on "fictional"; zoom onto the name. */
+const NaturalScene: React.FC<{ from: number }> = ({ from }) => {
+  const frame = useCurrentFrame();
+  const fictF = wordAt("nx", "fictional") - from, realF = wordAt("nx", "real") - from;
+  const p = interpolate(frame, [fictF, fictF + 24], [0, 100], { ...clamp, easing: ZOOM_EASE });
+  const zoom = { at: fictF + 30, box: [250, 10, 460, 140] as Box };
+  return (
+    <AbsoluteFill>
+      <FullClip src="clips/c2_input.mp4" startSec={6} zoom={zoom} />
+      <AbsoluteFill style={{ clipPath: `inset(0 ${100 - p}% 0 0)` }}><FullClip src="clips/c2_natural.mp4" startSec={6} zoom={zoom} /></AbsoluteFill>
+      {p > 0 && p < 100 && <div style={{ position: "absolute", top: 0, bottom: 0, left: `${p}%`, width: 4, background: "#fff" }} />}
+      <Headline bottom items={[
+        { at: 0, text: <>Natural mode: <span style={{ color: C.amber }}>no black boxes</span></> },
+        { at: fictF, text: <>Natural mode: <span style={{ color: C.amber }}>a fictional name, same font and colour</span></> },
+        { at: realF, text: <>The video still looks real · <span style={{ color: C.green }}>re-audited: 0 original words left</span></> },
+      ]} />
+    </AbsoluteFill>
+  );
+};
+
+/** Muse Image erase on a still: input frame -> erased frame, wipe on "erases". */
+const EraseScene: React.FC<{ from: number }> = ({ from }) => {
+  const frame = useCurrentFrame();
+  const erF = wordAt("ex", "erases") - from, behindF = wordAt("ex", "behind") - from;
+  const p = interpolate(frame, [erF, erF + 30], [0, 100], { ...clamp, easing: ZOOM_EASE });
+  const img = (src: string) => <Img src={staticFile(src)} style={{ position: "absolute", inset: 0, width: 1920, height: 1080 }} />;
+  return (
+    <AbsoluteFill>
+      {img("clips/erase_in.png")}
+      <AbsoluteFill style={{ clipPath: `inset(0 ${100 - p}% 0 0)` }}>{img("clips/erase_out.png")}</AbsoluteFill>
+      {p > 0 && p < 100 && <div style={{ position: "absolute", top: 0, bottom: 0, left: `${p}%`, width: 4, background: "#fff" }} />}
+      <Headline bottom items={[
+        { at: 0, text: <>Still photo: <span style={{ color: C.amber }}>Muse Image</span></> },
+        { at: erF, text: <><span style={{ color: C.amber }}>Muse Image</span> erases it, and rebuilds what was behind</> },
+        { at: behindF, text: <>Re-checked with OCR: <span style={{ color: C.green }}>nothing readable left</span></> },
+      ]} />
+    </AbsoluteFill>
+  );
+};
+
+/** One job per Meta model, with its measured impact. */
+const ModelsCard: React.FC<{ from: number }> = ({ from }) => {
+  const frame = useCurrentFrame();
+  const show = (f: number) => ({ opacity: interpolate(frame, [f, f + 10], [0, 1], clamp), translate: `0px ${interpolate(frame, [f, f + 14], [16, 0], { ...clamp, easing: EASE })}px` });
+  const rows: { at: number; model: string; job: string; impact: string; open?: boolean }[] = [
+    { at: wordAt("m1", "spark") - from, model: "Muse Spark 1.3", job: "Finds what identifies you in this video, with a reason", impact: "without it: 0 of 4 found · with it: 3 of 4" },
+    { at: wordAt("m1", "sam") - from, model: "SAM 3.1", job: "Turns each finding into a mask, tracked through every frame", impact: "without it: nothing is tracked or covered" },
+    { at: wordAt("m1", "voice") - from, model: "Muse Voice Transcribe", job: "Hears spoken numbers in Hindi or English", impact: "without it: the number goes out unmuted" },
+    { at: wordAt("m1", "image") - from, model: "Muse Image", job: "Erases what was found from a still, rebuilds the background", impact: "without it: black boxes only" },
+    { at: wordAt("m1", "without") - from, model: "Muse Glimmer 30B · open weights", job: "Same discovery as Spark, on this laptop", impact: "frames never uploaded · $0", open: true },
+  ];
+  return (
+    <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
+      <div style={{ width: 1720, display: "grid", gap: 16, marginTop: 30 }}>
+        {rows.map((r, i) => (
+          <div key={i} style={{ display: "grid", gridTemplateColumns: "520px 1fr", gap: 30, alignItems: "center", padding: "20px 30px", borderRadius: 16,
+            background: C.panel, border: `2px solid ${r.open ? C.green : C.amber}`, ...show(r.at) }}>
+            <div style={{ font: `700 40px ${body}`, color: r.open ? C.green : C.amber }}>{r.model}</div>
+            <div>
+              <div style={{ font: `600 32px ${body}`, color: C.text }}>{r.job}</div>
+              <div style={{ font: `500 25px ${mono}`, color: C.dim, marginTop: 4 }}>{r.impact}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 const STAGE: Box = [160, 120, 1390, 1100];
 const FINDINGS_COL: Box = [1585, 770, 815, 670];
 
@@ -189,7 +258,7 @@ const GlimmerScene: React.FC<{ g: GlimmerData; from: number }> = ({ g, from }) =
           <div><span style={{ color: C.green }}>$ </span><span style={{ color: C.text }}>llama-server -m Muse-Glimmer-30B</span></div>
           <div><span style={{ color: C.green }}>$ </span><span style={{ color: C.text }}>VEIL_DISCOVER=glimmer veil run c2.mp4</span></div>
           <div style={{ marginTop: 14, fontSize: 22 }}>{g.frames_ok} of {g.frames} keyframes answered · same prompt, schema and scorer as hosted Spark</div>
-          <div style={{ marginTop: 18, color: C.green, fontSize: 30, fontWeight: 600, ...show(bothF) }}>On c2: found both details · left the code panel alone</div>
+          <div style={{ marginTop: 18, color: C.green, fontSize: 30, fontWeight: 600, ...show(bothF) }}>On c2: found both details</div>
         </div>
         <div style={{ display: "grid", gap: 14, alignContent: "start" }}>
           <div style={{ font: `700 50px ${display}`, color: C.text, ...show(4) }}>Muse Glimmer proposed, locally:</div>
@@ -215,10 +284,10 @@ const Close: React.FC<{ from: number }> = ({ from }) => {
       <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(11,13,16,0.2) 0%, rgba(11,13,16,0.88) 58%)" }} />
       <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 170, gap: 14 }}>
         <div style={{ font: `700 150px ${display}`, color: C.text, lineHeight: 1, ...p(0) }}>Veil</div>
-        <div style={{ font: `600 44px ${body}`, color: C.text, ...p(6) }}>Find what identifies you, <span style={{ color: C.amber }}>before you post.</span></div>
+        <div style={{ font: `600 44px ${body}`, color: C.text, ...p(6) }}>Find what identifies you, and <span style={{ color: C.amber }}>fix it naturally</span>, before you post.</div>
         <div style={{ font: `700 48px ${body}`, color: C.amber, marginTop: 10, ...p(tryF) }}>thecodekaizen.github.io/veil</div>
         <div style={{ font: `500 30px ${mono}`, color: C.text, ...p(tryF + 6) }}>github.com/thecodekaizen/veil · full results, incl. failures</div>
-        <div style={{ font: `500 21px ${body}`, color: C.dim, ...p(tryF + 10) }}>Muse Spark · SAM 3.1 · Muse Voice · Muse Glimmer · Street footage: Subhashish Panigrahi, Fowler&amp;fowler (Wikimedia Commons, CC BY-SA 3.0) · AI narration (Kokoro) · original music</div>
+        <div style={{ font: `500 21px ${body}`, color: C.dim, ...p(tryF + 10) }}>Muse Spark · SAM 3.1 · Muse Voice · Muse Image · Muse Glimmer (open weights) · Street footage: Subhashish Panigrahi, Fowler&amp;fowler (Wikimedia Commons, CC BY-SA 3.0) · AI narration (Kokoro) · original music</div>
       </AbsoluteFill>
     </AbsoluteFill>
   );
@@ -227,9 +296,9 @@ const Close: React.FC<{ from: number }> = ({ from }) => {
 export const Main: React.FC = () => {
   const sc = (a: string, b: string | null) => ({ from: Math.max(0, at(a)), durationInFrames: (b ? at(b) : T.total) - Math.max(0, at(a)) });
   const S = {
-    hook: sc("h1", "x1"), contrast: sc("x1", "o1"), one: sc("o1", "l1"), live: sc("l1", "a2"), find: sc("a2", "a3"), track: sc("a3", "v1"),
-    listen: sc("v1", "v2"), confirm: sc("v2", "au"), verdict: sc("au", "f3"), mask: sc("f3", "r1"), unres: sc("r1", "n1"), nat: sc("n1", "p1"),
-    proof: sc("p1", "p3"), ledger: sc("p3", "g1"), glim: sc("g1", "c1"), close: sc("c1", null),
+    hook: sc("h1", "x1"), contrast: sc("x1", "o1"), one: sc("o1", "nx"), natural: sc("nx", "ex"), erase: sc("ex", "l1"), live: sc("l1", "a2"),
+    find: sc("a2", "a3"), track: sc("a3", "v1"), listen: sc("v1", "v2"), confirm: sc("v2", "au"), verdict: sc("au", "r1"), unres: sc("r1", "p1"),
+    proof: sc("p1", "p3"), ledger: sc("p3", "m1"), models: sc("m1", "g1"), glim: sc("g1", "c1"), close: sc("c1", null),
   };
   const missF = wordAt("x1", "misses");
   const mutesF = wordAt("v1", "mutes");
@@ -243,9 +312,11 @@ export const Main: React.FC = () => {
       <Sequence name="Hook" {...S.hook}><Hook from={S.hook.from} /></Sequence>
       <Sequence name="Contrast: standard tool" from={S.contrast.from} durationInFrames={missF - S.contrast.from}><Contrast from={S.contrast.from} /></Sequence>
       <Sequence name="Contrast: misses both" from={missF} durationInFrames={S.contrast.from + S.contrast.durationInFrames - missF}>
-        <ContrastMiss clipAt={FIXED_START + (missF - S.contrast.from) / FPS} />
+        <ContrastMiss clipAt={FIXED_AT_ONE + (missF - wordAt("x1", "one")) / FPS} />
       </Sequence>
       <Sequence name="One line + side by side" {...S.one}><OneLiner from={S.one.from} /></Sequence>
+      <Sequence name="Natural mode" {...S.natural}><NaturalScene from={S.natural.from} /></Sequence>
+      <Sequence name="Muse Image erase (still)" {...S.erase}><EraseScene from={S.erase.from} /></Sequence>
 
       <Sequence name="Live product" {...S.live}>
         <FlowScene flow="hero" trim={1.6} from={S.live.from} len={S.live.durationInFrames} frame0={null}
@@ -256,7 +327,7 @@ export const Main: React.FC = () => {
         <FlowScene flow="desk_play" trim={1.1} from={S.find.from} len={S.find.durationInFrames} frame0={STAGE}
           zooms={[{ at: wordAt("a2", "reason"), box: [160, 120, 1390, 620] }]}>
           <Sequence from={wordAt("a2", "reason") - S.find.from}>
-            <Callout x={1180} y={660} at={0} text="Spark's reason (verbatim)" sub="“Shows full personal name of associated contact, identifying who filmed or their associate”" />
+            <Callout x={1180} y={660} at={0} text="Spark's reason (verbatim)" sub="“Displays personal name Rohan Kulkarni in a messages notification, identifying the person associated with the video.”" />
           </Sequence>
         </FlowScene>
         {H([{ at: S.find.from, text: <>1 · Find: <span style={{ color: C.amber }}>Muse Spark</span> proposes, with a reason</> }], S.find.from)}
@@ -286,26 +357,19 @@ export const Main: React.FC = () => {
         <FlowScene flow="desk_verdict" trim={3.6} from={S.verdict.from} len={S.verdict.durationInFrames} frame0={[1380, 470, 1040, 260]} />
         {H([{ at: S.verdict.from, text: "3 · Audit the exported file" }], S.verdict.from)}
       </Sequence>
-      <Sequence name="Audit: mask check" {...S.mask}>
-        <FlowScene flow="desk_mask" trim={2.6} from={S.mask.from} len={S.mask.durationInFrames} frame0={[160, 120, 2240, 1100]}
-          zooms={[{ at: wordAt("f3", "threw"), box: [160, 170, 1500, 340] }]} />
-        {H([{ at: S.mask.from, text: <>SAM grabbed the <span style={{ color: C.dim }}>decoy</span> code panel: <span style={{ color: C.red }}>OCR read code, not the name</span></> }], S.mask.from)}
-      </Sequence>
       <Sequence name="Audit: unresolved" {...S.unres}>
         <FlowScene flow="desk_verdict" trim={7.7} from={S.unres.from} len={S.unres.durationInFrames} frame0={FINDINGS_COL}
           zooms={[{ at: wordAt("r1", "unresolved"), box: [1585, 770, 815, 420] }]} />
         {H([{ at: S.unres.from, text: <>COVERED · <span style={{ color: C.red }}>UNRESOLVED</span> · NOT CHECKED: never a blanket all clear</> }], S.unres.from)}
       </Sequence>
-      <Sequence name="Audit: natural mode" {...S.nat}>
-        <FlowScene flow="desk_natural" trim={3.6} from={S.nat.from} len={S.nat.durationInFrames} frame0={[160, 740, 1400, 700]}
-          zooms={[{ at: wordAt("n1", "fictional"), box: [480, 860, 980, 300] }]} />
-        {H([{ at: S.nat.from, text: <>Natural mode: <span style={{ color: C.amber }}>fictional text</span> · audit: 0 original words left</> }], S.nat.from)}
-      </Sequence>
-
       <Sequence name="Proof (HyperFrames)" {...S.proof}><Video src={staticFile("clips/hf-proof.mp4")} muted style={{ width: 1920, height: 1080 }} /></Sequence>
       <Sequence name="Proof: ledger" {...S.ledger}>
         <FlowScene flow="site_ledger" trim={3.1} from={S.ledger.from} len={S.ledger.durationInFrames} frame0={[160, 160, 2240, 840]} />
         {H([{ at: S.ledger.from, text: "Every model call is on the ledger" }], S.ledger.from)}
+      </Sequence>
+      <Sequence name="Meta models: one job each" {...S.models}>
+        <ModelsCard from={S.models.from} />
+        {H([{ at: S.models.from, text: <>Five Meta models, <span style={{ color: C.amber }}>one job each</span></> }], S.models.from)}
       </Sequence>
       <Sequence name="Open weights" {...S.glim}>
         <GlimmerScene g={glimmer as GlimmerData} from={S.glim.from} />

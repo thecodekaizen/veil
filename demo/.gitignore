@@ -22,3 +22,7 @@ __pycache__/
 .venv-kokoro/
 hf-*/.hyperframes/
 hf-*/renders/
+audio/
+capture/out2/
+video/public/flows2/
+voice/kokoro/

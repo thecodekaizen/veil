@@ -4,7 +4,7 @@
  "formats": [
   "16:9"
  ],
- "target_length_s": 125,
+ "target_length_s": 130,
  "phases": {
   "0": "done",
   "1": "done",
@@ -73,6 +73,30 @@
    ],
    "pause_after_ms": 1500,
    "evidence": "runs-rep/r1/c2 output.mp4"
+  },
+  {
+   "id": "nx",
+   "beat": "Natural",
+   "text": "Or skip the black boxes. Natural mode swaps in a fictional name, in the same style, so the video still looks real.",
+   "on_screen": "c2demo input vs natural export, wipe",
+   "emphasis": [
+    "skip the black boxes",
+    "fictional name",
+    "still looks real"
+   ],
+   "pause_after_ms": 500,
+   "evidence": "runs/c2demo natural.json, output_natural.mp4"
+  },
+  {
+   "id": "ex",
+   "beat": "Natural",
+   "text": "And on a still photo, Muse Image erases it, and rebuilds what was behind.",
+   "on_screen": "still: input vs Muse Image erase",
+   "emphasis": [
+    "Muse Image erases it"
+   ],
+   "pause_after_ms": 1300,
+   "evidence": "docs/media/erase/erase.json, calls.json"
   },
   {
    "id": "l1",
@@ -146,25 +170,14 @@
   {
    "id": "au2",
    "beat": "Audit",
-   "text": "Five items covered. Two left for you to review.",
-   "on_screen": "verdict: 5 COVERED, 2 UNRESOLVED, 0 NOT CHECKED",
+   "text": "Ten items covered. Two left for you to review.",
+   "on_screen": "verdict: 10 COVERED, 2 UNRESOLVED, 0 NOT CHECKED",
    "emphasis": [
     "Five items covered",
     "Two left"
    ],
    "pause_after_ms": 450,
    "evidence": "runs-rep/r1/c2 audit.json"
-  },
-  {
-   "id": "f3",
-   "beat": "Audit",
-   "text": "It reads every mask with OCR. Here, SAM grabbed a code panel, so Veil threw that mask out.",
-   "on_screen": "mask check: REJECTED row",
-   "emphasis": [
-    "threw that mask out"
-   ],
-   "pause_after_ms": 1700,
-   "evidence": "runs-rep/r1/c2 verify.json"
   },
   {
    "id": "r1",
@@ -177,17 +190,6 @@
    ],
    "pause_after_ms": 350,
    "evidence": "runs-rep/r1/c2 audit.json"
-  },
-  {
-   "id": "n1",
-   "beat": "Audit",
-   "text": "Prefer no black boxes? Natural mode swaps in fictional names, and runs the audit again.",
-   "on_screen": "desk Natural toggle",
-   "emphasis": [
-    "fictional names"
-   ],
-   "pause_after_ms": 1300,
-   "evidence": "runs-rep/r1/c2 natural.json"
   },
   {
    "id": "p1",
@@ -237,6 +239,18 @@
    "evidence": "eval/repeats/summary.json"
   },
   {
+   "id": "m1",
+   "beat": "Models",
+   "text": "Each Meta model does one job. Muse Spark finds, SAM 3.1 tracks, Muse Voice listens, and Muse Image erases. Without Spark, the standard tool finds none of the four.",
+   "on_screen": "models card: role + impact per model",
+   "emphasis": [
+    "one job",
+    "none of the four"
+   ],
+   "pause_after_ms": 700,
+   "evidence": "README 'The Meta models'; eval/results/final/heldout_results.md"
+  },
+  {
    "id": "g1",
    "beat": "Open weights",
    "text": "Discovery also runs on Muse Glimmer, right on this laptop. The frames never leave it.",
@@ -251,7 +265,7 @@
   {
    "id": "g2",
    "beat": "Open weights",
-   "text": "On this clip it found both details, and left the code panel alone.",
+   "text": "On this clip, it found both details.",
    "on_screen": "Glimmer card result line",
    "emphasis": [
     "both details"
@@ -262,7 +276,7 @@
   {
    "id": "c1",
    "beat": "Close",
-   "text": "Veil. Find what identifies you, before you post.",
+   "text": "Veil. Find what identifies you, and fix it naturally, before you post.",
    "on_screen": "end on the after frame, wordmark, URLs",
    "emphasis": [
     "before you post"
