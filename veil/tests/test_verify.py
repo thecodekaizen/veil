@@ -72,3 +72,10 @@ def test_parse_overrides_cli_syntax():
     with pytest.raises(ValueError):
         parse_overrides(['nonsense'])
 
+
+
+def test_natural_identifiers_skip_quoted_sentences_and_generic_words():
+    # real claims from a c2 run: Spark quoted the whole notification and used descriptive caps words
+    from veil.stages.natural_text import identifying_words
+    claims = ['KULKARNI', 'MESSAGE', 'ROHAN KULKARNI', 'YOUR PARCEL IS AT THE GATE', 'GOLD', 'KULKARNI — 12', 'TEXT', 'NAME', 'PHONE']
+    assert {w.upper() for w in identifying_words(claims)} == {'KULKARNI', 'ROHAN'}

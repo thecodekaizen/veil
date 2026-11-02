@@ -26,6 +26,11 @@ FONT_PATHS = ['/System/Library/Fonts/Helvetica.ttc', '/System/Library/Fonts/SFNS
 FICTIONAL_SURNAMES = ['SHARMA', 'MEHTA', 'IYER', 'NAIR']
 FICTIONAL_GIVEN = ['Aarav', 'Ishaan', 'Kabir', 'Vihaan']
 MERGE_IOU = 0.5
+# Words Spark uses to DESCRIBE a surface (or that are ordinary UI text), never identifiers to replace.
+GENERIC = {'TEXT', 'NAME', 'NAMES', 'LABEL', 'GOLD', 'BLACK', 'WHITE', 'MESSAGE', 'MESSAGES', 'PHONE', 'NOTIFICATION', 'BANNER', 'OVERLAY',
+           'CAPTION', 'PLATE', 'NUMBER', 'SCREEN', 'SIGN', 'BOARD', 'CARD', 'BADGE', 'LOGO', 'SURNAME', 'FIRST', 'FULL', 'CONTACT',
+           'SENDER', 'PERSONAL', 'DOOR', 'HOUSE', 'FLAT', 'APARTMENT', 'NAMEPLATE', 'PARCEL', 'DELIVERY', 'GATE', 'YOUR', 'FROM',
+           'WITH', 'THIS', 'THAT', 'HERE', 'THERE', 'NOW', 'TODAY', 'NEW', 'CALL', 'CHAT', 'APP', 'ALERT'}
 RATIO = 0.8
 
 OcrRows = Callable[[list, int, int], list[dict]]  # [(time_ms, path)], w, h -> rows with 'text', 'time_ms'
@@ -55,6 +60,18 @@ def parse_overrides(pairs: list[str]) -> dict[str, str]:
         if not sep or not old.strip() or not new.strip():
             raise ValueError(f'replacement must look like OLD=NEW, got {p!r}')
         out[old.strip().upper()] = new.strip()
+    return out
+
+
+def identifying_words(claims: list[str]) -> list[str]:
+    """Words of Spark's claimed text that identify someone: names and codes, not sentences or descriptions.
+    A quoted claim of 3+ words is a sentence ("YOUR PARCEL IS AT THE GATE"), so its words are skipped; generic words are skipped."""
+    out = []
+    for c in claims:
+        ws = re.findall(r'[A-Za-z]{4,}', c)
+        if len(re.findall(r'[A-Za-z]+', c)) >= 3:
+            continue
+        out += [w for w in ws if w.upper() not in GENERIC]
     return out
 
 
@@ -107,8 +124,7 @@ def surfaces_from_run(root: Path, overrides: dict[str, str] | None = None) -> tu
             claims = v.get('claimed') or []
             texts.append({**reg, 'rows': rows, 'claims': claims})
             all_claims += claims
-            for c in claims:
-                idents += re.findall(r'[A-Za-z]{4,}', c)
+            idents += identifying_words(claims)
         else:
             covers.append(reg)
     def is_ident(w):
