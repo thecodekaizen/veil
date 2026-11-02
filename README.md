@@ -38,7 +38,7 @@ No sign-up and nothing to upload. The site shows **real pipeline output** (end-t
 <tr>
 <td width="50%" valign="top">
 <a href="https://thecodekaizen.github.io/veil/"><img src="docs/media/site-landing.jpg" alt="Veil landing page: headline and a draggable before/after of the real input and exported video"/></a>
-<p><b>Landing page.</b> Drag the divider across the real input (left, with the regions the models proposed) and Veil's real exported file (right). Below: the problem, how it works, a real receipt, the full gate table and the call ledger.</p>
+<p><b>Landing page.</b> The hero opens on the **natural export**: drag the divider across the real input (left, with the regions the models proposed) and Veil's natural file (right), or flip the toggle to the black-box covers. Below: the problem, how it works, a real receipt, the full gate table and the call ledger.</p>
 </td>
 <td width="50%" valign="top">
 <a href="https://thecodekaizen.github.io/veil/#/desk?run=c2"><img src="docs/media/site-desk.jpg" alt="Veil review desk: verdict banner, frame-synced compare, tracks and filterable findings"/></a>
