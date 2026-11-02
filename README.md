@@ -19,12 +19,11 @@ Deterministic code **re-audits the exported file** and tells you exactly what it
 
 [**Live demo**](https://thecodekaizen.github.io/veil/) · [**▶ Demo video (2:05)**](https://thecodekaizen.github.io/veil/video/veil-demo.mp4) · [**Results**](#results) · [**Quickstart**](#quickstart) · [**How it works**](#how-it-works) · [**Limitations**](#honest-limitations)
 
-<a href="https://thecodekaizen.github.io/veil/video/veil-demo.mp4"><img src="docs/media/natural-crop.jpg" alt="Same frame twice: input with the name Rohan Kulkarni (top) and Veil's natural export with Aarav Sharma in the same notification (bottom)" width="70%"/></a>
-<sub>Same frame, cropped. Top: input. Bottom: Veil's natural export, with no black box. The name is re-rendered with a fictional value in the same style. <b>▶ <a href="https://thecodekaizen.github.io/veil/video/veil-demo.mp4">Watch the 2-minute demo</a></b> (AI narration by Kokoro, original music). In the full frame, regions with no verified text, such as a code panel, stay covered.</sub>
+<a href="https://thecodekaizen.github.io/veil/video/veil-demo.mp4"><img src="docs/media/natural-crop.jpg" alt="Same frame twice: input with the name Rohan Kulkarni (left) and Veil's natural export with Aarav Sharma in the same notification (right)" width="100%"/></a>
 
-<img src="docs/media/natural-before-after.jpg" alt="Input, black-box export and natural export of the same frame" width="100%"/>
+<sub><b>Left: input. Right: Veil's natural export.</b> Same frame, cropped: the name is re-rendered with a fictional value in the same style, no black box. Regions with no verified text, such as a code panel, stay covered in the full frame (<a href="#or-skip-the-black-boxes-natural-export">full before/after</a>).</sub>
 
-<sub>Left: input. Middle: black-box export. Right: <b>natural export</b>, where "Rohan Kulkarni" becomes "Aarav Sharma" and the plate text is re-rendered in the original style. The natural file gets its own OCR audit (0 original words in 53 frames). Regions without verified text, like the code panel, stay covered. Fictional data on licensed street footage. <a href="#or-skip-the-black-boxes-natural-export">Details</a></sub>
+<sub><b>▶ <a href="https://thecodekaizen.github.io/veil/video/veil-demo.mp4">Watch the 2-minute demo</a></b> · AI narration by Kokoro, original music.</sub>
 
 </div>
 
