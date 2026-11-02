@@ -57,7 +57,7 @@ export function Landing() {
   const { data: m } = useManifest('c2');
   const { data: res } = useResults();
   const heroRef = useRef<HTMLDivElement>(null);
-  const [exp, setExp] = useState<ExportFile>('output.mp4');
+  const [exp, setExp] = useState<ExportFile>('output_natural.mp4');
   const gates = res ? (Object.entries(res.gates) as [string, Gate][]) : [];
   const repeats = gates.filter(([id]) => /^r\d$/.test(id));
   const g1All = repeats.filter(([, g]) => g.G1.ok).length;
@@ -74,9 +74,9 @@ export function Landing() {
         <section className="hero">
           <div className="wrap hero-grid">
             <div className="hero-copy">
-              <span className="eyebrow reveal">Video privacy audit · built on Meta's Muse models</span>
+              <span className="eyebrow reveal">Redact without ruining the shot · built on Meta's Muse models</span>
               <h1 className="h-display reveal">See what your video gives away <em>before</em> you post it.</h1>
-              <p className="lead reveal">Veil finds the name on a parcel, the flat number on a door and the phone number you said out loud. It covers them, then checks the exported file and tells you exactly what it could not clear.</p>
+              <p className="lead reveal">Veil finds the name on a parcel, the flat number on a door and the phone number you said out loud. Then it fixes them <strong>naturally</strong>: instead of black boxes, verified text is re-rendered with fictional values in the original's colours, so the shot still looks like a real shot. Veil re-audits the exported file and tells you exactly what it could not clear.</p>
               <div className="hero-cta reveal">
                 <a className="btn btn-primary" href="#/desk">Open the live desk <span className="arrow">→</span></a>
                 <a className="btn btn-ghost" href={`${BASE}video/veil-demo.mp4`} target="_blank" rel="noreferrer">Watch the 2-min demo</a>

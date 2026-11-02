@@ -5,7 +5,8 @@
 ### Find what in *your* video could identify you, before you post it.
 
 Muse Spark proposes what identifies **this** creator. SAM 3.1 tracks it. Muse Voice hears the spoken phone number.<br/>
-Deterministic code redacts, **re-checks the exported file**, and tells you exactly what it could not clear.
+Then Veil fixes it **naturally**: no black boxes. Verified text is re-rendered with fictional values, so the shot still looks real.<br/>
+Deterministic code **re-audits the exported file** and tells you exactly what it could not clear.
 
 **Models propose. Code decides.**
 
@@ -21,9 +22,9 @@ Deterministic code redacts, **re-checks the exported file**, and tells you exact
 <a href="https://thecodekaizen.github.io/veil/video/veil-demo.mp4"><img src="docs/media/site-landing.jpg" alt="Watch the Veil demo video (2:05)" width="100%"/></a>
 <sub><b>▶ <a href="https://thecodekaizen.github.io/veil/video/veil-demo.mp4">Watch the 2-minute demo</a></b>: real pipeline output, narrated by an AI voice (Kokoro), original music.</sub>
 
-<img src="docs/media/hero-c2.jpg" alt="Veil: input with model-proposed regions (left) and the exported video with covers applied (right)" width="100%"/>
+<img src="docs/media/natural-before-after.jpg" alt="Input, black-box export and natural export of the same frame" width="100%"/>
 
-<sub>Left: the input, with regions Muse Spark proposed and SAM 3.1 tracked. Right: Veil's exported file. Fictional data on licensed street footage.</sub>
+<sub>Left: input. Middle: black-box export. Right: <b>natural export</b>, where "Rohan Kulkarni" becomes "Aarav Sharma" and the plate text is re-rendered in the original style. The natural file gets its own OCR audit (0 original words in 53 frames). Regions without verified text, like the code panel, stay covered. Fictional data on licensed street footage. <a href="#or-skip-the-black-boxes-natural-export">Details</a></sub>
 
 </div>
 
